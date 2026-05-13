@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CCL — Crystal Company Limited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* === BRAND COLORS from logo === */
+  --green:        #2E8B57;
+  --green-light:  #3DAA6A;
+  --green-bright: #4DC87A;
+  --green-dark:   #1A5C38;
+  --green-deeper: #0F3D24;
+  --green-crystal:#56C278;
+  --green-glass:  rgba(46,139,87,0.12);
+  --green-glow:   rgba(46,139,87,0.25);
+
+  --gold:         #C9A84C;
+  --gold-light:   #E2C46A;
+  --gold-bright:  #F0D880;
+  --gold-dark:    #8B6914;
+  --gold-dim:     rgba(201,168,76,0.15);
+  --gold-glow:    rgba(201,168,76,0.25);
+
+  /* === BACKGROUNDS === */
+  --bg:           #F8FAF8;
+  --bg-off:       #F0F5F1;
+  --bg-surface:   #FFFFFF;
+  --bg-dark:      #0D1F14;
+  --bg-dark2:     #112019;
+
+  /* === TEXT === */
+  --text:         #0D1F14;
+  --text-sec:     #3D5E47;
+  --text-muted:   #7A9A82;
+  --text-light:   #FFFFFF;
+
+  /* === BORDERS === */
+  --border:       rgba(46,139,87,0.18);
+  --border-gold:  rgba(201,168,76,0.3);
+  --border-hover: rgba(46,139,87,0.45);
+
+  /* === FONT === */
+  --font: 'Montserrat', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+*, *::before, *::after { font-family: var(--font); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-off); }
+::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+
+/* ============================================================
+   TOP BAR
+============================================================ */
+.topbar {
+  background: var(--bg-dark);
+  padding: 7px 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 6px;
+}
+.topbar-left { display: flex; gap: 1.75rem; align-items: center; }
+.topbar-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.5px; }
+.topbar-item i { color: var(--gold); font-size: 14px; }
+.topbar-right { display: flex; gap: 1rem; align-items: center; }
+.topbar-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.topbar-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.15); }
+
+/* ============================================================
+   NAV
+============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 500;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--border);
+  box-shadow: 0 2px 20px rgba(46,139,87,0.08);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 72px;
+}
+.nav-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.logo-box {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; color: white;
+  letter-spacing: 1px; border: 2px solid var(--gold);
+  position: relative; overflow: hidden;
+}
+.logo-box::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+}
+.logo-text { line-height: 1.2; }
+.logo-text .name { font-size: 15px; font-weight: 700; color: var(--green-dark); letter-spacing: 0.5px; }
+.logo-text .sub { font-size: 9px; font-weight: 500; color: var(--gold-dark); letter-spacing: 2px; text-transform: uppercase; }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  color: var(--text-sec); text-decoration: none;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+  cursor: pointer; transition: color 0.2s;
+  padding-bottom: 3px; border-bottom: 2px solid transparent;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--green); border-bottom-color: var(--green); }
+.nav-actions { display: flex; gap: 1rem; align-items: center; }
+.nav-icon-btn {
+  background: none; border: 1.5px solid var(--border); cursor: pointer;
+  color: var(--text-muted); font-size: 20px;
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; position: relative; border-radius: 50%;
+}
+.nav-icon-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-glass); }
+.cart-badge-count {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--gold); color: var(--bg-dark);
+  width: 18px; height: 18px; border-radius: 50%;
+  font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--text-sec); font-size: 26px; }
+
+/* ============================================================
+   HERO
+============================================================ */
+.hero {
+  min-height: 88vh;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(46,139,87,0.12) 0%, transparent 65%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-off) 100%);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 5rem 2rem;
+  position: relative; overflow: hidden;
+}
+.hero-ornament {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle 1px at 25% 30%, rgba(46,139,87,0.25) 0%, transparent 0%),
+    radial-gradient(circle 1px at 75% 70%, rgba(201,168,76,0.2) 0%, transparent 0%);
+  background-size: 60px 60px;
+}
+.hero-leaf-l, .hero-leaf-r {
+  position: absolute; top: 10%; font-size: 120px;
+  color: rgba(46,139,87,0.06); pointer-events: none;
+}
+.hero-leaf-l { left: 2%; transform: rotate(-20deg); }
+.hero-leaf-r { right: 2%; transform: rotate(20deg) scaleX(-1); }
+.hero-content { position: relative; z-index: 2; max-width: 720px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(46,139,87,0.1); border: 1px solid var(--border);
+  padding: 7px 18px; font-size: 10px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--green);
+  margin-bottom: 2rem;
+}
+.hero-badge i { font-size: 14px; }
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 4.8rem);
+  font-weight: 800; line-height: 1.08;
+  letter-spacing: -1px; margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.hero h1 .green { color: var(--green); }
+.hero h1 .gold { color: var(--gold-dark); }
+.hero-tagline {
+  font-size: 13px; font-weight: 400; color: var(--text-muted);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.hero-desc {
+  font-size: 14px; font-weight: 400; color: var(--text-sec);
+  line-height: 1.85; max-width: 520px; margin: 0 auto 2.5rem;
+}
+.hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+.btn-green {
+  background: var(--green); color: white;
+  border: none; padding: 14px 32px;
+  font-family: var(--font); font-size: 12px;
+  font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-green:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(46,139,87,0.3); }
+.btn-gold-outline {
+  background: transparent; color: var(--gold-dark);
+  border: 2px solid var(--gold); padding: 14px 32px;
+  font-family: var(--font); font-size: 12px;
+  font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-gold-outline:hover { background: var(--gold-dim); transform: translateY(-2px); }
+.hero-stats {
+  display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  padding-top: 2.5rem; border-top: 1px solid var(--border);
+}
+.hero-stat .num {
+  display: block; font-size: 2rem; font-weight: 800;
+  color: var(--green); line-height: 1;
+}
+.hero-stat .lbl {
+  display: block; font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 4px;
+}
+
+/* ============================================================
+   SECTION HEADER
+============================================================ */
+.section { padding: 5rem 3rem; }
+.section-hd { text-align: center; margin-bottom: 3.5rem; }
+.section-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--green);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-weight: 700; letter-spacing: -0.5px; color: var(--text); line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.section-title span { color: var(--green); }
+.section-desc { font-size: 13px; color: var(--text-muted); max-width: 480px; margin: 0 auto; line-height: 1.8; }
+.divider-green { width: 48px; height: 3px; background: linear-gradient(90deg, var(--green), var(--gold)); margin: 1rem auto 0; }
+
+/* ============================================================
+   CATEGORIES
+============================================================ */
+.cat-section {
+  background: var(--bg-dark);
+  border-top: 3px solid var(--green-dark);
+  border-bottom: 3px solid var(--green-dark);
+}
+.cat-grid { display: flex; justify-content: center; flex-wrap: wrap; }
+.cat-item {
+  flex: 1; min-width: 110px; max-width: 180px;
+  padding: 1.75rem 0.75rem; text-align: center; cursor: pointer;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s; position: relative;
+}
+.cat-item:first-child { border-left: 1px solid rgba(255,255,255,0.06); }
+.cat-item::after {
+  content: ''; position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%); width: 0; height: 3px;
+  background: linear-gradient(90deg, var(--green-crystal), var(--gold));
+  transition: width 0.3s;
+}
+.cat-item:hover::after, .cat-item.active::after { width: 50%; }
+.cat-item:hover, .cat-item.active { background: rgba(46,139,87,0.12); }
+.cat-item i {
+  font-size: 28px; display: block; margin-bottom: 0.6rem;
+  color: rgba(255,255,255,0.25); transition: color 0.2s;
+}
+.cat-item:hover i, .cat-item.active i { color: var(--green-crystal); }
+.cat-item span {
+  font-size: 9px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.4); transition: color 0.2s;
+}
+.cat-item:hover span, .cat-item.active span { color: rgba(255,255,255,0.9); }
+
+/* ============================================================
+   FILTER BAR
+============================================================ */
+.filter-bar {
+  background: white; border-bottom: 1px solid var(--border);
+  padding: 1.25rem 3rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(46,139,87,0.06);
+}
+.search-wrap { position: relative; flex: 1; min-width: 200px; }
+.search-wrap i { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; pointer-events: none; }
+.s-input {
+  width: 100%; background: var(--bg-off); border: 1.5px solid var(--border);
+  color: var(--text); padding: 10px 14px 10px 40px;
+  font-family: var(--font); font-size: 12px; font-weight: 400;
+  outline: none; transition: border-color 0.2s;
+}
+.s-input:focus { border-color: var(--green); background: white; }
+.s-input::placeholder { color: var(--text-muted); }
+.f-select {
+  background: var(--bg-off); border: 1.5px solid var(--border);
+  color: var(--text-sec); padding: 10px 14px;
+  font-family: var(--font); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.5px; cursor: pointer; outline: none;
+  transition: border-color 0.2s;
+}
+.f-select:focus { border-color: var(--green); }
+.f-count { font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.5px; white-space: nowrap; }
+
+/* ============================================================
+   PRODUCT GRID
+============================================================ */
+.prod-section { background: var(--bg-off); padding: 3rem; }
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.prod-card {
+  background: white; border: 1.5px solid var(--border);
+  position: relative; cursor: pointer;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  overflow: hidden;
+}
+.prod-card:hover {
+  border-color: var(--green);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(46,139,87,0.15);
+}
+.prod-thumb {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--bg-off) 0%, var(--bg) 100%);
+  position: relative; overflow: hidden;
+}
+.prod-thumb::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(46,139,87,0.08), transparent 65%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.prod-card:hover .prod-thumb::before { opacity: 1; }
+.prod-thumb i { font-size: 68px; color: rgba(46,139,87,0.18); transition: color 0.3s, transform 0.3s; }
+.prod-card:hover .prod-thumb i { color: rgba(46,139,87,0.4); transform: scale(1.08); }
+.prod-thumb-strip { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.prod-card:hover .prod-thumb-strip { transform: scaleX(1); }
+
+.badge { position: absolute; top: 10px; left: 10px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; }
+.badge-new { background: var(--green); color: white; }
+.badge-promo { background: var(--gold); color: var(--bg-dark); }
+.fav-btn {
+  position: absolute; top: 8px; right: 8px;
+  background: white; border: 1px solid var(--border);
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted); font-size: 16px;
+  transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.fav-btn:hover { border-color: var(--green); color: var(--green); }
+.fav-btn.active { border-color: var(--green); color: var(--green); background: rgba(46,139,87,0.05); }
+
+.prod-body { padding: 1.25rem; }
+.prod-stars { color: var(--gold); font-size: 12px; margin-bottom: 6px; }
+.prod-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.2px; margin-bottom: 3px; line-height: 1.4; }
+.prod-cat-lbl { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.prod-pricing { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.prod-price { font-size: 18px; font-weight: 700; color: var(--green); }
+.prod-old { font-size: 12px; color: var(--text-muted); text-decoration: line-through; }
+.add-btn {
+  width: 100%; background: transparent; border: 1.5px solid var(--border);
+  color: var(--text-muted); padding: 9px 0;
+  font-family: var(--font); font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.add-btn:hover { border-color: var(--green); color: var(--green); background: rgba(46,139,87,0.05); }
+.add-btn i { font-size: 15px; }
+
+/* ============================================================
+   PROMO BAND
+============================================================ */
+.promo-band {
+  background: linear-gradient(135deg, var(--bg-dark2) 0%, var(--bg-dark) 50%, var(--bg-dark2) 100%);
+  border-top: 1px solid rgba(46,139,87,0.4);
+  border-bottom: 1px solid rgba(46,139,87,0.4);
+  padding: 3.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.promo-text h2 {
+  font-size: 1.8rem; font-weight: 800; color: var(--green-crystal);
+  letter-spacing: -0.5px; margin-bottom: 0.4rem;
+}
+.promo-text h2 span { color: var(--gold-light); }
+.promo-text p { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.5px; font-weight: 400; }
+.promo-features { display: flex; gap: 2rem; flex-wrap: wrap; }
+.p-feat { display: flex; align-items: center; gap: 12px; }
+.p-feat-icon {
+  width: 46px; height: 46px; flex-shrink: 0;
+  background: rgba(46,139,87,0.15); border: 1px solid rgba(46,139,87,0.3);
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
+}
+.p-feat-icon i { font-size: 22px; color: var(--green-crystal); }
+.p-feat .t { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); letter-spacing: 0.3px; }
+.p-feat .s { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; font-weight: 400; }
+
+/* ============================================================
+   TESTIMONIALS
+============================================================ */
+.testi-section { background: white; border-top: 1px solid var(--border); }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.testi-card {
+  background: var(--bg-off); border: 1.5px solid var(--border);
+  padding: 1.75rem; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.testi-card:hover { border-color: var(--green); box-shadow: 0 8px 24px rgba(46,139,87,0.1); }
+.testi-stars { color: var(--gold); font-size: 14px; margin-bottom: 1rem; }
+.testi-quote { font-size: 28px; color: var(--green); line-height: 1; margin-bottom: 0.5rem; font-weight: 800; opacity: 0.3; }
+.testi-text { font-size: 13px; color: var(--text-sec); line-height: 1.85; font-weight: 400; margin-bottom: 1.25rem; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 10px; }
+.testi-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.testi-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.testi-city { font-size: 10px; color: var(--text-muted); font-weight: 400; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* ============================================================
+   NEWSLETTER
+============================================================ */
+.newsletter {
+  background: linear-gradient(135deg, var(--green-deeper) 0%, var(--green-dark) 60%, var(--green-deeper) 100%);
+  padding: 5rem 3rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.newsletter::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% -10%, rgba(201,168,76,0.12), transparent 60%);
+}
+.newsletter > * { position: relative; z-index: 2; }
+.newsletter .section-tag { color: var(--gold-light); }
+.newsletter h2 { font-size: 2rem; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+.newsletter p { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 2rem; font-weight: 400; }
+.nl-form { display: flex; justify-content: center; gap: 0; max-width: 460px; margin: 0 auto; }
+.nl-input {
+  flex: 1; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2);
+  border-right: none; color: white; padding: 14px 18px;
+  font-family: var(--font); font-size: 12px; font-weight: 400; outline: none;
+  transition: border-color 0.2s;
+}
+.nl-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.15); }
+.nl-input::placeholder { color: rgba(255,255,255,0.4); }
+.nl-btn {
+  background: var(--gold); color: var(--bg-dark);
+  border: none; padding: 14px 24px;
+  font-family: var(--font); font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+}
+.nl-btn:hover { background: var(--gold-light); }
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.footer {
+  background: var(--bg-dark);
+  border-top: 3px solid var(--green-dark);
+  padding: 4rem 3rem 2rem;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 3rem;
+}
+.footer-brand .fl {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem;
+}
+.footer-brand .fl .logo-box { width: 40px; height: 40px; font-size: 12px; }
+.footer-brand .fl .name { font-size: 14px; font-weight: 700; color: white; }
+.footer-brand .fl .sub { font-size: 8.5px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
+.footer-brand p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.85; font-weight: 400; margin-bottom: 1.5rem; }
+.social-row { display: flex; gap: 0.6rem; }
+.soc-btn {
+  width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.4); font-size: 18px; cursor: pointer;
+  transition: all 0.2s; border-radius: 50%;
+}
+.soc-btn:hover { border-color: var(--green-crystal); color: var(--green-crystal); background: rgba(46,139,87,0.1); }
+.footer-col h4 { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-crystal); margin-bottom: 1.25rem; }
+.footer-col a {
+  display: block; font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.4);
+  text-decoration: none; margin-bottom: 9px; cursor: pointer; transition: color 0.2s; letter-spacing: 0.2px;
+}
+.footer-col a:hover { color: rgba(255,255,255,0.85); }
+.contact-row { display: flex; align-items: flex-start; gap: 9px; margin-bottom: 10px; }
+.contact-row i { font-size: 15px; color: var(--gold); margin-top: 1px; flex-shrink: 0; }
+.contact-row span { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; font-weight: 400; }
+.footer-bottom {
+  background: rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1.25rem 3rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; font-weight: 400; }
+.pay-row { display: flex; align-items: center; gap: 0.5rem; }
+.pay-row span { font-size: 10px; color: rgba(255,255,255,0.25); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-right: 4px; }
+.pay-badge {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  padding: 4px 10px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   CART DRAWER
+============================================================ */
+.drawer-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 800;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
+.cart-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 95vw;
+  background: white; border-left: 2px solid var(--border); z-index: 900;
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: -10px 0 40px rgba(46,139,87,0.1);
+}
+.cart-drawer.open { transform: translateX(0); }
+.d-header {
+  padding: 1.5rem 1.75rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--bg-dark);
+}
+.d-header h3 { font-size: 16px; font-weight: 700; color: white; letter-spacing: 0.5px; }
+.d-header h3 span { color: var(--green-crystal); }
+.d-close {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6); width: 36px; height: 36px;
+  cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; border-radius: 50%;
+}
+.d-close:hover { background: rgba(255,255,255,0.15); color: white; }
+.d-body { flex: 1; overflow-y: auto; padding: 1.25rem 1.75rem; }
+.d-empty { text-align: center; padding: 3rem 0; }
+.d-empty i { font-size: 52px; color: var(--border); display: block; margin-bottom: 1rem; }
+.d-empty p { font-size: 13px; color: var(--text-muted); font-weight: 400; }
+.cart-line {
+  display: flex; gap: 1rem; padding: 1rem 0;
+  border-bottom: 1px solid var(--border); align-items: center;
+}
+.cl-thumb {
+  width: 58px; height: 58px; background: var(--bg-off); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cl-thumb i { font-size: 28px; color: var(--green); opacity: 0.5; }
+.cl-info { flex: 1; }
+.cl-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.cl-price { font-size: 14px; font-weight: 700; color: var(--green); }
+.cl-qty { display: flex; align-items: center; gap: 8px; margin-top: 7px; }
+.q-btn {
+  background: var(--bg-off); border: 1px solid var(--border);
+  color: var(--text-sec); width: 26px; height: 26px;
+  cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; border-radius: 50%;
+}
+.q-btn:hover { border-color: var(--green); color: var(--green); background: rgba(46,139,87,0.05); }
+.q-val { font-size: 13px; font-weight: 600; min-width: 22px; text-align: center; }
+.rm-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 19px; transition: color 0.2s; padding: 4px; }
+.rm-btn:hover { color: #c0392b; }
+.d-footer { padding: 1.25rem 1.75rem; border-top: 1px solid var(--border); background: var(--bg-off); }
+.d-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.d-total span { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+.d-total strong { font-size: 22px; font-weight: 800; color: var(--green); }
+.chk-btn {
+  width: 100%; background: var(--green); color: white;
+  border: none; padding: 15px;
+  font-family: var(--font); font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  transition: background 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.chk-btn:hover { background: var(--green-light); }
+.chk-btn i { font-size: 20px; }
+
+/* ============================================================
+   PRODUCT MODAL
+============================================================ */
+.modal-back {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 700;
+  display: flex; align-items: center; justify-content: center; padding: 2rem;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.modal-back.open { opacity: 1; pointer-events: all; }
+.p-modal {
+  background: white; border-top: 4px solid var(--green);
+  max-width: 600px; width: 100%; max-height: 88vh; overflow-y: auto;
+  transform: scale(0.95) translateY(10px); transition: transform 0.3s;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+}
+.modal-back.open .p-modal { transform: scale(1) translateY(0); }
+.m-img {
+  aspect-ratio: 16/7; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--bg-off), var(--bg));
+  position: relative; overflow: hidden;
+}
+.m-img i { font-size: 100px; color: rgba(46,139,87,0.18); }
+.m-img::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green), var(--gold)); }
+.m-body { padding: 2rem; }
+.m-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 1rem; }
+.m-name { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; line-height: 1.2; }
+.m-x {
+  background: var(--bg-off); border: 1.5px solid var(--border);
+  color: var(--text-muted); width: 38px; height: 38px;
+  cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s;
+}
+.m-x:hover { border-color: var(--green); color: var(--green); }
+.m-cat { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
+.m-stars { color: var(--gold); font-size: 15px; margin-bottom: 1rem; }
+.m-desc { font-size: 13px; color: var(--text-sec); line-height: 1.9; font-weight: 400; margin-bottom: 1.5rem; }
+.m-pricing { display: flex; align-items: baseline; gap: 12px; margin-bottom: 1.75rem; }
+.m-price { font-size: 28px; font-weight: 800; color: var(--green); }
+.m-old { font-size: 14px; color: var(--text-muted); text-decoration: line-through; }
+.m-actions { display: flex; gap: 1rem; }
+
+/* ============================================================
+   TOAST
+============================================================ */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--green-dark); border-left: 4px solid var(--gold);
+  color: white; padding: 13px 22px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+  z-index: 1000; opacity: 0; transition: all 0.3s;
+  display: flex; align-items: center; gap: 10px; white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast i { color: var(--gold-light); font-size: 18px; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 960px) {
+  .topbar { padding: 6px 1.25rem; }
+  .topbar-left { display: none; }
+  .nav { padding: 0 1.25rem; }
+  .nav-links { display: none; }
+  .nav-mobile-toggle { display: block; }
+  .section { padding: 3rem 1.5rem; }
+  .prod-section, .filter-bar { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .promo-band { padding: 2.5rem 1.5rem; flex-direction: column; text-align: center; }
+  .promo-features { justify-content: center; }
+  .footer { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+  .footer-bottom { padding: 1rem 1.5rem; }
+  .newsletter { padding: 3.5rem 1.5rem; }
+  .nl-form { flex-direction: column; max-width: 320px; }
+  .nl-input { border-right: 1.5px solid rgba(255,255,255,0.2); }
+}
+@media (max-width: 580px) {
+  .footer { grid-template-columns: 1fr; }
+  .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero-stats { gap: 1.5rem; }
+  .hero-stat .num { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-item"><i class="ti ti-map-pin"></i> Dakar, Sénégal</div>
+    <div class="topbar-item"><i class="ti ti-phone"></i> +221 77 000 00 00</div>
+    <div class="topbar-item"><i class="ti ti-mail"></i> contact@crystalcompany.sn</div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-tag">✦ Livraison gratuite dès 25 000 FCFA ✦</div>
+    <div class="topbar-sep"></div>
+    <div class="topbar-item"><i class="ti ti-brand-whatsapp"></i> WhatsApp 8h–20h</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="logo-box">CCL</div>
+    <div class="logo-text">
+      <div class="name">Crystal Company Limited</div>
+      <div class="sub">Import · Export · Commerce Général</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">Accueil</a>
+    <a onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">Catalogue</a>
+    <a onclick="document.getElementById('promo').scrollIntoView({behavior:'smooth'})">Promotions</a>
+    <a onclick="document.getElementById('footer-contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-icon-btn" title="Rechercher" onclick="document.getElementById('mainSearch').focus();document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
+      <i class="ti ti-search"></i>
+    </button>
+    <button class="nav-icon-btn" title="Panier" onclick="openDrawer()">
+      <i class="ti ti-shopping-bag"></i>
+      <span class="cart-badge-count" id="cartDot">0</span>
+    </button>
+    <button class="nav-mobile-toggle" onclick=""><i class="ti ti-menu-2"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament"></div>
+  <i class="ti ti-leaf hero-leaf-l"></i>
+  <i class="ti ti-leaf hero-leaf-r"></i>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="ti ti-certificate"></i> Importateur Officiel · Dakar · Sénégal</div>
+    <h1>
+      <span class="green">Crystal</span><br>
+      <span class="gold">Company</span> Limited
+    </h1>
+    <div class="hero-tagline">Import · Export · Commerce Général</div>
+    <p class="hero-desc">Des produits importés de qualité internationale, sélectionnés avec soin pour vous offrir le meilleur au meilleur prix. Livraison partout au Sénégal.</p>
+    <div class="hero-ctas">
+      <button class="btn-green" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-arrow-right"></i> Découvrir la Collection
+      </button>
+      <button class="btn-gold-outline" onclick="document.getElementById('promo').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-tag"></i> Voir les Promotions
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">200+</span><span class="lbl">Produits</span></div>
+      <div class="hero-stat"><span class="num">1 500+</span><span class="lbl">Clients</span></div>
+      <div class="hero-stat"><span class="num">48h</span><span class="lbl">Livraison Dakar</span></div>
+      <div class="hero-stat"><span class="num">100%</span><span class="lbl">Satisfaits</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<div class="cat-section">
+  <div class="cat-grid">
+    <div class="cat-item active" onclick="filterCat('all',this)">
+      <i class="ti ti-layout-grid"></i><span>Tout voir</span>
+    </div>
+    <div class="cat-item" onclick="filterCat('electronique',this)">
+      <i class="ti ti-device-mobile"></i><span>Électronique</span>
+    </div>
+    <div class="cat-item" onclick="filterCat('mode',this)">
+      <i class="ti ti-hanger"></i><span>Mode</span>
+    </div>
+    <div class="cat-item" onclick="filterCat('maison',this)">
+      <i class="ti ti-home"></i><span>Maison</span>
+    </div>
+    <div class="cat-item" onclick="filterCat('beaute',this)">
+      <i class="ti ti-sparkles"></i><span>Beauté</span>
+    </div>
+    <div class="cat-item" onclick="filterCat('sport',this)">
+      <i class="ti ti-run"></i><span>Sport</span>
+    </div>
+    <div class="cat-item" onclick="filterCat('cuisine',this)">
+      <i class="ti ti-tools-kitchen-2"></i><span>Cuisine</span>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="catalogue">
+  <div class="search-wrap">
+    <i class="ti ti-search"></i>
+    <input class="s-input" id="mainSearch" placeholder="Rechercher un produit..." oninput="applyFilters()" />
+  </div>
+  <select class="f-select" onchange="applySort(this.value)">
+    <option value="default">Trier par défaut</option>
+    <option value="price-asc">Prix croissant</option>
+    <option value="price-desc">Prix décroissant</option>
+    <option value="name">Nom A-Z</option>
+    <option value="rating">Mieux notés</option>
+  </select>
+  <div class="f-count" id="prodCount">18 produits</div>
+</div>
+
+<!-- PRODUCT GRID -->
+<div class="prod-section">
+  <div class="prod-grid" id="prodGrid"></div>
+</div>
+
+<!-- PROMO BAND -->
+<div class="promo-band" id="promo">
+  <div class="promo-text">
+    <h2>✦ Livraison <span>Gratuite</span></h2>
+    <p>Pour toute commande supérieure à 25 000 FCFA dans tout le Sénégal</p>
+  </div>
+  <div class="promo-features">
+    <div class="p-feat">
+      <div class="p-feat-icon"><i class="ti ti-truck"></i></div>
+      <div><div class="t">Livraison Rapide</div><div class="s">48h à Dakar · 72h régions</div></div>
+    </div>
+    <div class="p-feat">
+      <div class="p-feat-icon"><i class="ti ti-shield-check"></i></div>
+      <div><div class="t">Produits Garantis</div><div class="s">Qualité contrôlée</div></div>
+    </div>
+    <div class="p-feat">
+      <div class="p-feat-icon"><i class="ti ti-refresh"></i></div>
+      <div><div class="t">Retour Facile</div><div class="s">7 jours satisfait ou échangé</div></div>
+    </div>
+    <div class="p-feat">
+      <div class="p-feat-icon"><i class="ti ti-brand-whatsapp"></i></div>
+      <div><div class="t">Support WhatsApp</div><div class="s">Réponse en moins d'1h</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testi-section">
+  <div class="section">
+    <div class="section-hd">
+      <div class="section-tag">✦ Avis Clients</div>
+      <h2 class="section-title">Ils Nous Font <span>Confiance</span></h2>
+      <div class="divider-green"></div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Produits de très bonne qualité, livraison rapide à Dakar. Je recommande vivement Crystal Company Limited à tous mes amis !</p>
+        <div class="testi-author">
+          <div class="testi-av">AF</div>
+          <div><div class="testi-name">Aminata Fall</div><div class="testi-city">Dakar · Plateau</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Prix très compétitifs par rapport aux boutiques locales. Les écouteurs que j'ai commandés sont excellents, je suis très satisfait.</p>
+        <div class="testi-author">
+          <div class="testi-av">MD</div>
+          <div><div class="testi-name">Mamadou Diallo</div><div class="testi-city">Dakar · Parcelles</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★☆</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Service client réactif sur WhatsApp. J'ai eu un petit souci avec ma commande et ils ont réglé ça immédiatement. Merci !</p>
+        <div class="testi-author">
+          <div class="testi-av">FN</div>
+          <div><div class="testi-name">Fatou Ndiaye</div><div class="testi-city">Thiès · Centre</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div class="section-tag">✦ Restez Informé</div>
+  <h2>Offres Exclusives</h2>
+  <p>Inscrivez-vous pour recevoir nos promotions et nouveautés en avant-première</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="Votre adresse email..." />
+    <button class="nl-btn" onclick="subscribeNl()">S'inscrire</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" id="footer-contact">
+  <div class="footer-brand">
+    <div class="fl">
+      <div class="logo-box">CCL</div>
+      <div><div class="name">Crystal Company Limited</div><div class="sub">Import · Export · Commerce Général</div></div>
+    </div>
+    <p>Votre partenaire de confiance à Dakar. Nous importons des produits de qualité internationale pour vous offrir le meilleur au meilleur prix.</p>
+    <div class="social-row">
+      <div class="soc-btn" title="Facebook"><i class="ti ti-brand-facebook"></i></div>
+      <div class="soc-btn" title="Instagram"><i class="ti ti-brand-instagram"></i></div>
+      <div class="soc-btn" title="WhatsApp"><i class="ti ti-brand-whatsapp"></i></div>
+      <div class="soc-btn" title="TikTok"><i class="ti ti-brand-tiktok"></i></div>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h4>Boutique</h4>
+    <a onclick="filterCat('all',document.querySelector('.cat-item'))">Tous les produits</a>
+    <a onclick="filterCat('electronique',document.querySelectorAll('.cat-item')[1])">Électronique</a>
+    <a onclick="filterCat('mode',document.querySelectorAll('.cat-item')[2])">Mode &amp; Accessoires</a>
+    <a onclick="filterCat('maison',document.querySelectorAll('.cat-item')[3])">Maison &amp; Déco</a>
+    <a onclick="filterCat('beaute',document.querySelectorAll('.cat-item')[4])">Beauté</a>
+  </div>
+  <div class="footer-col">
+    <h4>Aide</h4>
+    <a>Comment commander</a>
+    <a>Livraison &amp; délais</a>
+    <a>Retours &amp; échanges</a>
+    <a>Questions fréquentes</a>
+    <a>Mentions légales</a>
+  </div>
+  <div class="footer-col" id="contactCol">
+    <h4>Contact</h4>
+    <div class="contact-row"><i class="ti ti-map-pin"></i><span>Dakar, Sénégal</span></div>
+    <div class="contact-row"><i class="ti ti-phone"></i><span>+221 77 000 00 00</span></div>
+    <div class="contact-row"><i class="ti ti-mail"></i><span>contact@crystalcompany.sn</span></div>
+    <div class="contact-row"><i class="ti ti-brand-whatsapp"></i><span>WhatsApp disponible 8h–20h</span></div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2024 Crystal Company Limited — Tous droits réservés</p>
+  <div class="pay-row">
+    <span>Paiement :</span>
+    <div class="pay-badge">Orange Money</div>
+    <div class="pay-badge">Wave</div>
+    <div class="pay-badge">Cash</div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="d-header">
+    <h3>Mon <span>Panier</span></h3>
+    <button class="d-close" onclick="closeDrawer()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="d-body" id="drawerBody"></div>
+  <div id="drawerFooter" style="display:none;">
+    <div class="d-footer">
+      <div class="d-total">
+        <span>Total à payer</span>
+        <strong id="drawerTotal">0 FCFA</strong>
+      </div>
+      <button class="chk-btn" onclick="checkout()">
+        <i class="ti ti-brand-whatsapp"></i> Commander via WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-back" id="prodModalBack" onclick="closeModalBg(event)">
+  <div class="p-modal" id="prodModal">
+    <div class="m-img"><i id="modalIcon" class="ti ti-package"></i></div>
+    <div class="m-body">
+      <div class="m-top">
+        <h2 class="m-name" id="modalName"></h2>
+        <button class="m-x" onclick="closeProdModal()"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="m-cat" id="modalCat"></div>
+      <div class="m-stars" id="modalStars"></div>
+      <p class="m-desc" id="modalDesc"></p>
+      <div class="m-pricing">
+        <span class="m-price" id="modalPrice"></span>
+        <span class="m-old" id="modalOld"></span>
+      </div>
+      <div class="m-actions">
+        <button class="btn-green" style="flex:1;justify-content:center;" onclick="addFromModal()">
+          <i class="ti ti-shopping-cart"></i> Ajouter au panier
+        </button>
+        <button class="btn-gold-outline" onclick="closeProdModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const products = [
+  { id:1,  name:"Écouteurs Bluetooth Pro",       cat:"electronique", icon:"ti-headphones",         price:12500, oldPrice:18000, badge:"new",   stars:5, desc:"Bluetooth 5.0, réduction de bruit active, autonomie 24h, étanche IPX5, son haute fidélité stéréo. Compatible tous smartphones." },
+  { id:2,  name:"Montre Connectée Sport",         cat:"electronique", icon:"ti-device-watch",       price:28000, oldPrice:null,  badge:null,    stars:4, desc:"Suivi activité physique, fréquence cardiaque, GPS intégré, notifications. Autonomie 7 jours. Compatible iOS et Android." },
+  { id:3,  name:"Chargeur Solaire 20W",           cat:"electronique", icon:"ti-sun",                price:8500,  oldPrice:12000, badge:"promo", stars:4, desc:"Panneau solaire pliable 20W, 2 ports USB-A + 1 USB-C. Idéal déplacements, charge rapide compatible tous smartphones." },
+  { id:4,  name:"Lampe LED Bureau Flexible",      cat:"electronique", icon:"ti-bulb",               price:6200,  oldPrice:null,  badge:null,    stars:4, desc:"3 modes d'éclairage, intensité réglable, port USB de charge intégré, bras flexible 360°. Économie d'énergie classe A++." },
+  { id:5,  name:"Robe Élégante Africaine",        cat:"mode",         icon:"ti-shirt",              price:15000, oldPrice:null,  badge:"new",   stars:5, desc:"Robe longue en tissu wax de qualité supérieure, coupe moderne et ajustée. Disponible en plusieurs coloris. Tailles S à XXL." },
+  { id:6,  name:"Sac à Main Cuir Premium",        cat:"mode",         icon:"ti-briefcase",          price:22000, oldPrice:30000, badge:"promo", stars:4, desc:"Cuir synthétique haut de gamme, fermeture magnétique sécurisée, multiples compartiments, bandoulière amovible. Coloris noir et camel." },
+  { id:7,  name:"Ceinture Cuir Tressé",           cat:"mode",         icon:"ti-circle",             price:7500,  oldPrice:null,  badge:null,    stars:3, desc:"Cuir véritable tressé, boucle dorée. Disponible en marron et noir. Tailles S à XL. Résistant et durable." },
+  { id:8,  name:"Sneakers Mode Urbain",           cat:"mode",         icon:"ti-shoe",               price:18500, oldPrice:null,  badge:"new",   stars:5, desc:"Chaussures de ville tendance, semelle confort EVA. Matière respirante. Pointures 38 à 46. Coloris blanc, noir et olive." },
+  { id:9,  name:"Ensemble Ustensiles Inox",       cat:"cuisine",      icon:"ti-tools-kitchen-2",    price:14800, oldPrice:20000, badge:"promo", stars:5, desc:"Set 12 ustensiles en inox et silicone alimentaire. Antiadhésif, résistant jusqu'à 230°C, passe au lave-vaisselle." },
+  { id:10, name:"Blender Multifonction 800W",     cat:"cuisine",      icon:"ti-blender",            price:19500, oldPrice:null,  badge:null,    stars:4, desc:"Moteur 800W, bol verre trempé 1.5L, 6 lames inox, 3 vitesses + pulse. Silencieux, nettoyage automatique." },
+  { id:11, name:"Miroir Maquillage LED",          cat:"beaute",       icon:"ti-eye",                price:11000, oldPrice:15000, badge:"promo", stars:4, desc:"Miroir LED 3 modes éclairage (chaud/froid/neutre), grossissement x10, rechargeable USB-C. Pliable pour voyage." },
+  { id:12, name:"Crème Karité & Aloe Vera",       cat:"beaute",       icon:"ti-droplet",            price:4500,  oldPrice:null,  badge:"new",   stars:5, desc:"Crème hydratante 100% naturelle karité et aloe vera. 200ml, sans paraben ni colorant. Peau normale à très sèche." },
+  { id:13, name:"Parfum Oud Intense 50ml",        cat:"beaute",       icon:"ti-bottle",             price:16000, oldPrice:null,  badge:null,    stars:5, desc:"Eau de parfum oriental oud et bois de santal. Flacon luxe 50ml, longue tenue 12h+. Fabrication artisanale Émirats." },
+  { id:14, name:"Bandes Résistance Fitness",      cat:"sport",        icon:"ti-activity",           price:5500,  oldPrice:8000,  badge:"promo", stars:4, desc:"Set 5 bandes élastiques résistance progressive (XS à XL). Latex naturel, sans latex disponible. Sac de transport inclus." },
+  { id:15, name:"Gourde Isotherme 1 Litre",       cat:"sport",        icon:"ti-bottle",             price:11000, oldPrice:null,  badge:null,    stars:4, desc:"Acier inoxydable double paroi. Maintient froid 24h et chaud 12h. Sans BPA, bouchon anti-fuite 100%. 5 coloris disponibles." },
+  { id:16, name:"Tapis de Yoga 6mm",              cat:"sport",        icon:"ti-layers-difference",  price:9800,  oldPrice:null,  badge:"new",   stars:4, desc:"TPE écologique, surface antidérapante biface. Dimensions 183×61cm. Sangle de transport incluse. Certifié non-toxique." },
+  { id:17, name:"Lampe Déco Design Marbre",       cat:"maison",       icon:"ti-lamp",               price:13500, oldPrice:null,  badge:null,    stars:4, desc:"Lampe de chevet design effet marbre blanc et or. Câble tissu tressé 1.5m, culot E27. Ampoule 25W incluse. Hauteur 38cm." },
+  { id:18, name:"Coussins Velours Set ×4",        cat:"maison",       icon:"ti-armchair",           price:8800,  oldPrice:12000, badge:"promo", stars:4, desc:"4 coussins décoratifs en velours doux 45×45cm. Housse déhoussable et lavable à 30°C. Coloris : vert, or, taupe, écru." },
+];
+
+let cart = [];
+let activeCat = 'all';
+let activeSort = 'default';
+let searchQ = '';
+let modalId = null;
+
+// ============================================================
+// UTILS
+// ============================================================
+function fmt(n) { return n.toLocaleString('fr-FR') + ' FCFA'; }
+function stars(n) { return '★'.repeat(n) + '☆'.repeat(5-n); }
+
+// ============================================================
+// RENDER PRODUCTS
+// ============================================================
+function renderProducts() {
+  let list = [...products];
+  if (activeCat !== 'all') list = list.filter(p => p.cat === activeCat);
+  if (searchQ) list = list.filter(p =>
+    p.name.toLowerCase().includes(searchQ.toLowerCase()) ||
+    p.desc.toLowerCase().includes(searchQ.toLowerCase())
+  );
+  if (activeSort === 'price-asc')  list.sort((a,b) => a.price - b.price);
+  if (activeSort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  if (activeSort === 'name')       list.sort((a,b) => a.name.localeCompare(b.name));
+  if (activeSort === 'rating')     list.sort((a,b) => b.stars - a.stars);
+
+  document.getElementById('prodCount').textContent = list.length + ' produit' + (list.length>1?'s':'');
+  const grid = document.getElementById('prodGrid');
+
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-muted);font-size:13px;font-weight:500;letter-spacing:1px;">Aucun produit trouvé</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(p => `
+    <div class="prod-card" id="card${p.id}">
+      <div class="prod-thumb" onclick="openModal(${p.id})">
+        <i class="ti ${p.icon}"></i>
+        <div class="prod-thumb-strip"></div>
+        ${p.badge==='new'   ? '<span class="badge badge-new">Nouveau</span>' : ''}
+        ${p.badge==='promo' ? '<span class="badge badge-promo">Promo</span>'  : ''}
+      </div>
+      <button class="fav-btn" id="fav${p.id}" onclick="toggleFav(${p.id})" title="Favoris">
+        <i class="ti ti-heart"></i>
+      </button>
+      <div class="prod-body">
+        <div class="prod-stars">${stars(p.stars)}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-cat-lbl">${p.cat}</div>
+        <div class="prod-pricing">
+          <span class="prod-price">${fmt(p.price)}</span>
+          ${p.oldPrice ? `<span class="prod-old">${fmt(p.oldPrice)}</span>` : ''}
+        </div>
+        <button class="add-btn" onclick="addToCart(${p.id})">
+          <i class="ti ti-shopping-cart"></i> Ajouter au panier
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// FILTERS
+// ============================================================
+function filterCat(cat, el) {
+  activeCat = cat;
+  document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderProducts();
+  document.getElementById('catalogue').scrollIntoView({ behavior:'smooth' });
+}
+function applyFilters() {
+  searchQ = document.getElementById('mainSearch').value;
+  renderProducts();
+}
+function applySort(val) {
+  activeSort = val;
+  renderProducts();
+}
+
+// ============================================================
+// CART
+// ============================================================
+function addToCart(id, qty=1) {
+  const p = products.find(x => x.id===id);
+  const ex = cart.find(x => x.id===id);
+  if (ex) ex.qty += qty;
+  else cart.push({...p, qty});
+  updateBadge();
+  renderDrawer();
+  showToast('✔ ' + p.name + ' ajouté au panier');
+}
+
+function updateBadge() {
+  document.getElementById('cartDot').textContent = cart.reduce((a,b) => a+b.qty, 0);
+}
+
+function renderDrawer() {
+  const body = document.getElementById('drawerBody');
+  const footer = document.getElementById('drawerFooter');
+  if (cart.length === 0) {
+    body.innerHTML = '<div class="d-empty"><i class="ti ti-shopping-bag"></i><p>Votre panier est vide</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  const total = cart.reduce((a,b) => a + b.price * b.qty, 0);
+  body.innerHTML = cart.map(p => `
+    <div class="cart-line">
+      <div class="cl-thumb"><i class="ti ${p.icon}"></i></div>
+      <div class="cl-info">
+        <div class="cl-name">${p.name}</div>
+        <div class="cl-price">${fmt(p.price * p.qty)}</div>
+        <div class="cl-qty">
+          <button class="q-btn" onclick="changeQty(${p.id},-1)">−</button>
+          <span class="q-val">${p.qty}</span>
+          <button class="q-btn" onclick="changeQty(${p.id},1)">+</button>
+        </div>
+      </div>
+      <button class="rm-btn" onclick="removeFromCart(${p.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
+    </div>
+  `).join('');
+  document.getElementById('drawerTotal').textContent = fmt(total);
+}
+
+function changeQty(id, d) {
+  const item = cart.find(x => x.id===id);
+  if (!item) return;
+  item.qty += d;
+  if (item.qty <= 0) cart = cart.filter(x => x.id!==id);
+  updateBadge();
+  renderDrawer();
+}
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id!==id);
+  updateBadge();
+  renderDrawer();
+}
+function openDrawer() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+  renderDrawer();
+}
+function closeDrawer() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+function checkout() {
+  if (!cart.length) return;
+  const items = cart.map(p => `• ${p.name} × ${p.qty} = ${fmt(p.price*p.qty)}`).join('\n');
+  const total = cart.reduce((a,b) => a + b.price*b.qty, 0);
+  const msg = encodeURIComponent(`Bonjour Crystal Company Limited ! 👋\n\nJe souhaite commander :\n\n${items}\n\n💰 Total : ${fmt(total)}\n\nMerci !`);
+  window.open('https://wa.me/221770000000?text=' + msg, '_blank');
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(id) {
+  const p = products.find(x => x.id===id);
+  modalId = id;
+  document.getElementById('modalIcon').className = 'ti ' + p.icon;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalCat').textContent = p.cat.charAt(0).toUpperCase() + p.cat.slice(1);
+  document.getElementById('modalStars').textContent = stars(p.stars) + '  (' + p.stars + '/5)';
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('modalPrice').textContent = fmt(p.price);
+  document.getElementById('modalOld').textContent = p.oldPrice ? fmt(p.oldPrice) : '';
+  document.getElementById('prodModalBack').classList.add('open');
+}
+function closeModalBg(e) { if (e.target === document.getElementById('prodModalBack')) closeProdModal(); }
+function closeProdModal() { document.getElementById('prodModalBack').classList.remove('open'); }
+function addFromModal() { if (modalId) { addToCart(modalId); closeProdModal(); } }
+
+// ============================================================
+// MISC
+// ============================================================
+function toggleFav(id) { document.getElementById('fav'+id).classList.toggle('active'); }
+function subscribeNl() { showToast('✔ Inscription confirmée ! Merci.'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderProducts();
+</script>
+</body>
+</html>
+git remote add origin https://github.com/projetmahwaccs-cpu/CRYSTAL-WEBSITE.git
+git branch -M main
+git push -u origin main
