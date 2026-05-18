@@ -1279,7 +1279,7 @@ function checkout() {
   const items = cart.map(p => `• ${p.name} × ${p.qty} = ${fmt(p.price*p.qty)}`).join('\n');
   const total = cart.reduce((a,b) => a+b.price*b.qty, 0);
   const msg = encodeURIComponent(`Bonjour Crystal Company Limited ! 👋\n\nJe souhaite commander :\n\n${items}\n\n💰 Total : ${fmt(total)}\n\nMerci !`);
-  window.open('https://wa.me/221770000000?text=' + msg, '_blank');
+  window.open('https://wa.me/221774976364?text=' + msg, '_blank');
 }
 
 // ── MODAL ──
