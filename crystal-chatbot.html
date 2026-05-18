@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CRYSTAL – Agent IA</title>
+<style>
+  /* ===== CRYSTAL WIDGET ===== */
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --cr-primary: #7C3AED;
+    --cr-primary-light: #EDE9FE;
+    --cr-primary-dark: #4C1D95;
+    --cr-accent: #06B6D4;
+    --cr-accent-light: #CFFAFE;
+    --cr-bg: #FFFFFF;
+    --cr-bg2: #F8F7FF;
+    --cr-border: rgba(124,58,237,0.15);
+    --cr-text: #1E1B4B;
+    --cr-muted: #6B7280;
+    --cr-bubble-bot: #F3F0FF;
+    --cr-bubble-user: linear-gradient(135deg, #7C3AED, #06B6D4);
+    --cr-shadow: 0 20px 60px rgba(124,58,237,0.2), 0 4px 20px rgba(0,0,0,0.08);
+    --cr-radius: 20px;
+    --cr-radius-sm: 12px;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    background: #f0f0f0;
+    min-height: 100vh;
+  }
+
+  /* ===== DEMO PAGE ===== */
+  .demo-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 120px;
+    background: linear-gradient(160deg, #faf9ff 0%, #f0f4ff 100%);
+  }
+
+  .demo-page h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    color: #1E1B4B;
+    margin: 0 0 12px;
+    text-align: center;
+  }
+
+  .demo-page p {
+    color: #6B7280;
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.7;
+  }
+
+  /* ===== TOGGLE BUTTON ===== */
+  #crystal-toggle {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7C3AED, #06B6D4);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
+    z-index: 9998;
+  }
+
+  #crystal-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 40px rgba(124,58,237,0.5);
+  }
+
+  #crystal-toggle svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+    transition: opacity 0.2s, transform 0.3s;
+  }
+
+  #crystal-toggle .icon-close {
+    position: absolute;
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+
+  #crystal-toggle.open .icon-chat { opacity: 0; transform: rotate(90deg); }
+  #crystal-toggle.open .icon-close { opacity: 1; transform: rotate(0deg); }
+
+  /* Notification dot */
+  #crystal-toggle::after {
+    content: '';
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 12px; height: 12px;
+    background: #EF4444;
+    border-radius: 50%;
+    border: 2px solid white;
+    animation: pulse-dot 2s infinite;
+  }
+
+  #crystal-toggle.open::after { display: none; }
+
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+  }
+
+  /* ===== CHAT WINDOW ===== */
+  #crystal-window {
+    position: fixed;
+    bottom: 106px;
+    right: 28px;
+    width: 380px;
+    max-height: 580px;
+    background: var(--cr-bg);
+    border-radius: var(--cr-radius);
+    box-shadow: var(--cr-shadow);
+    border: 1px solid var(--cr-border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9997;
+    transform: scale(0.85) translateY(20px);
+    transform-origin: bottom right;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+  }
+
+  #crystal-window.open {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Header */
+  .cr-header {
+    background: linear-gradient(135deg, #7C3AED 0%, #4C1D95 60%, #0E7490 100%);
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .cr-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .cr-avatar svg { width: 22px; height: 22px; fill: white; }
+
+  .cr-online {
+    position: absolute;
+    bottom: 1px; right: 1px;
+    width: 10px; height: 10px;
+    background: #22C55E;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    animation: pulse-green 2s infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+    50% { box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+  }
+
+  .cr-header-info { flex: 1; }
+  .cr-header-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: white; letter-spacing: 0.5px;
+  }
+  .cr-header-status {
+    font-size: 11px; color: rgba(255,255,255,0.75);
+    margin-top: 2px;
+  }
+
+  .cr-header-config {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cr-header-config:hover { background: rgba(255,255,255,0.25); }
+
+  /* Messages */
+  .cr-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--cr-bg2);
+    scroll-behavior: smooth;
+  }
+
+  .cr-messages::-webkit-scrollbar { width: 4px; }
+  .cr-messages::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.2); border-radius: 4px; }
+
+  /* Message bubbles */
+  .cr-msg {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    animation: msg-in 0.3s cubic-bezier(.34,1.56,.64,1);
+  }
+
+  @keyframes msg-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .cr-msg.user { flex-direction: row-reverse; }
+
+  .cr-msg-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+  }
+
+  .cr-msg.bot .cr-msg-avatar {
+    background: linear-gradient(135deg, #7C3AED, #06B6D4);
+    color: white; font-size: 11px; font-family: 'Syne',sans-serif;
+  }
+
+  .cr-msg.user .cr-msg-avatar {
+    background: #E5E7EB;
+    color: #6B7280;
+  }
+
+  .cr-bubble {
+    max-width: 78%;
+    padding: 10px 14px;
+    border-radius: var(--cr-radius-sm);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .cr-msg.bot .cr-bubble {
+    background: var(--cr-bg);
+    color: var(--cr-text);
+    border: 1px solid var(--cr-border);
+    border-bottom-left-radius: 4px;
+  }
+
+  .cr-msg.user .cr-bubble {
+    background: linear-gradient(135deg, #7C3AED, #06B6D4);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  /* Typing indicator */
+  .cr-typing {
+    display: flex; align-items: center; gap: 5px;
+    padding: 10px 14px;
+    background: var(--cr-bg);
+    border: 1px solid var(--cr-border);
+    border-radius: var(--cr-radius-sm);
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+  }
+
+  .cr-typing span {
+    width: 6px; height: 6px;
+    background: #7C3AED;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+  .cr-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .cr-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  /* Quick replies */
+  .cr-quick-replies {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 0 14px 8px;
+    background: var(--cr-bg2);
+    flex-shrink: 0;
+  }
+
+  .cr-quick-btn {
+    background: white;
+    border: 1px solid var(--cr-border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--cr-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .cr-quick-btn:hover {
+    background: var(--cr-primary-light);
+    border-color: var(--cr-primary);
+  }
+
+  /* Input area */
+  .cr-input-area {
+    padding: 12px 14px;
+    background: var(--cr-bg);
+    border-top: 1px solid var(--cr-border);
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+
+  .cr-textarea {
+    flex: 1;
+    border: 1.5px solid var(--cr-border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: var(--cr-text);
+    resize: none;
+    outline: none;
+    max-height: 100px;
+    min-height: 40px;
+    transition: border-color 0.2s;
+    background: var(--cr-bg2);
+    line-height: 1.4;
+  }
+
+  .cr-textarea::placeholder { color: #9CA3AF; }
+  .cr-textarea:focus { border-color: var(--cr-primary); background: white; }
+
+  .cr-send-btn {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7C3AED, #06B6D4);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    flex-shrink: 0;
+  }
+
+  .cr-send-btn:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(124,58,237,0.4); }
+  .cr-send-btn svg { width: 17px; height: 17px; fill: white; }
+
+  .cr-footer-note {
+    text-align: center;
+    font-size: 10px;
+    color: #9CA3AF;
+    padding-bottom: 8px;
+    background: var(--cr-bg);
+  }
+
+  /* ===== CONFIG PANEL ===== */
+  .cr-config-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cr-config-overlay.open { display: flex; }
+
+  .cr-config-panel {
+    background: white;
+    border-radius: var(--cr-radius);
+    padding: 28px;
+    width: 90%;
+    max-width: 480px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+  }
+
+  .cr-config-panel h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    color: var(--cr-text);
+    margin: 0 0 6px;
+  }
+
+  .cr-config-panel p.sub {
+    color: var(--cr-muted);
+    font-size: 13px;
+    margin: 0 0 20px;
+  }
+
+  .cr-field { margin-bottom: 16px; }
+
+  .cr-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--cr-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .cr-field textarea, .cr-field input {
+    width: 100%;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    color: var(--cr-text);
+    outline: none;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+  }
+
+  .cr-field textarea:focus, .cr-field input:focus { border-color: var(--cr-primary); }
+
+  .cr-config-btns { display: flex; gap: 10px; margin-top: 20px; }
+
+  .cr-btn-save {
+    flex: 1;
+    padding: 11px;
+    background: linear-gradient(135deg, #7C3AED, #06B6D4);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .cr-btn-save:hover { opacity: 0.9; }
+
+  .cr-btn-cancel {
+    padding: 11px 20px;
+    background: #F3F4F6;
+    color: var(--cr-muted);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    #crystal-window { width: calc(100vw - 20px); right: 10px; bottom: 90px; }
+    #crystal-toggle { right: 16px; bottom: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DEMO PAGE CONTENT -->
+<div class="demo-page">
+  <h1>✨ CRYSTAL est prête</h1>
+  <p>Ton agent IA est actif en bas à droite. Clique sur le bouton violet pour commencer. Configure-la avec les infos de tes produits via le bouton <strong>⚙ Config</strong>.</p>
+</div>
+
+<!-- TOGGLE BUTTON -->
+<button id="crystal-toggle" onclick="toggleCrystal()" title="Ouvrir CRYSTAL">
+  <!-- Chat icon -->
+  <svg class="icon-chat" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+  </svg>
+  <!-- Close icon -->
+  <svg class="icon-close" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+  </svg>
+</button>
+
+<!-- CHAT WINDOW -->
+<div id="crystal-window">
+  <!-- Header -->
+  <div class="cr-header">
+    <div class="cr-avatar">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      <div class="cr-online"></div>
+    </div>
+    <div class="cr-header-info">
+      <div class="cr-header-name">CRYSTAL ✦</div>
+      <div class="cr-header-status">Assistante IA • En ligne</div>
+    </div>
+    <button class="cr-header-config" onclick="openConfig()">⚙ Config</button>
+  </div>
+
+  <!-- Messages -->
+  <div class="cr-messages" id="cr-messages"></div>
+
+  <!-- Quick replies -->
+  <div class="cr-quick-replies" id="cr-quick-replies">
+    <button class="cr-quick-btn" onclick="quickSend('Quels sont vos produits ?')">🛍️ Produits</button>
+    <button class="cr-quick-btn" onclick="quickSend('Combien coûte la livraison ?')">🚚 Livraison</button>
+    <button class="cr-quick-btn" onclick="quickSend('Comment passer une commande ?')">📦 Commander</button>
+    <button class="cr-quick-btn" onclick="quickSend('Quels sont les délais de livraison ?')">⏱️ Délais</button>
+  </div>
+
+  <!-- Input -->
+  <div class="cr-input-area">
+    <textarea
+      id="cr-input"
+      class="cr-textarea"
+      placeholder="Posez votre question..."
+      rows="1"
+      onkeydown="handleKey(event)"
+      oninput="autoResize(this)"
+    ></textarea>
+    <button class="cr-send-btn" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <div class="cr-footer-note">CRYSTAL · Propulsé par IA</div>
+</div>
+
+<!-- CONFIG PANEL -->
+<div class="cr-config-overlay" id="cr-config-overlay">
+  <div class="cr-config-panel">
+    <h2>⚙️ Configurer CRYSTAL</h2>
+    <p class="sub">Donne à CRYSTAL toutes les infos nécessaires pour répondre à tes clients.</p>
+
+    <div class="cr-field">
+      <label>Nom de ton site / boutique</label>
+      <input type="text" id="cfg-name" placeholder="Ex: Ma Super Boutique" />
+    </div>
+
+    <div class="cr-field">
+      <label>Tes produits (liste, prix, descriptions)</label>
+      <textarea id="cfg-products" rows="5" placeholder="Ex:&#10;- Robe fleurie - 25 000 FCFA&#10;- Sac à main cuir - 45 000 FCFA&#10;- Sneakers blanches - 35 000 FCFA"></textarea>
+    </div>
+
+    <div class="cr-field">
+      <label>Livraison & Zones desservies</label>
+      <textarea id="cfg-delivery" rows="4" placeholder="Ex:&#10;Livraison Dakar : 2 000 FCFA, 24-48h&#10;Livraison régions : 4 000 FCFA, 3-5 jours&#10;Livraison gratuite dès 50 000 FCFA d'achat"></textarea>
+    </div>
+
+    <div class="cr-field">
+      <label>Moyens de paiement acceptés</label>
+      <textarea id="cfg-payment" rows="3" placeholder="Ex: Wave, Orange Money, carte bancaire, espèces à la livraison"></textarea>
+    </div>
+
+    <div class="cr-field">
+      <label>Autres infos (retours, horaires, contact...)</label>
+      <textarea id="cfg-other" rows="4" placeholder="Ex:&#10;Retours acceptés sous 7 jours&#10;WhatsApp: +221 77 000 0000&#10;Ouvert lun-sam 8h-20h"></textarea>
+    </div>
+
+    <div class="cr-config-btns">
+      <button class="cr-btn-cancel" onclick="closeConfig()">Annuler</button>
+      <button class="cr-btn-save" onclick="saveConfig()">✓ Sauvegarder et activer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
+
+  let isOpen = false;
+  let conversationHistory = [];
+  let shopConfig = {
+    name: "",
+    products: "",
+    delivery: "",
+    payment: "",
+    other: ""
+  };
+
+  function buildSystemPrompt() {
+    let prompt = `Tu es CRYSTAL, une assistante IA élégante, chaleureuse et professionnelle pour une boutique en ligne.
+Ton rôle est d'aider les visiteurs du site à trouver des produits, comprendre les options de livraison, passer commande et répondre à toutes leurs questions.
+
+Règles importantes:
+- Réponds toujours en français, de manière concise et claire
+- Sois chaleureuse, professionnelle et enthousiaste
+- Si tu ne sais pas quelque chose, dis-le honnêtement et propose d'autres moyens de contact
+- Utilise des émojis avec modération pour rendre la conversation agréable
+- Tes réponses doivent faire maximum 3-4 phrases, sauf si plus de détails sont demandés`;
+
+    if (shopConfig.name) prompt += `\n\nBoutique: ${shopConfig.name}`;
+    if (shopConfig.products) prompt += `\n\nProduits disponibles:\n${shopConfig.products}`;
+    if (shopConfig.delivery) prompt += `\n\nInformations livraison:\n${shopConfig.delivery}`;
+    if (shopConfig.payment) prompt += `\n\nMoyens de paiement:\n${shopConfig.payment}`;
+    if (shopConfig.other) prompt += `\n\nAutres informations:\n${shopConfig.other}`;
+
+    return prompt;
+  }
+
+  function toggleCrystal() {
+    isOpen = !isOpen;
+    const win = document.getElementById('crystal-window');
+    const btn = document.getElementById('crystal-toggle');
+    win.classList.toggle('open', isOpen);
+    btn.classList.toggle('open', isOpen);
+
+    if (isOpen && conversationHistory.length === 0) {
+      setTimeout(() => {
+        const name = shopConfig.name ? shopConfig.name : "notre boutique";
+        addMessage('bot', `✨ Bonjour ! Je suis **CRYSTAL**, votre assistante IA. Bienvenue sur ${name} !\n\nComment puis-je vous aider aujourd'hui ?`);
+      }, 300);
+    }
+  }
+
+  function addMessage(role, text) {
+    const container = document.getElementById('cr-messages');
+    const div = document.createElement('div');
+    div.className = `cr-msg ${role}`;
+
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = 'cr-msg-avatar';
+    avatarDiv.textContent = role === 'bot' ? 'CR' : '👤';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'cr-bubble';
+
+    // Simple markdown: **bold** and newlines
+    const formatted = text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+    bubble.innerHTML = formatted;
+
+    div.appendChild(avatarDiv);
+    div.appendChild(bubble);
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function showTyping() {
+    const container = document.getElementById('cr-messages');
+    const div = document.createElement('div');
+    div.className = 'cr-msg bot';
+    div.id = 'typing-indicator';
+
+    const avatarDiv = document.createElement('div');
+    avatarDiv.className = 'cr-msg-avatar';
+    avatarDiv.textContent = 'CR';
+
+    const typing = document.createElement('div');
+    typing.className = 'cr-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+
+    div.appendChild(avatarDiv);
+    div.appendChild(typing);
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return div;
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('cr-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    input.style.height = 'auto';
+
+    // Hide quick replies after first message
+    document.getElementById('cr-quick-replies').style.display = 'none';
+
+    addMessage('user', text);
+    conversationHistory.push({ role: "user", content: text });
+
+    const typingEl = showTyping();
+
+    try {
+      const response = await fetch(ANTHROPIC_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: buildSystemPrompt(),
+          messages: conversationHistory
+        })
+      });
+
+      const data = await response.json();
+      typingEl.remove();
+
+      const reply = data.content?.[0]?.text || "Désolée, je n'ai pas pu obtenir de réponse. Veuillez réessayer.";
+      conversationHistory.push({ role: "assistant", content: reply });
+      addMessage('bot', reply);
+
+    } catch (err) {
+      typingEl.remove();
+      addMessage('bot', "⚠️ Une erreur s'est produite. Veuillez vérifier votre connexion et réessayer.");
+    }
+  }
+
+  function quickSend(text) {
+    document.getElementById('cr-input').value = text;
+    sendMessage();
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  }
+
+  function openConfig() {
+    document.getElementById('cfg-name').value = shopConfig.name;
+    document.getElementById('cfg-products').value = shopConfig.products;
+    document.getElementById('cfg-delivery').value = shopConfig.delivery;
+    document.getElementById('cfg-payment').value = shopConfig.payment;
+    document.getElementById('cfg-other').value = shopConfig.other;
+    document.getElementById('cr-config-overlay').classList.add('open');
+  }
+
+  function closeConfig() {
+    document.getElementById('cr-config-overlay').classList.remove('open');
+  }
+
+  function saveConfig() {
+    shopConfig.name = document.getElementById('cfg-name').value;
+    shopConfig.products = document.getElementById('cfg-products').value;
+    shopConfig.delivery = document.getElementById('cfg-delivery').value;
+    shopConfig.payment = document.getElementById('cfg-payment').value;
+    shopConfig.other = document.getElementById('cfg-other').value;
+
+    // Reset conversation with new config
+    conversationHistory = [];
+    document.getElementById('cr-messages').innerHTML = '';
+    document.getElementById('cr-quick-replies').style.display = 'flex';
+
+    closeConfig();
+
+    const name = shopConfig.name || "votre boutique";
+    setTimeout(() => {
+      addMessage('bot', `✅ Configuration sauvegardée ! Je suis maintenant prête à aider les clients de **${name}**. Je connais vos produits, vos options de livraison et toutes vos informations. ✨`);
+    }, 200);
+  }
+</script>
+</body>
+</html>
