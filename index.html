@@ -164,10 +164,29 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 /* ── HERO BANNER ── */
 .hero-row { display: grid; grid-template-columns: 1fr 340px; gap: 16px; padding: 16px 0; }
 .hero-main {
-  background: linear-gradient(120deg, #0a3d1f 0%, #145f32 55%, #1e8c49 100%);
-  min-height: 380px; position: relative; overflow: hidden;
-  display: flex; align-items: center; padding: 3rem;
-  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-person {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 110%;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom;
+  z-index: 2;
+  filter: drop-shadow(-8px 0 15px rgba(0, 0, 0, 0.25));
+  pointer-events: none;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+  .hero-person {
+    height: 70%;
+    opacity: 0.4;
+  }
 }
 .hero-main::before {
   content: ''; position: absolute; inset: 0;
@@ -751,19 +770,27 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 
 <div class="page">
 
-  <!-- HERO BANNERS -->
-  <div class="hero-row">
-    <div class="hero-main">
-      <div class="hero-main-dots"></div>
-      <div class="hero-content">
-        <div class="pre">✦ Importateur Officiel · Dakar · Sénégal</div>
-        <h1>Crystal<br><em>Company</em><br>Limited</h1>
-        <p>Des produits de qualité internationale, sélectionnés avec soin pour vous offrir le meilleur au meilleur prix. Livraison partout au Sénégal.</p>
-        <button class="hero-cta" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
-          <i class="ti ti-arrow-right"></i> Découvrir la Collection
-        </button>
-      </div>
+ <!-- HERO BANNERS -->
+<div class="hero-row">
+  <div class="hero-main">
+    <div class="hero-main-dots"></div>
+    <div class="hero-content">
+      <div class="pre">✦ Importateur Officiel · Dakar · Sénégal</div>
+      <h1>Crystal<br><em>Company</em><br>Limited</h1>
+      <p>Des produits de qualité internationale, sélectionnés avec soin pour vous offrir le meilleur au meilleur prix. Livraison partout au Sénégal.</p>
+      <button class="hero-cta" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-arrow-right"></i> Découvrir la Collection
+      </button>
     </div>
+
+    <!-- Image flottante de la personne -->
+    <img
+      src="cristal.png"
+      alt="Ambassadrice Crystal Company"
+      class="hero-person"
+    />
+
+  </div>
     <div class="hero-side">
       <div class="hero-side-card" onclick="filterCat('electronique',document.querySelectorAll('.cat-nav-item')[1]);document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
         <span class="sc-badge badge-new">Nouveau</span>
