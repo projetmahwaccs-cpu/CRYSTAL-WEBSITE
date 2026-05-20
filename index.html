@@ -232,7 +232,13 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
   cursor: pointer; min-height: 180px;
 }
 .hero-side-card:first-child {
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  /* On combine votre dégradé existant ET l'image de la montre */
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.9)), url('montre.png');
+  
+  /* On ajoute ces propriétés pour que l'image se place correctement */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .hero-side-card:last-child {
   background: linear-gradient(135deg, #3d1a00, #6b2f00);
@@ -802,15 +808,17 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 
   </div>
     <div class="hero-side">
-      <div class="hero-side-card" onclick="filterCat('electronique',document.querySelectorAll('.cat-nav-item')[1]);document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
-        <span class="sc-badge badge-new">Nouveau</span>
-        <i class="ti ti-device-watch sc-icon"></i>
-        <div class="sc-content">
-          <div class="sc-tag">Électronique</div>
-          <div class="sc-title">Montres &<br>Gadgets</div>
-          <div class="sc-price">Dès 6 200 FCFA</div>
-        </div>
-      </div>
+  <div class="hero-side-card" onclick="filterCat('electronique', ...)">
+    <span class="sc-badge badge-new">Nouveau</span>
+    <i class="ti ti-device-watch sc-icon"></i>
+    
+    <div class="sc-content">
+      <div class="sc-tag">Électronique</div>
+      <div class="sc-title">Montres &<br>Gadgets</div>
+      <div class="sc-price">Dès 6 200 FCFA</div>
+    </div>
+  </div> 
+  </div>
       <div class="hero-side-card" onclick="filterCat('mode',document.querySelectorAll('.cat-nav-item')[2]);document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
         <span class="sc-badge badge-promo">-30%</span>
         <i class="ti ti-hanger sc-icon"></i>
