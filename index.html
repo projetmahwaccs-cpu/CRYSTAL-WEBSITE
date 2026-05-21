@@ -548,6 +548,227 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
   <div class="deals-grid" id="dealsGrid"></div>
 </div>
 
+/* ═══════════════════════════════════════════════════
+   CRYSTAL COMPANY — RESPONSIVE PATCH
+   Covers: Mobile (≤480px), Phablet (≤640px),
+           Tablet (≤768px), Small Laptop (≤1024px)
+   Add this <style> block just before </head>
+═══════════════════════════════════════════════════ */
+
+/* ── BASE FIXES (all screens) ── */
+*, *::before, *::after { box-sizing: border-box; }
+body { overflow-x: hidden; }
+img, video { max-width: 100%; }
+
+/* ── TOPBAR ── */
+@media (max-width: 768px) {
+  .topbar { display: none; }
+}
+
+/* ── TICKER ── */
+@media (max-width: 480px) {
+  .ticker-wrap { font-size: 10px; }
+}
+
+/* ── NAV ── */
+@media (max-width: 1024px) {
+  .nav-inner { gap: 10px; }
+  .nav-search { max-width: 260px; }
+}
+@media (max-width: 768px) {
+  .nav-inner { flex-wrap: wrap; padding: 8px 1rem; gap: 8px; }
+  .nav-search { order: 3; width: 100%; max-width: 100%; display: flex !important; }
+  .nav-logo .n2 { display: none; }
+  .nav-right { margin-left: auto; }
+}
+@media (max-width: 480px) {
+  .nav-inner { padding: 8px 0.75rem; }
+  .nav-btn span { display: none; }
+}
+
+/* ── CATEGORY NAV ── */
+@media (max-width: 768px) {
+  .cat-nav-inner { gap: 4px; padding: 0 0.75rem; }
+  .cat-nav-item { font-size: 11px; padding: 10px 10px; white-space: nowrap; }
+  .cat-nav-item i { font-size: 14px; }
+}
+@media (max-width: 480px) {
+  .cat-nav-item { font-size: 10px; padding: 10px 8px; gap: 4px; }
+}
+
+/* ── PAGE CONTAINER ── */
+@media (max-width: 1024px) {
+  .page { padding: 0 1rem; }
+}
+@media (max-width: 640px) {
+  .page { padding: 0 0.75rem; }
+}
+
+/* ── HERO ROW ── */
+@media (max-width: 1024px) {
+  .hero-row { grid-template-columns: 1fr; gap: 12px; }
+  .hero-side { flex-direction: row; gap: 12px; }
+  .hero-side-card { min-height: 160px; }
+}
+@media (max-width: 640px) {
+  .hero-main { padding: 2rem 1.25rem; min-height: 280px; }
+  .hero-content h1 { font-size: 44px; }
+  .hero-content p { font-size: 13px; }
+  .hero-side { flex-direction: row; gap: 10px; }
+  .hero-side-card { min-height: 140px; padding: 1rem; }
+  .hero-side-card .sc-title { font-size: 15px; }
+  .hero-person { height: 65%; opacity: 0.35; }
+}
+@media (max-width: 400px) {
+  .hero-content h1 { font-size: 36px; }
+  .hero-side { flex-direction: column; }
+  .hero-side-card { min-height: 120px; }
+}
+
+/* ── PROMO STRIP ── */
+@media (max-width: 1024px) {
+  .promo-strip { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .promo-strip { grid-template-columns: 1fr; gap: 10px; }
+  .promo-card { padding: 14px 16px; }
+}
+
+/* ── FLASH BANNER ── */
+@media (max-width: 768px) {
+  .flash-inner { gap: 12px; padding: 0 1rem; height: auto; min-height: 56px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px; }
+  .flash-label span { font-size: 18px; }
+  .flash-sep { display: none; }
+  .flash-items { width: 100%; padding: 4px 0 8px; }
+}
+@media (max-width: 480px) {
+  .flash-countdown { gap: 4px; }
+  .flash-countdown .fc-num { font-size: 16px; }
+  .flash-countdown .fc-unit { padding: 3px 7px; }
+}
+
+/* ── SECTION HEADER ── */
+@media (max-width: 640px) {
+  .sec-head { flex-wrap: wrap; gap: 10px; }
+  .sec-head-left h2 { font-size: 17px; }
+  .see-all { padding: 6px 12px; font-size: 11px; }
+}
+
+/* ── DEALS GRID ── */
+@media (max-width: 1024px) {
+  .deals-grid { grid-template-columns: 1fr; }
+  .deal-small-col { flex-direction: row; flex-wrap: wrap; }
+  .deal-small { flex: 1 1 calc(50% - 6px); min-width: 200px; }
+}
+@media (max-width: 640px) {
+  .deal-featured { padding: 1.5rem 1.25rem; flex-direction: column; gap: 1rem; }
+  .deal-feat-content .df-name { font-size: 28px; }
+  .deal-feat-content .df-price { font-size: 20px; }
+  .deal-small-col { flex-direction: column; }
+  .deal-small { flex: 1 1 100%; }
+}
+
+/* ── GOLD BANNER ── */
+@media (max-width: 1024px) {
+  .gold-banner { height: auto; }
+  .gold-banner-inner { flex-wrap: wrap; padding: 1.25rem 1.5rem; gap: 12px; }
+  .gb-pill { flex-wrap: wrap; justify-content: center; }
+}
+@media (max-width: 640px) {
+  .gold-banner-inner { flex-direction: column; text-align: center; padding: 1rem; gap: 10px; align-items: center; }
+  .gold-banner .gb-title { font-size: 26px; }
+  .gold-banner .gb-cta { width: 100%; justify-content: center; }
+}
+
+/* ── CATEGORY BANNERS ── */
+@media (max-width: 1024px) {
+  .cat-banners { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .cat-banners { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cat-banner { height: 140px; padding: 12px; }
+  .cat-banner .cb-title { font-size: 13px; }
+  .cat-banner .cb-count { display: none; }
+}
+
+/* ── PRODUCT GRID ── */
+@media (max-width: 1024px) {
+  .prod-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+}
+@media (max-width: 640px) {
+  .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .prod-body { padding: 8px 10px 10px; }
+  .prod-price { font-size: 15px; }
+  .prod-name { font-size: 12px; }
+}
+@media (max-width: 360px) {
+  .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .prod-price { font-size: 13px; }
+}
+
+/* ── TESTIMONIALS ── */
+@media (max-width: 1024px) {
+  .testi-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .testi-row { grid-template-columns: 1fr; }
+}
+
+/* ── FOOTER ── */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .footer { padding: 2rem 1rem 0; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .pay-methods { flex-wrap: wrap; }
+}
+
+/* ── CART DRAWER ── */
+@media (max-width: 480px) {
+  .drawer { width: 100vw; }
+}
+
+/* ── MODAL ── */
+@media (max-width: 640px) {
+  .modal-bg { padding: 0; align-items: flex-end; }
+  .modal { max-height: 92vh; border-radius: 0; }
+  .mod-body { padding: 1.25rem; }
+  .mod-name { font-size: 17px; }
+  .mod-price { font-size: 22px; }
+  .mod-actions { flex-direction: column; }
+  .btn-green, .btn-outline { width: 100%; }
+}
+
+/* ── NEWSLETTER ── */
+@media (max-width: 640px) {
+  .newsletter { padding: 2rem 1rem; }
+  .newsletter h2 { font-size: 20px; }
+  .nl-form { flex-direction: column; border: none; background: transparent; }
+  .nl-form input { border: 2px solid rgba(255,255,255,0.25); padding: 12px 16px; }
+  .nl-form:focus-within { border: none; }
+  .nl-form button { padding: 12px; width: 100%; }
+}
+
+/* ── MARQUEE BAND ── */
+@media (max-width: 480px) {
+  .marquee-inner span { font-size: 10px; gap: 6px; }
+  .marquee-inner { gap: 28px; }
+}
+
+/* ── SORT BAR ── */
+@media (max-width: 640px) {
+  #catalogue { padding: 20px 0 12px; }
+  #catalogue select { font-size: 11px; padding: 7px 10px; }
+}
+
+/* ── TOAST ── */
+@media (max-width: 480px) {
+  .toast { width: 90vw; white-space: normal; text-align: center; justify-content: center; }
+}
+
+
 <!-- GOLD PROMO BANNER -->
 <div class="gold-banner" style="max-width:100%;">
   <div class="gold-banner-inner" style="max-width:1400px;margin:0 auto;padding:0 2rem;">
