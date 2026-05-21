@@ -415,8 +415,9 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="#">
-      <div class="logo-mark">CCL</div>
+    <a class="nav-logo" href="ccl_portfolio_v4.html">
+      <img src="ccl.png" alt="Logo Crystal Company" class="logo-mark">
+      <div class="logo-mark"></div>
       <div class="logo-name">
         <div class="n1">Crystal Company</div>
         <div class="n2">Import · Export · Dakar</div>
@@ -434,6 +435,14 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
     </div>
   </div>
 </nav>
+  <style> 
+  .nav-logo .logo-mark {
+    width: 100%;       /* L'image prend toute la largeur disponible du parent */
+    max-width: 50px;   /* Optionnel : définissez la taille max souhaitée ici */
+    height: auto;      /* Maintient les proportions */
+    display: block;
+}
+  </style>
 
 <!-- CATEGORY NAV -->
 <div class="cat-nav">
