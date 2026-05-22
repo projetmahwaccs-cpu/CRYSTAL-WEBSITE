@@ -559,7 +559,7 @@ footer{background:var(--surface);border-top:2px solid var(--green);padding:30px 
 <script>
 // ── SUPABASE INIT ──
 const SUPABASE_URL = 'https://bnmuiweisacprjmlximz.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubXVpd2Vpc2FjcHJqbWx4aW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5NTc4MDksImV4cCI6MjA2MzUzMzgwOX0.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJubXVpd2Vpc2FjcHJqbWx4aW16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk0MzYyMDIsImV4cCI6MjA5NTAxMjIwMn0.YVozij-mp5FdABdR0xKnSvEafEQKueH6Y18v92Vzq4M';
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
