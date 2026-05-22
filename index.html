@@ -460,8 +460,22 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
     color: inherit;        /* Keeps your text color consistent */
   }
 </style>
-    <div class="cat-nav-item" onclick="filterCat('mode',this)"><i class="ti ti-hanger"></i> Mode</div>
-    <div class="cat-nav-item" onclick="filterCat('maison',this)"><i class="ti ti-home"></i> Maison</div>
+    
+     <div class="cat-nav-item mode" onclick="filterCat('maison',this); window.location.href='mode.html'"><i class="ti ti-hanger"></i> Mode</div>
+    <style>
+     .mode{
+    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
+    text-decoration: none; /* Removes the underline if you use Option 1 */
+  }
+    </style>
+    <div class="cat-nav-item home" onclick="filterCat('maison',this); window.location.href='home.html'"><i class="ti ti-home"></i> Maison</div>
+    <style>
+     .home{
+    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
+    text-decoration: none; /* Removes the underline if you use Option 1 */
+  }
+    </style>
+    
     <div class="cat-nav-item beaute4" onclick="filterCat('beaute',this); window.location.href='beaute.html';"><i class="ti ti-sparkles"></i> Beauté</div>
 <style>
      .beaute4{
@@ -474,7 +488,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 
     <style>
   
-  .cuineshop {
+  .cuisineshop {
     cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
     text-decoration: none; /* Removes the underline if you use Option 1 */
   }
