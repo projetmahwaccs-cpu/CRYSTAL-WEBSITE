@@ -1,0 +1,980 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuisine & Art Culinaire — Crystal Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --cream: #faf6f0;
+  --warm: #f5ede0;
+  --clay: #c4622d;
+  --clay-lt: #e8845a;
+  --clay-dk: #8b3d18;
+  --gold: #c9952a;
+  --gold-lt: #e8b84b;
+  --green: #2a6b3c;
+  --green-lt: #4a9b5c;
+  --dark: #1a1209;
+  --text: #2c1f0e;
+  --text-sec: #6b5c4a;
+  --text-muted: #a89280;
+  --border: #e8d9c8;
+  --shadow: rgba(44,31,14,0.12);
+  --font-disp: 'Playfair Display', serif;
+  --font: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── BACK LINK ── */
+.back-bar {
+  background: var(--dark);
+  padding: 10px 2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.back-bar a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.back-bar a:hover { color: var(--gold-lt); }
+.back-bar span { color: rgba(255,255,255,0.2); font-size: 12px; }
+.back-bar .curr { color: var(--gold-lt); font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+
+/* ── HERO ── */
+.cuisine-hero {
+  position: relative;
+  height: 520px;
+  background: var(--dark);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.hero-bg-slider { position: absolute; inset: 0; z-index: 0; }
+.hero-bg-slider img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+.hero-bg-slider img.active { opacity: 0.45; }
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(135deg, rgba(26,18,9,0.92) 0%, rgba(26,18,9,0.4) 60%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 5vw;
+  max-width: 680px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold-lt);
+  margin-bottom: 1.5rem;
+  opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; width: 28px; height: 1px; background: var(--gold);
+}
+.hero-content h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(48px, 7vw, 86px);
+  color: white; line-height: 0.95;
+  letter-spacing: -1px;
+  margin-bottom: 1.25rem;
+  opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+}
+.hero-content h1 em { color: var(--clay-lt); font-style: italic; }
+.hero-content p {
+  font-size: 15px; color: rgba(255,255,255,0.55);
+  line-height: 1.8; max-width: 480px;
+  margin-bottom: 2rem;
+  opacity: 0; animation: fadeUp 0.7s 0.6s forwards;
+}
+.hero-ctas {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.7s 0.8s forwards;
+}
+.btn-clay {
+  background: var(--clay); color: white;
+  border: none; padding: 13px 28px;
+  font-family: var(--font); font-size: 12px;
+  font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-clay:hover { background: var(--clay-lt); transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; color: white;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  padding: 13px 28px; font-family: var(--font);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+.hero-stats {
+  position: absolute; bottom: 2.5rem; right: 5vw;
+  z-index: 2; display: flex; gap: 2.5rem;
+  opacity: 0; animation: fadeUp 0.7s 1s forwards;
+}
+.hero-stat .n {
+  font-family: var(--font-disp);
+  font-size: 36px; color: white; line-height: 1;
+}
+.hero-stat .l {
+  font-size: 10px; color: rgba(255,255,255,0.35);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 2px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION COMMONS ── */
+.section { padding: 80px 5vw; }
+.section-alt { background: var(--warm); }
+.section-dark { background: var(--dark); }
+
+.sec-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--clay);
+  margin-bottom: 0.75rem;
+}
+.sec-label::before { content: ''; width: 24px; height: 2px; background: var(--clay); }
+.sec-title {
+  font-family: var(--font-disp);
+  font-size: clamp(28px, 4vw, 48px);
+  color: var(--text); line-height: 1.1;
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}
+.sec-title-light { color: white; }
+.sec-sub { font-size: 14px; color: var(--text-muted); max-width: 500px; line-height: 1.7; }
+.sec-sub-light { color: rgba(255,255,255,0.4); }
+.sec-head-row {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 2rem;
+  margin-bottom: 3rem; flex-wrap: wrap;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── PRODUCT SLIDER SECTION ── */
+.slider-track-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.slider-track-wrap::before,
+.slider-track-wrap::after {
+  content: ''; position: absolute;
+  top: 0; bottom: 0; width: 80px; z-index: 10;
+  pointer-events: none;
+}
+.slider-track-wrap::before { left: 0; background: linear-gradient(90deg, var(--cream), transparent); }
+.slider-track-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--cream), transparent); }
+.section-alt .slider-track-wrap::before { background: linear-gradient(90deg, var(--warm), transparent); }
+.section-alt .slider-track-wrap::after  { background: linear-gradient(-90deg, var(--warm), transparent); }
+
+.slider-track {
+  display: flex; gap: 20px;
+  animation: infiniteSlide 28s linear infinite;
+  width: max-content;
+}
+.slider-track:hover { animation-play-state: paused; }
+.slider-track-2 { animation-duration: 35s; animation-direction: reverse; }
+.slider-track-3 { animation-duration: 22s; }
+
+@keyframes infiniteSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.prod-slide {
+  width: 240px; flex-shrink: 0;
+  background: white;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.prod-slide:hover {
+  box-shadow: 0 16px 48px var(--shadow);
+  transform: translateY(-6px);
+}
+.ps-img {
+  width: 100%; aspect-ratio: 1;
+  overflow: hidden; position: relative;
+  background: var(--warm);
+}
+.ps-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.prod-slide:hover .ps-img img { transform: scale(1.08); }
+.ps-badge {
+  position: absolute; top: 10px; left: 10px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 10px; z-index: 2;
+}
+.badge-new { background: var(--green); color: white; }
+.badge-promo { background: var(--clay); color: white; }
+.badge-top { background: var(--gold); color: #1a1209; }
+.ps-fav {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: white; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 15px;
+  cursor: pointer; transition: all 0.2s;
+}
+.ps-fav:hover { color: #e74c3c; border-color: #e74c3c; }
+.ps-body { padding: 14px 16px 16px; }
+.ps-cat {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--clay);
+  margin-bottom: 4px;
+}
+.ps-name {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  line-height: 1.3; margin-bottom: 8px;
+}
+.ps-stars { color: var(--gold); font-size: 11px; margin-bottom: 8px; }
+.ps-pricing { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.ps-price { font-size: 18px; font-weight: 700; color: var(--clay); }
+.ps-old { font-size: 11px; color: var(--text-muted); text-decoration: line-through; }
+.ps-disc { font-size: 10px; font-weight: 700; color: white; background: var(--clay); padding: 2px 6px; }
+.ps-add {
+  width: 100%; background: white; border: 1.5px solid var(--clay);
+  color: var(--clay); padding: 8px 0;
+  font-family: var(--font); font-size: 11px;
+  font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: all 0.2s;
+}
+.ps-add:hover { background: var(--clay); color: white; }
+
+/* ── FEATURED GRID SECTION ── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feat-card {
+  background: white;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+  position: relative;
+}
+.feat-card:hover {
+  box-shadow: 0 20px 56px var(--shadow);
+  transform: translateY(-4px);
+}
+.feat-card.large { grid-column: span 2; }
+.fc-img {
+  width: 100%; overflow: hidden; position: relative;
+}
+.feat-card:not(.large) .fc-img { aspect-ratio: 3/4; }
+.feat-card.large .fc-img { aspect-ratio: 16/9; }
+.fc-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.feat-card:hover .fc-img img { transform: scale(1.05); }
+.fc-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(26,18,9,0.7) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.3s;
+}
+.feat-card:hover .fc-overlay { opacity: 1; }
+.fc-quick {
+  position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2;
+  display: flex; gap: 8px;
+  transform: translateY(10px); opacity: 0;
+  transition: all 0.3s;
+}
+.feat-card:hover .fc-quick { transform: translateY(0); opacity: 1; }
+.fc-quick button {
+  flex: 1; background: white; border: none;
+  padding: 9px; font-family: var(--font);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; color: var(--text);
+  transition: background 0.2s, color 0.2s;
+}
+.fc-quick button:hover { background: var(--clay); color: white; }
+.fc-badge {
+  position: absolute; top: 14px; left: 14px; z-index: 2;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; padding: 5px 12px;
+}
+.fc-body { padding: 18px 20px 20px; }
+.fc-cat {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--clay); margin-bottom: 4px;
+}
+.fc-name {
+  font-family: var(--font-disp);
+  font-size: 18px; font-weight: 700;
+  color: var(--text); line-height: 1.2; margin-bottom: 6px;
+}
+.feat-card.large .fc-name { font-size: 24px; }
+.fc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+.fc-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+.fc-price { font-size: 20px; font-weight: 700; color: var(--clay); }
+.fc-stars { color: var(--gold); font-size: 11px; }
+
+/* ── VIDEO SECTION ── */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.vid-card {
+  position: relative; overflow: hidden;
+  cursor: pointer; background: #000;
+}
+.vid-card:first-child { grid-column: span 2; }
+.vc-thumb {
+  width: 100%; aspect-ratio: 16/9;
+  object-fit: cover;
+  transition: transform 0.5s, opacity 0.3s;
+}
+.vid-card:first-child .vc-thumb { aspect-ratio: 16/9; }
+.vid-card:hover .vc-thumb { transform: scale(1.04); opacity: 0.7; }
+.vc-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 60%);
+}
+.vc-play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.5);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 26px;
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(4px);
+}
+.vid-card:hover .vc-play {
+  background: var(--clay);
+  border-color: var(--clay);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.vc-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 20px; z-index: 2;
+}
+.vc-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold-lt); margin-bottom: 4px;
+}
+.vc-title { font-size: 15px; font-weight: 700; color: white; line-height: 1.3; }
+.vc-dur { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+.vc-upload {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: rgba(26,18,9,0.85);
+  gap: 12px; opacity: 0;
+  transition: opacity 0.2s;
+}
+.vid-card:hover .vc-upload { opacity: 1; }
+.vc-upload i { font-size: 32px; color: var(--gold-lt); }
+.vc-upload span {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.vc-upload input {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer;
+}
+
+/* ── RECIPE BANNER ── */
+.recipe-banner {
+  background: linear-gradient(135deg, var(--clay-dk), var(--clay));
+  padding: 60px 5vw;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  position: relative; overflow: hidden;
+}
+.recipe-banner::before {
+  content: ''; position: absolute;
+  right: -80px; top: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.recipe-banner::after {
+  content: ''; position: absolute;
+  right: 60px; bottom: -100px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+}
+.rb-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-bottom: 1rem;
+}
+.rb-title {
+  font-family: var(--font-disp);
+  font-size: clamp(32px, 4vw, 52px);
+  color: white; line-height: 1.05;
+  margin-bottom: 1rem; letter-spacing: -0.5px;
+}
+.rb-desc {
+  font-size: 14px; color: rgba(255,255,255,0.55);
+  line-height: 1.8; margin-bottom: 2rem;
+}
+.rb-features {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.rb-feat {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500;
+}
+.rb-feat i { font-size: 20px; color: var(--gold-lt); }
+
+/* ── USTENSILES GRID ── */
+.usten-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.usten-card {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.usten-card::before {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--clay);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.usten-card:hover { box-shadow: 0 12px 36px var(--shadow); transform: translateY(-4px); }
+.usten-card:hover::before { transform: scaleX(1); }
+.uc-img {
+  width: 100%; aspect-ratio: 1;
+  overflow: hidden; margin-bottom: 16px;
+  background: var(--warm);
+}
+.uc-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s;
+}
+.usten-card:hover .uc-img img { transform: scale(1.08); }
+.uc-icon { font-size: 56px; color: var(--clay); opacity: 0.15; margin-bottom: 8px; }
+.uc-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.uc-sub { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+.uc-price { font-size: 17px; font-weight: 700; color: var(--clay); }
+
+/* ── PROMO BAND ── */
+.promo-band {
+  background: var(--dark);
+  padding: 20px 5vw;
+  display: flex; align-items: center;
+  gap: 3rem; overflow: hidden;
+  flex-wrap: wrap;
+}
+.pb-item {
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+}
+.pb-item i { font-size: 24px; color: var(--clay-lt); }
+.pb-item .pt { font-size: 13px; font-weight: 600; color: white; }
+.pb-item .ps { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.pb-sep { width: 1px; height: 32px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
+
+/* ── MARQUEE ── */
+.cuisine-marquee {
+  background: var(--clay);
+  padding: 14px 0; overflow: hidden;
+}
+.cm-inner {
+  display: inline-flex; gap: 56px; white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+.cm-inner span {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; gap: 12px;
+}
+.cm-inner span b { color: white; }
+.cm-inner span::after { content: '✦'; opacity: 0.4; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--dark); color: white;
+  padding: 11px 20px; font-size: 12px;
+  font-weight: 600; letter-spacing: 0.5px;
+  z-index: 999; opacity: 0;
+  transition: all 0.25s;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast i { color: var(--clay-lt); font-size: 17px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .feat-grid { grid-template-columns: 1fr 1fr; }
+  .feat-card.large { grid-column: span 2; }
+  .usten-grid { grid-template-columns: repeat(2, 1fr); }
+  .video-grid { grid-template-columns: 1fr 1fr; }
+  .vid-card:first-child { grid-column: span 2; }
+  .recipe-banner { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 768px) {
+  .cuisine-hero { height: 420px; }
+  .hero-stats { display: none; }
+  .section { padding: 56px 4vw; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .feat-card.large { grid-column: span 1; }
+  .video-grid { grid-template-columns: 1fr; }
+  .vid-card:first-child { grid-column: span 1; }
+  .promo-band { gap: 1.5rem; }
+}
+@media (max-width: 640px) {
+  .usten-grid { grid-template-columns: repeat(2, 1fr); }
+  .prod-slide { width: 200px; }
+  .cuisine-hero { height: 360px; }
+  .hero-ctas { flex-direction: column; }
+  .btn-clay, .btn-ghost { width: 100%; justify-content: center; }
+  .section { padding: 44px 1rem; }
+  .sec-head-row { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a href="index.html"><i class="ti ti-arrow-left"></i> Retour à l'accueil</a>
+  <span>/</span>
+  <span class="curr">Cuisine & Art Culinaire</span>
+</div>
+
+<!-- HERO -->
+<div class="cuisine-hero">
+  <div class="hero-bg-slider" id="heroBg">
+    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80" class="active" alt="">
+    <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=1400&q=80" alt="">
+    <img src="https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=1400&q=80" alt="">
+    <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=1400&q=80" alt="">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Crystal Company · Dakar</div>
+    <h1>L'Art de la<br><em>Cuisine</em></h1>
+    <p>Découvrez notre sélection premium d'ustensiles, appareils et accessoires culinaires importés pour sublimer votre cuisine au quotidien.</p>
+    <div class="hero-ctas">
+      <button class="btn-clay" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-chef-hat"></i> Explorer le catalogue
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-player-play"></i> Voir les démos
+      </button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="n">50+</div><div class="l">Produits</div></div>
+    <div class="hero-stat"><div class="n">4.9★</div><div class="l">Note clients</div></div>
+    <div class="hero-stat"><div class="n">48h</div><div class="l">Livraison</div></div>
+  </div>
+</div>
+
+<!-- PROMO BAND -->
+<div class="promo-band">
+  <div class="pb-item"><i class="ti ti-truck"></i><div><div class="pt">Livraison rapide</div><div class="ps">48h à Dakar · 72h régions</div></div></div>
+  <div class="pb-sep"></div>
+  <div class="pb-item"><i class="ti ti-shield-check"></i><div><div class="pt">Garantie qualité</div><div class="ps">Produits contrôlés</div></div></div>
+  <div class="pb-sep"></div>
+  <div class="pb-item"><i class="ti ti-refresh"></i><div><div class="pt">Retour 7 jours</div><div class="ps">Satisfait ou échangé</div></div></div>
+  <div class="pb-sep"></div>
+  <div class="pb-item"><i class="ti ti-brand-whatsapp"></i><div><div class="pt">Support WhatsApp</div><div class="ps">+221 77 699 00 00</div></div></div>
+</div>
+
+<!-- ══ SECTION 1 : SLIDER INFINI — APPAREILS ÉLECTROMÉNAGERS ══ -->
+<section class="section" id="catalogue">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Nouveautés</div>
+      <h2 class="sec-title">Appareils Électroménagers</h2>
+      <p class="sec-sub">Les meilleurs appareils pour une cuisine moderne et efficace</p>
+    </div>
+    <button class="btn-clay" onclick="showToast('Catalogue complet bientôt disponible !')">Voir tout <i class="ti ti-arrow-right"></i></button>
+  </div>
+  <div class="slider-track-wrap reveal">
+    <div class="slider-track" id="track1"></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2 : PRODUITS EN VEDETTE ══ -->
+<section class="section section-alt">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Sélection Premium</div>
+      <h2 class="sec-title">Produits en Vedette</h2>
+      <p class="sec-sub">Notre sélection coup de cœur pour votre cuisine</p>
+    </div>
+  </div>
+  <div class="feat-grid" id="featGrid"></div>
+</section>
+
+<!-- ══ SECTION 3 : SLIDER INFINI — USTENSILES ══ -->
+<section class="section">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Indispensables</div>
+      <h2 class="sec-title">Ustensiles & Accessoires</h2>
+      <p class="sec-sub">Tout ce qu'il faut pour cuisiner comme un chef</p>
+    </div>
+  </div>
+  <div class="slider-track-wrap reveal">
+    <div class="slider-track slider-track-2" id="track2"></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 4 : GRILLE USTENSILES ══ -->
+<section class="section section-alt">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Catégories</div>
+      <h2 class="sec-title">Par Type d'Ustensile</h2>
+    </div>
+  </div>
+  <div class="usten-grid" id="ustenGrid"></div>
+</section>
+
+<!-- ══ SECTION 5 : VIDÉOS DÉMO ══ -->
+<section class="section section-dark" id="videos">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label" style="color:var(--clay-lt);">En Action</div>
+      <h2 class="sec-title sec-title-light">Vidéos Démonstration</h2>
+      <p class="sec-sub sec-sub-light">Regardez nos produits en action — cliquez pour ajouter vos propres vidéos</p>
+    </div>
+  </div>
+  <div class="video-grid reveal" id="videoGrid"></div>
+</section>
+
+<!-- ══ SECTION 6 : SLIDER INFINI — ÉPICES & CONDIMENTS ══ -->
+<section class="section">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Saveurs du Monde</div>
+      <h2 class="sec-title">Épices & Condiments</h2>
+      <p class="sec-sub">Les saveurs qui font toute la différence</p>
+    </div>
+  </div>
+  <div class="slider-track-wrap reveal">
+    <div class="slider-track slider-track-3" id="track3"></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 7 : RECIPE BANNER ══ -->
+<div class="recipe-banner reveal">
+  <div>
+    <div class="rb-label">Crystal Company · Conseil</div>
+    <h2 class="rb-title">Bien Équipé,<br>Bien Cuisiner</h2>
+    <p class="rb-desc">Nos conseillers vous aident à choisir les meilleurs équipements pour votre cuisine. Contactez-nous sur WhatsApp pour des recommandations personnalisées.</p>
+    <button class="btn-clay" onclick="window.open('https://wa.me/221774976364','_blank')">
+      <i class="ti ti-brand-whatsapp"></i> Conseils gratuits WhatsApp
+    </button>
+  </div>
+  <div class="rb-features">
+    <div class="rb-feat"><i class="ti ti-star"></i> Produits sélectionnés par des experts culinaires</div>
+    <div class="rb-feat"><i class="ti ti-certificate"></i> Qualité internationale garantie</div>
+    <div class="rb-feat"><i class="ti ti-truck"></i> Livraison partout au Sénégal</div>
+    <div class="rb-feat"><i class="ti ti-currency-dollar"></i> Meilleur prix du marché</div>
+    <div class="rb-feat"><i class="ti ti-tools"></i> Service après-vente disponible</div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="cuisine-marquee">
+  <div class="cm-inner">
+    <span>Cuisine <b>Professionnelle</b></span>
+    <span>Ustensiles <b>Premium</b></span>
+    <span>Livraison <b>Dakar</b></span>
+    <span>Qualité <b>Internationale</b></span>
+    <span>WhatsApp <b>24/7</b></span>
+    <span>Crystal <b>Company</b></span>
+    <span>Cuisine <b>Professionnelle</b></span>
+    <span>Ustensiles <b>Premium</b></span>
+    <span>Livraison <b>Dakar</b></span>
+    <span>Qualité <b>Internationale</b></span>
+    <span>WhatsApp <b>24/7</b></span>
+    <span>Crystal <b>Company</b></span>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
+
+<script>
+// ── DATA ──
+const fmt = n => n.toLocaleString('fr-FR') + ' FCFA';
+const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
+
+const electromenagers = [
+  { name:"Mixeur Mini Portable",     cat:"Mixeur",       price:1750, badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=400&q=80", desc:"Mixeur portable 2 vitesses, bol verre." },
+  { name:"Blender Multifonction",    cat:"Blender",      price:19500, badge:null,   stars:5, img:"https://images.unsplash.com/photo-1609167830234-e6ef12bda2f7?w=400&q=80", desc:"Moteur 800W, bol verre 1.5L, 6 lames inox." },
+  { name:"Éplucheuse Électrique",    cat:"Éplucheuse",   price:1100,  badge:"new",  stars:4, img:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80", desc:"Rapide et performante pour tous légumes." },
+  { name:"Ferme-Sachet Auto",        cat:"Conservation", price:2800,  badge:"promo",stars:4, img:"https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&q=80", desc:"Machine compacte pour sachets alimentaires." },
+  { name:"Moustiquaire Électrique",  cat:"Protection",   price:2400,  badge:"new",  stars:4, img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80", desc:"Lampe anti-insectes, parfaite pour l'intérieur." },
+  { name:"Écailleuse PRO",           cat:"Poisson",      price:700,   badge:"top",  stars:5, img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80", desc:"Sans salissement, lames fines pour tout poisson." },
+  { name:"Coupeuse Uniforme PRO",    cat:"Découpe",      price:1500,  badge:"new",  stars:4, img:"https://images.unsplash.com/photo-1607877742574-a7d9a7449af3?w=400&q=80", desc:"Coupe propre et proportionnelle, œufs, fruits." },
+  { name:"Robot Pâtissier 1200W",    cat:"Pâtisserie",   price:45000, badge:null,   stars:5, img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80", desc:"Bol inox 5L, 10 vitesses, crochet et fouet inclus." },
+  { name:"Friteuse Sans Huile",      cat:"Friteuse",     price:28000, badge:"promo",stars:4, img:"https://images.unsplash.com/photo-1556909173-e0b5f24a8a04?w=400&q=80", desc:"Air fryer 4L, cuisson rapide, peu de matières grasses." },
+];
+
+const ustensiles = [
+  { name:"Set Couteaux Pro",         cat:"Couteaux",     price:14800, badge:"promo",stars:5, img:"https://images.unsplash.com/photo-1593618998160-e34014e67546?w=400&q=80", desc:"Ensemble 6 couteaux acier inox, manche ergonomique." },
+  { name:"Ensemble Ustensiles Inox", cat:"Ustensiles",   price:14800, badge:"promo",stars:5, img:"https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&q=80", desc:"Set 12 ustensiles inox et silicone, résistant 230°C." },
+  { name:"Planche à Découper Bois",  cat:"Découpe",      price:8500,  badge:null,   stars:4, img:"https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80", desc:"Bois de bambou naturel, rainure jus, 38×28cm." },
+  { name:"Casseroles Anti-Adhésives",cat:"Cuisson",      price:22000, badge:"new",  stars:4, img:"https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&q=80", desc:"Set 3 casseroles anti-adhésives, fond épais induction." },
+  { name:"Passoire Inox Fine",       cat:"Filtration",   price:3200,  badge:null,   stars:4, img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80", desc:"Passoire fine 22cm, manche inox, résistante à la chaleur." },
+  { name:"Mortier & Pilon Granite",  cat:"Épices",       price:6800,  badge:"top",  stars:5, img:"https://images.unsplash.com/photo-1556909172-7abfba4dda47?w=400&q=80", desc:"Granite naturel 16cm, idéal épices et condiments." },
+  { name:"Tablier Chef Premium",     cat:"Tenue",        price:5500,  badge:null,   stars:4, img:"https://images.unsplash.com/photo-1607631568010-a87245c0daf5?w=400&q=80", desc:"Toile coton épaisse, réglable, poches pratiques." },
+  { name:"Minuteur de Cuisine",      cat:"Accessoire",   price:2200,  badge:"new",  stars:4, img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80", desc:"Double minuterie, sonnerie forte, magnétique." },
+];
+
+const epices = [
+  { name:"Poivre Noir Entier",       cat:"Épices",  price:2500,  badge:null,   stars:5, img:"https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=400&q=80", desc:"Poivre noir grains entiers, arôme intense." },
+  { name:"Curcuma Pur 200g",         cat:"Épices",  price:1800,  badge:"new",  stars:4, img:"https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400&q=80", desc:"Curcuma en poudre pure, riche en curcumine." },
+  { name:"Cannelle de Ceylan",       cat:"Épices",  price:2200,  badge:null,   stars:5, img:"https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=400&q=80", desc:"Bâtons de cannelle authentique, parfum envoûtant." },
+  { name:"Mélange 7 Épices",         cat:"Mélange", price:3500,  badge:"top",  stars:5, img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80", desc:"Mélange équilibré de 7 épices du monde entier." },
+  { name:"Huile d'Olive Extra",      cat:"Huile",   price:8500,  badge:null,   stars:5, img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80", desc:"Huile d'olive vierge extra, première pression." },
+  { name:"Safran Pur 1g",            cat:"Épices",  price:4500,  badge:"promo",stars:5, img:"https://images.unsplash.com/photo-1599940778173-e276d4acb2bb?w=400&q=80", desc:"Safran filaments purs, grade premium certifié." },
+];
+
+const featProducts = [
+  { name:"Blender Multifonction 800W", cat:"Électroménager", price:19500, oldPrice:25000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&q=80", desc:"Moteur 800W, bol verre trempé 1.5L, 6 lames inox, 3 vitesses + pulse. Idéal smoothies, soupes et sauces.", large:true },
+  { name:"Set Couteaux Pro 6 pièces", cat:"Couteaux",  price:14800, oldPrice:20000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1593618998160-e34014e67546?w=400&q=80", desc:"Acier inox haute qualité, manche ergonomique, étui bois inclus.", large:false },
+  { name:"Robot Pâtissier 1200W",     cat:"Pâtisserie", price:45000, oldPrice:null,  badge:"new",   stars:5, img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80", desc:"Bol inox 5L, 10 vitesses, crochet pétrisseur et fouet.", large:false },
+];
+
+const ustenCategories = [
+  { name:"Couteaux & Tranchage", sub:"Précision professionnelle", price:6200,  img:"https://images.unsplash.com/photo-1593618998160-e34014e67546?w=300&q=80" },
+  { name:"Cuisson & Poêles",     sub:"Anti-adhésif premium",      price:12000, img:"https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=300&q=80" },
+  { name:"Mixage & Préparation", sub:"Appareils performants",     price:1750,  img:"https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=300&q=80" },
+  { name:"Conservation",         sub:"Fraîcheur prolongée",       price:2800,  img:"https://images.unsplash.com/photo-1585515320310-259814833e62?w=300&q=80" },
+  { name:"Épices & Condiments",  sub:"Saveurs authentiques",      price:1800,  img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&q=80" },
+  { name:"Tenue & Accessoires",  sub:"L'équipement du chef",      price:3500,  img:"https://images.unsplash.com/photo-1607631568010-a87245c0daf5?w=300&q=80" },
+  { name:"Mesure & Précision",   sub:"Exactitude culinaire",      price:2200,  img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&q=80" },
+  { name:"Plats & Saladiers",    sub:"Service élégant",           price:5500,  img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&q=80" },
+];
+
+const videos = [
+  { title:"Démonstration Mixeur Portable",   tag:"Électroménager", dur:"0:45", thumb:"https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=700&q=80", file:"mixeur-mini.mp4" },
+  { title:"Écailleuse PRO en Action",        tag:"Poisson",        dur:"1:20", thumb:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80", file:"ecailleuse.mp4" },
+  { title:"Coupeuse Uniforme PRO",           tag:"Découpe",        dur:"0:55", thumb:"https://images.unsplash.com/photo-1607877742574-a7d9a7449af3?w=400&q=80", file:"Coupeuse Uniform.mp4" },
+  { title:"Ferme-Sachet Automatique",        tag:"Conservation",   dur:"0:38", thumb:"https://images.unsplash.com/photo-1585515320310-259814833e62?w=400&q=80", file:"ferme-sachet.mp4" },
+  { title:"Éplucheuse Électrique",           tag:"Légumes",        dur:"1:05", thumb:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80", file:"eplucheuse.mp4" },
+  { title:"Vidéo à venir…",                  tag:"Prochainement",  dur:"—",    thumb:"https://images.unsplash.com/photo-1556909172-7abfba4dda47?w=400&q=80", file:null },
+];
+
+// ── BUILD SLIDE CARD ──
+function buildSlideCard(p) {
+  const d = p.oldPrice ? '-' + Math.round((p.oldPrice-p.price)/p.oldPrice*100) + '%' : null;
+  return `
+  <div class="prod-slide" onclick="showToast('${p.name} — ${fmt(p.price)}')">
+    <div class="ps-img">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+      ${p.badge ? `<span class="ps-badge badge-${p.badge}">${p.badge==='new'?'Nouveau':p.badge==='promo'?'Promo':'Top'}</span>` : ''}
+      <button class="ps-fav" onclick="event.stopPropagation();this.style.color='#e74c3c'"><i class="ti ti-heart"></i></button>
+    </div>
+    <div class="ps-body">
+      <div class="ps-cat">${p.cat}</div>
+      <div class="ps-name">${p.name}</div>
+      <div class="ps-stars">${stars(p.stars)}</div>
+      <div class="ps-pricing">
+        <span class="ps-price">${fmt(p.price)}</span>
+        ${p.oldPrice ? `<span class="ps-old">${fmt(p.oldPrice)}</span>` : ''}
+        ${d ? `<span class="ps-disc">${d}</span>` : ''}
+      </div>
+      <button class="ps-add" onclick="event.stopPropagation();showToast('${p.name} ajouté au panier !')">
+        <i class="ti ti-shopping-cart"></i> Ajouter
+      </button>
+    </div>
+  </div>`;
+}
+
+// ── RENDER SLIDERS ──
+function buildInfiniteSlider(trackId, items) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  const doubled = [...items, ...items];
+  track.innerHTML = doubled.map(buildSlideCard).join('');
+}
+buildInfiniteSlider('track1', electromenagers);
+buildInfiniteSlider('track2', ustensiles);
+buildInfiniteSlider('track3', epices);
+
+// ── RENDER FEATURED ──
+function renderFeat() {
+  const grid = document.getElementById('featGrid');
+  grid.innerHTML = featProducts.map(p => `
+  <div class="feat-card ${p.large ? 'large' : ''} reveal" onclick="showToast('${p.name} — ${fmt(p.price)}')">
+    <div class="fc-img">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+      <div class="fc-overlay"></div>
+      <div class="fc-quick">
+        <button onclick="event.stopPropagation();showToast('${p.name} ajouté au panier !')"><i class="ti ti-shopping-cart"></i> Panier</button>
+        <button onclick="event.stopPropagation();showToast('Ajouté aux favoris !')"><i class="ti ti-heart"></i> Favori</button>
+      </div>
+      ${p.badge ? `<span class="fc-badge ${p.badge==='new'?'badge-new':'badge-promo'}">${p.badge==='new'?'Nouveau':'Promo'}</span>` : ''}
+    </div>
+    <div class="fc-body">
+      <div class="fc-cat">${p.cat}</div>
+      <div class="fc-name">${p.name}</div>
+      <p class="fc-desc">${p.desc}</p>
+      <div class="fc-footer">
+        <span class="fc-price">${fmt(p.price)}${p.oldPrice?`<span style="font-size:12px;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:8px;">${fmt(p.oldPrice)}</span>`:''}</span>
+        <span class="fc-stars">${stars(p.stars)}</span>
+      </div>
+    </div>
+  </div>`).join('');
+}
+renderFeat();
+
+// ── RENDER USTEN CATEGORIES ──
+function renderUsten() {
+  document.getElementById('ustenGrid').innerHTML = ustenCategories.map((u, i) => `
+  <div class="usten-card reveal reveal-delay-${(i%4)+1}" onclick="showToast('Catégorie : ${u.name}')">
+    <div class="uc-img">
+      <img src="${u.img}" alt="${u.name}" loading="lazy" onerror="this.style.display='none'">
+    </div>
+    <div class="uc-name">${u.name}</div>
+    <div class="uc-sub">${u.sub}</div>
+    <div class="uc-price">Dès ${fmt(u.price)}</div>
+  </div>`).join('');
+}
+renderUsten();
+
+// ── RENDER VIDEOS ──
+function renderVideos() {
+  document.getElementById('videoGrid').innerHTML = videos.map((v, i) => `
+  <div class="vid-card ${i===0?'large':''} reveal">
+    <img class="vc-thumb" src="${v.thumb}" alt="${v.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80'">
+    <div class="vc-overlay"></div>
+    <div class="vc-play"><i class="ti ti-player-play"></i></div>
+    <div class="vc-info">
+      <div class="vc-tag">${v.tag}</div>
+      <div class="vc-title">${v.title}</div>
+      <div class="vc-dur">${v.dur !== '—' ? '▶ ' + v.dur : '📁 Cliquez pour ajouter votre vidéo'}</div>
+    </div>
+    <div class="vc-upload">
+      <i class="ti ti-upload"></i>
+      <span>${v.file ? 'Remplacer la vidéo' : 'Ajouter votre vidéo'}</span>
+      <input type="file" accept="video/*" onchange="loadVideo(this, ${i})" title="Charger une vidéo">
+    </div>
+  </div>`).join('');
+}
+renderVideos();
+
+// ── VIDEO UPLOAD ──
+function loadVideo(input, idx) {
+  const file = input.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  const card = document.querySelectorAll('.vid-card')[idx];
+  card.innerHTML = `
+    <video src="${url}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+    <div class="vc-overlay"></div>
+    <div class="vc-info">
+      <div class="vc-tag">Votre vidéo</div>
+      <div class="vc-title">${file.name.replace(/\.[^.]+$/, '')}</div>
+    </div>`;
+  showToast('Vidéo chargée avec succès !');
+}
+
+// ── HERO SLIDER ──
+(function() {
+  const imgs = document.querySelectorAll('#heroBg img');
+  let idx = 0;
+  setInterval(() => {
+    imgs[idx].classList.remove('active');
+    idx = (idx + 1) % imgs.length;
+    imgs[idx].classList.add('active');
+  }, 3500);
+})();
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
