@@ -1,4 +1,4 @@
-cat > /mnt/user-data/outputs/cristalco.html << 'HTMLEOF'
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -895,8 +895,4 @@ buildMarquees();
 </script>
 </body>
 </html>
-HTMLEOF
-echo "Done"
-Output
 
-Done
