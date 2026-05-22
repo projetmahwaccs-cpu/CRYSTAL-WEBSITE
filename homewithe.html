@@ -1,0 +1,862 @@
+cat > /mnt/user-data/outputs/home.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison & Décoration – MonShop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --g-deep:#0B5D33;
+  --g-mid:#1FA15A;
+  --g-bright:#49D17C;
+  --g-light:#A6FFD0;
+  --gold-dark:#8A6A1F;
+  --gold-mid:#C9A24A;
+  --gold-light:#F2D57A;
+  --gold-shine:#FFF0B2;
+  --bg:#ffffff;
+  --bg2:#f5faf6;
+  --bg3:#eaf5ee;
+  --text:#1a2e22;
+  --muted:#4a7a5e;
+  --border:#d4eadb;
+  --card-bg:#ffffff;
+  --card-shadow:0 2px 16px rgba(11,93,51,0.08);
+  --card-shadow-hover:0 8px 40px rgba(11,93,51,0.16);
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;overflow-x:hidden}
+
+/* ─── GLOW BLOBS ─── */
+.glow-blob{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.13}
+.glow-blob-1{width:600px;height:600px;background:radial-gradient(circle,var(--g-bright),transparent 70%);top:-200px;right:-200px}
+.glow-blob-2{width:500px;height:500px;background:radial-gradient(circle,#c9f7e0,transparent 70%);bottom:-100px;left:-150px}
+.glow-blob-3{width:350px;height:350px;background:radial-gradient(circle,var(--gold-light),transparent 70%);top:40%;right:10%}
+body>*:not(.glow-blob){position:relative;z-index:1}
+
+/* ─── TOP BANNER ─── */
+.top-banner{background:linear-gradient(90deg,var(--g-deep),var(--g-mid),var(--g-deep));padding:8px 20px;text-align:center;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:24px;color:#e8fef0;letter-spacing:.3px;flex-wrap:wrap;gap:8px}
+.top-banner span{display:flex;align-items:center;gap:5px}
+
+/* ─── HEADER ─── */
+header{background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(11,93,51,0.08)}
+.header-main{display:flex;align-items:center;gap:14px;padding:10px 24px;max-width:1400px;margin:0 auto;flex-wrap:wrap}
+.logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:800;white-space:nowrap;letter-spacing:-1px;background:linear-gradient(180deg,var(--gold-shine) 0%,var(--gold-mid) 60%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 1px 4px rgba(201,162,74,0.25));flex-shrink:0}
+.logo span{background:linear-gradient(180deg,var(--g-bright) 0%,var(--g-mid) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.search-wrap{flex:1;min-width:200px;max-width:640px;display:flex;border-radius:10px;overflow:hidden;box-shadow:0 0 0 2px var(--border),0 2px 12px rgba(11,93,51,0.06);background:#fff}
+.search-wrap input{flex:1;padding:10px 16px;border:none;font-size:14px;outline:none;font-family:'DM Sans',sans-serif;background:transparent;color:var(--text)}
+.search-wrap input::placeholder{color:#9abaa6}
+.search-wrap button{background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border:none;padding:10px 22px;cursor:pointer;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.search-wrap button:hover{background:linear-gradient(135deg,var(--g-bright),var(--g-mid))}
+.header-icons{display:flex;gap:4px;align-items:center;margin-left:auto}
+.h-icon{display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;text-decoration:none;gap:2px;padding:6px 10px;border-radius:8px;transition:all .2s;min-width:54px;border:1px solid transparent}
+.h-icon:hover{background:var(--bg3);border-color:var(--border);color:var(--g-deep)}
+.h-icon i{font-size:20px;color:var(--g-mid)}
+.h-icon.cart{position:relative}
+.cart-badge{position:absolute;top:2px;right:6px;background:linear-gradient(135deg,var(--gold-light),var(--gold-mid));color:#1a0e00;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;box-shadow:0 2px 6px rgba(201,162,74,0.4)}
+
+/* ─── CAT NAV ─── */
+.cat-nav{background:var(--bg);border-bottom:2px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-nav-inner{display:flex;padding:0 24px;max-width:1400px;margin:0 auto}
+.cat-nav-item{display:flex;align-items:center;gap:6px;padding:12px 16px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;cursor:pointer;text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;position:relative;letter-spacing:.2px}
+.cat-nav-item:hover{color:var(--g-deep);border-bottom-color:var(--g-bright)}
+.cat-nav-item.active{color:var(--g-deep);border-bottom-color:var(--g-mid)}
+.cat-nav-item i{font-size:15px}
+
+/* ─── HERO ─── */
+.hero{margin:20px auto;max-width:1400px;padding:0 24px}
+.hero-inner{border-radius:20px;padding:40px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e8fdf0 0%,#d0f5e4 50%,#c5f0dc 100%);border:1px solid #b0e8c8;box-shadow:0 8px 40px rgba(11,93,51,0.12),inset 0 1px 0 rgba(255,255,255,0.8)}
+.hero-inner::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(73,209,124,0.25),transparent 70%);pointer-events:none}
+.hero-inner::after{content:'';position:absolute;bottom:-40px;left:30%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,162,74,0.15),transparent 70%);pointer-events:none}
+.hero-text{position:relative;z-index:1}
+.hero-tag{background:linear-gradient(135deg,var(--gold-mid),var(--gold-dark));color:var(--gold-shine);font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;display:inline-block;margin-bottom:12px;text-transform:uppercase;letter-spacing:1.2px;box-shadow:0 3px 10px rgba(138,106,31,0.3)}
+.hero-title{font-family:'Playfair Display',serif;font-size:46px;font-weight:800;line-height:1.12;margin-bottom:10px;color:var(--g-deep);text-shadow:0 2px 8px rgba(11,93,51,0.08)}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--g-mid),var(--g-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{color:var(--muted);font-size:15px;margin-bottom:22px;line-height:1.6;max-width:420px}
+.hero-btn{background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border:none;padding:13px 30px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(31,161,90,0.35)}
+.hero-btn:hover{background:linear-gradient(135deg,var(--g-bright),var(--g-mid));transform:translateY(-2px);box-shadow:0 8px 30px rgba(73,209,124,0.4)}
+.hero-stats{display:flex;gap:20px;margin-top:20px}
+.hero-stat{text-align:center}
+.hero-stat .num{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--g-deep)}
+.hero-stat .lbl{font-size:11px;color:var(--muted);font-weight:600}
+.hero-cards{display:flex;gap:12px;position:relative;z-index:1;flex-wrap:wrap;justify-content:center}
+.hero-card{background:rgba(255,255,255,0.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.9);border-radius:14px;padding:20px 16px;text-align:center;color:var(--text);min-width:110px;cursor:pointer;transition:all .22s;box-shadow:0 4px 16px rgba(11,93,51,0.1)}
+.hero-card:hover{background:#fff;border-color:rgba(73,209,124,0.4);transform:translateY(-4px);box-shadow:0 8px 28px rgba(11,93,51,0.15)}
+.hero-card i{font-size:30px;display:block;margin-bottom:8px;color:var(--g-mid)}
+.hero-card span{font-size:12px;font-weight:700;color:var(--g-deep)}
+
+/* ─── MINI BANNERS ─── */
+.section-wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+.mini-banners{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.mini-banner{border-radius:14px;padding:18px 18px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;border:1px solid transparent;box-shadow:var(--card-shadow)}
+.mini-banner:hover{transform:translateY(-3px);box-shadow:var(--card-shadow-hover)}
+.mini-banner.b1{background:linear-gradient(135deg,#d4f0e2,#e8f9f0);border-color:#b8e8cc}
+.mini-banner.b2{background:linear-gradient(135deg,#c8f0db,#dff7ea);border-color:#a8dfc0}
+.mini-banner.b3{background:linear-gradient(135deg,#fdefd0,#fdf5e6);border-color:#f0d898}
+.mini-banner.b4{background:linear-gradient(135deg,#d4f0e2,#e0f8ea);border-color:#b8e4c8}
+.mini-banner h4{font-size:13px;font-weight:700;color:var(--g-deep);margin-bottom:3px}
+.mini-banner p{font-size:11px;color:var(--muted)}
+.mini-banner .mb-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:28px;opacity:.18;color:var(--g-mid)}
+
+/* ─── SECTION TITLES ─── */
+.sec-title-wrap{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sec-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px}
+.sec-title::before{content:'';display:inline-block;width:4px;height:22px;border-radius:2px;background:linear-gradient(180deg,var(--g-bright),var(--g-mid))}
+.sec-title em{font-style:normal;background:linear-gradient(135deg,var(--g-mid),var(--g-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.see-all{font-size:13px;font-weight:600;color:var(--g-mid);text-decoration:none;display:flex;align-items:center;gap:4px;transition:color .15s}
+.see-all:hover{color:var(--g-deep)}
+
+/* ─── FLASH SALE BAND ─── */
+.flash-band{background:linear-gradient(135deg,#0B5D33,#1FA15A);border-radius:14px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;box-shadow:0 6px 24px rgba(11,93,51,0.25);flex-wrap:wrap}
+.flash-left{display:flex;align-items:center;gap:14px}
+.flash-icon{font-size:32px;color:var(--gold-light)}
+.flash-text h3{font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:800}
+.flash-text p{font-size:12px;color:rgba(166,255,208,.8);margin-top:2px}
+.flash-timer{display:flex;gap:8px}
+.timer-block{background:rgba(0,0,0,0.25);border-radius:8px;padding:8px 12px;text-align:center;min-width:52px}
+.timer-block .t-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#fff;line-height:1}
+.timer-block .t-lbl{font-size:10px;color:rgba(166,255,208,.7);font-weight:600;text-transform:uppercase;margin-top:2px}
+.timer-sep{font-size:22px;font-weight:800;color:#fff;align-self:center;margin-top:-4px}
+
+/* ─── MAIN LAYOUT ─── */
+.main-wrap{display:flex;gap:16px;padding:0 24px 24px;max-width:1400px;margin:0 auto}
+.sidebar{width:220px;flex-shrink:0}
+.sidebar-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:var(--card-shadow)}
+.sidebar-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,var(--gold-mid),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sidebar-list a{display:flex;align-items:center;gap:8px;padding:8px 6px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);transition:all .15s;border-radius:6px}
+.sidebar-list a:last-child{border-bottom:none}
+.sidebar-list a:hover,.sidebar-list a.active-cat{color:var(--g-deep);font-weight:700;background:var(--bg3);padding-left:10px}
+.sidebar-list a i{font-size:15px;color:var(--g-mid)}
+.filter-check{display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer}
+.filter-check input{accent-color:var(--g-mid)}
+.filter-check span{font-size:13px;color:var(--muted)}
+.price-range{display:flex;gap:6px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.price-range input[type=number]{width:74px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-family:'DM Sans',sans-serif;background:var(--bg2);color:var(--text)}
+.price-ok{background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif}
+.stars-filter{display:flex;align-items:center;gap:6px;margin-bottom:7px;cursor:pointer;padding:5px 6px;border-radius:6px;transition:background .15s}
+.stars-filter:hover{background:var(--bg3)}
+.stars-filter .stars{color:var(--gold-mid);font-size:13px}
+.stars-filter span{font-size:12px;color:var(--muted)}
+
+/* ─── PRODUCTS AREA ─── */
+.products-area{flex:1;min-width:0}
+.sort-bar{display:flex;align-items:center;gap:6px;margin-bottom:14px;background:#fff;border-radius:10px;padding:9px 14px;border:1px solid var(--border);box-shadow:var(--card-shadow);flex-wrap:wrap;gap:6px}
+.sort-bar span{font-size:12px;font-weight:600;color:var(--muted)}
+.sort-btn{padding:5px 12px;border:1px solid var(--border);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:transparent;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .15s}
+.sort-btn:hover{background:var(--bg3);color:var(--g-deep);border-color:var(--g-mid)}
+.sort-btn.active{background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border-color:var(--g-mid);box-shadow:0 3px 10px rgba(31,161,90,0.25)}
+
+/* ─── PRODUCT GRID ─── */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all .25s;position:relative;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--card-shadow)}
+.product-card:hover{box-shadow:var(--card-shadow-hover);border-color:rgba(73,209,124,0.4);transform:translateY(-4px)}
+/* glow on hover */
+.product-card::after{content:'';position:absolute;inset:0;border-radius:14px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(73,209,124,0.06),transparent 70%);pointer-events:none;opacity:0;transition:opacity .3s}
+.product-card:hover::after{opacity:1}
+.product-img{width:100%;height:185px;display:flex;align-items:center;justify-content:center;background:var(--bg2);overflow:hidden;position:relative}
+.product-img img{width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .3s;filter:drop-shadow(0 4px 8px rgba(11,93,51,0.1))}
+.product-card:hover .product-img img{transform:scale(1.06)}
+.badge{position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;z-index:2;text-transform:uppercase;letter-spacing:.5px}
+.badge.promo{background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff}
+.badge.new{background:linear-gradient(135deg,var(--gold-light),var(--gold-dark));color:#1a0e00}
+.badge.flash{background:linear-gradient(135deg,#f87171,#dc2626);color:#fff}
+.badge.offre{background:linear-gradient(135deg,#818cf8,#4f46e5);color:#fff}
+.wishlist-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.9);border:1px solid var(--border);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:all .15s}
+.wishlist-btn i{font-size:14px;color:#ccc}
+.wishlist-btn:hover{background:#fff8f8;border-color:#f87171}
+.wishlist-btn:hover i{color:#f87171}
+.product-info{padding:12px 14px 14px;flex:1;display:flex;flex-direction:column;gap:5px}
+.product-info h3{font-size:13px;font-weight:500;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
+.product-stars{color:var(--gold-mid);font-size:11px}
+.product-stars span{color:#aaa;font-size:11px}
+.price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px;margin-top:3px}
+.price-now{font-size:16px;font-weight:800;color:var(--g-deep)}
+.price-old{font-size:11px;color:#bbb;text-decoration:line-through}
+.price-disc{font-size:11px;font-weight:700;color:#e53e3e;background:#fff5f5;padding:1px 6px;border-radius:4px;border:1px solid #fbd0d0}
+.express-tag{display:inline-flex;align-items:center;gap:4px;background:#fffbeb;border:1px solid #fde68a;color:#926a0a;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;align-self:flex-start}
+.add-cart-btn{width:100%;padding:9px;background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:auto;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 3px 10px rgba(31,161,90,0.2)}
+.add-cart-btn:hover{background:linear-gradient(135deg,var(--g-bright),var(--g-mid));box-shadow:0 6px 18px rgba(73,209,124,0.35);transform:translateY(-1px)}
+.sponsored{font-size:10px;color:#ccc;margin-top:2px}
+.nouveau-label{position:absolute;top:0;left:0;background:linear-gradient(135deg,var(--gold-mid),var(--gold-dark));color:var(--gold-shine);font-size:10px;font-weight:700;padding:4px 10px;border-radius:0 0 8px 0;z-index:3}
+.offert-ribbon{position:absolute;bottom:8px;left:8px;background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;z-index:3}
+
+/* ─── PROMO HORIZONTAL SCROLL ─── */
+.hscroll-wrap{overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.hscroll-wrap::-webkit-scrollbar{display:none}
+.hscroll-grid{display:flex;gap:12px;width:max-content}
+.hscroll-grid .product-card{width:200px;flex-shrink:0}
+.hscroll-grid .product-img{height:160px}
+
+/* ─── HORIZONTAL PRODUCT CARD (wide) ─── */
+.featured-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.featured-card{background:#fff;border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;gap:0;overflow:hidden;cursor:pointer;transition:all .22s;box-shadow:var(--card-shadow)}
+.featured-card:hover{box-shadow:var(--card-shadow-hover);border-color:rgba(73,209,124,0.4);transform:translateY(-3px)}
+.featured-img{width:130px;height:130px;flex-shrink:0;background:var(--bg2);display:flex;align-items:center;justify-content:center}
+.featured-img img{width:100%;height:100%;object-fit:contain;padding:10px;filter:drop-shadow(0 2px 6px rgba(11,93,51,0.1))}
+.featured-info{padding:14px 16px;flex:1;min-width:0}
+.featured-info h3{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:5px}
+.featured-info .price-now{font-size:17px;font-weight:800;color:var(--g-deep)}
+.featured-info .price-old{font-size:12px;color:#bbb;text-decoration:line-through;margin-left:6px}
+
+/* ─── BANNER STRIP ─── */
+.banner-strip{border-radius:16px;background:linear-gradient(135deg,#fff8e1,#fffde7);border:1px solid #f0d898;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:20px;box-shadow:0 4px 20px rgba(201,162,74,0.1);flex-wrap:wrap}
+.banner-strip .bs-text h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:#6b4800}
+.banner-strip .bs-text p{font-size:13px;color:#a07020;margin-top:4px}
+.banner-strip .bs-items{display:flex;gap:20px;flex-wrap:wrap}
+.bs-item{text-align:center;cursor:pointer}
+.bs-item i{font-size:32px;color:var(--gold-mid);display:block;margin-bottom:6px;transition:transform .2s}
+.bs-item:hover i{transform:scale(1.15)}
+.bs-item span{font-size:12px;font-weight:600;color:#6b4800}
+.banner-strip .bs-btn{background:linear-gradient(135deg,var(--gold-mid),var(--gold-dark));color:#fff;border:none;padding:11px 24px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;box-shadow:0 4px 14px rgba(138,106,31,0.3)}
+
+/* ─── TRUST BADGES ─── */
+.trust-bar{display:flex;justify-content:center;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff;margin-bottom:20px;box-shadow:var(--card-shadow)}
+.trust-item{flex:1;display:flex;align-items:center;gap:10px;padding:16px 20px;border-right:1px solid var(--border)}
+.trust-item:last-child{border-right:none}
+.trust-item i{font-size:22px;color:var(--g-mid);flex-shrink:0}
+.trust-item h4{font-size:12px;font-weight:700;color:var(--text)}
+.trust-item p{font-size:11px;color:var(--muted);margin-top:1px}
+
+/* ─── CATEGORY SHELF ─── */
+.cat-shelf{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
+.cat-shelf-item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:var(--card-shadow)}
+.cat-shelf-item:hover{background:var(--bg3);border-color:var(--g-bright);transform:translateY(-3px);box-shadow:var(--card-shadow-hover)}
+.cat-shelf-item i{font-size:28px;color:var(--g-mid);display:block;margin-bottom:8px}
+.cat-shelf-item span{font-size:12px;font-weight:600;color:var(--text)}
+
+/* ─── PAGINATION ─── */
+.pagination{display:flex;justify-content:center;gap:4px;padding:16px 0}
+.page-btn{min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;background:#fff;color:var(--muted);transition:all .15s;padding:0 8px}
+.page-btn:hover{background:var(--bg3);color:var(--g-deep);border-color:var(--g-mid)}
+.page-btn.active{background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border-color:var(--g-mid);box-shadow:0 3px 10px rgba(31,161,90,0.25)}
+
+/* ─── SECTION SEPARATOR ─── */
+.sec-sep{height:2px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:6px 0 20px}
+
+/* ─── BOTTOM TAGS ─── */
+.bottom-tags{background:var(--bg2);border-top:1px solid var(--border);padding:20px 24px;margin-top:8px}
+.bottom-tags h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;max-width:1400px;margin-left:auto;margin-right:auto}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:8px;max-width:1400px;margin:0 auto}
+.tag-link{padding:7px 16px;background:#fff;border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--muted);text-decoration:none;transition:all .15s}
+.tag-link:hover{background:var(--bg3);color:var(--g-deep);border-color:var(--g-mid)}
+
+/* ─── NEWSLETTER ─── */
+.newsletter{background:linear-gradient(135deg,var(--g-deep),var(--g-mid));padding:40px 24px;text-align:center}
+.newsletter-inner{max-width:500px;margin:0 auto}
+.newsletter h3{font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:8px}
+.newsletter p{font-size:14px;color:rgba(166,255,208,.85);margin-bottom:20px}
+.newsletter-form{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.newsletter-form input{flex:1;min-width:200px;padding:12px 18px;border:none;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.newsletter-form input::placeholder{color:rgba(255,255,255,0.5)}
+.newsletter-form button{background:linear-gradient(135deg,var(--gold-light),var(--gold-mid));color:#1a0e00;border:none;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap}
+
+/* ─── FOOTER ─── */
+footer{background:#f0f9f3;border-top:1px solid var(--border);color:var(--text);padding:28px 24px 16px}
+.footer-inner{max-width:1400px;margin:0 auto}
+.footer-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.footer-col h5{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;color:var(--g-deep)}
+.footer-col a{display:block;color:var(--muted);font-size:13px;text-decoration:none;margin-bottom:8px;transition:color .15s}
+.footer-col a:hover{color:var(--g-deep)}
+.footer-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:800;letter-spacing:-1px;background:linear-gradient(180deg,var(--gold-shine),var(--gold-mid));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-logo span{background:linear-gradient(135deg,var(--g-bright),var(--g-mid));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-copy{color:#a0bca8;font-size:11px;text-align:center;padding-top:8px}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:20px;right:20px;background:#fff;color:var(--text);padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;transform:translateX(130%);transition:transform .3s;box-shadow:0 8px 32px rgba(11,93,51,0.18),0 0 0 1px var(--border);display:flex;align-items:center;gap:8px;max-width:320px}
+.toast.show{transform:translateX(0)}
+.toast i{font-size:16px;color:var(--g-mid)}
+
+/* ─── CART DRAWER ─── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(3px);z-index:1100;display:none}
+.cart-overlay.open{display:block}
+.cart-drawer{position:fixed;top:0;right:0;height:100%;width:360px;background:#fff;z-index:1101;transform:translateX(100%);transition:transform .3s;box-shadow:-4px 0 40px rgba(11,93,51,0.12);display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:18px;background:linear-gradient(135deg,var(--g-deep),var(--g-mid));border-bottom:1px solid rgba(73,209,124,0.2)}
+.cart-head h3{font-size:16px;font-weight:700;color:#fff}
+.cart-close{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;padding:6px}
+.cart-items{flex:1;overflow-y:auto;padding:12px}
+.cart-empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.cart-empty i{font-size:52px;display:block;margin-bottom:14px;opacity:.25;color:var(--g-mid)}
+.cart-item{display:flex;gap:10px;padding:12px;border-bottom:1px solid var(--border);align-items:center}
+.cart-item img{width:58px;height:58px;object-fit:contain;border:1px solid var(--border);border-radius:8px;background:var(--bg2)}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-info h4{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-item-info .price{font-size:14px;font-weight:800;margin-top:4px;color:var(--g-deep)}
+.cart-item-qty{display:flex;align-items:center;gap:6px;margin-top:6px}
+.qty-btn{width:26px;height:26px;border:1px solid var(--border);background:var(--bg2);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--g-mid);transition:all .15s}
+.qty-btn:hover{background:var(--g-mid);border-color:var(--g-mid);color:#fff}
+.qty-num{font-size:13px;font-weight:700;min-width:20px;text-align:center;color:var(--text)}
+.remove-item{background:none;border:none;color:#ccc;cursor:pointer;font-size:14px;padding:4px;transition:color .15s;display:flex;align-items:center}
+.remove-item:hover{color:#f87171}
+.cart-footer{padding:16px;border-top:1px solid var(--border);background:var(--bg2)}
+.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-weight:700;font-size:16px}
+.cart-total span:last-child{color:var(--g-deep)}
+.checkout-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--g-mid),var(--g-deep));color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 18px rgba(31,161,90,0.3)}
+.checkout-btn:hover{background:linear-gradient(135deg,var(--g-bright),var(--g-mid))}
+input[type=range]{accent-color:var(--g-mid);width:100%}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1200px){
+  .product-grid{grid-template-columns:repeat(3,1fr)}
+  .cat-shelf{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:992px){
+  .mini-banners{grid-template-columns:repeat(2,1fr)}
+  .featured-grid{grid-template-columns:1fr}
+  .trust-bar{flex-wrap:wrap}
+  .trust-item{min-width:48%;border-right:none;border-bottom:1px solid var(--border)}
+  .cat-shelf{grid-template-columns:repeat(3,1fr)}
+  .hero-inner{padding:28px 24px}
+  .hero-title{font-size:36px}
+}
+@media(max-width:768px){
+  .main-wrap{flex-direction:column;padding:0 12px 20px}
+  .section-wrap{padding:0 12px}
+  .header-main{padding:10px 14px;gap:8px}
+  .search-wrap{order:3;width:100%;min-width:0;flex-basis:100%}
+  .header-icons{margin-left:0}
+  .cat-nav-inner{padding:0 12px}
+  .cat-nav-item{padding:10px 10px;font-size:12px;gap:4px}
+  .sidebar{width:100%}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .hero-inner{flex-direction:column;text-align:center;padding:24px 20px}
+  .hero-title{font-size:30px}
+  .hero-sub{font-size:13px}
+  .hero-cards{flex-wrap:wrap}
+  .hero-stats{justify-content:center}
+  .mini-banners{grid-template-columns:repeat(2,1fr);padding:0 12px}
+  .trust-bar{border-radius:10px}
+  .trust-item{min-width:100%}
+  .cat-shelf{grid-template-columns:repeat(3,1fr)}
+  .featured-card{flex-direction:column}
+  .featured-img{width:100%;height:140px}
+  .flash-band{flex-direction:column;align-items:flex-start}
+  .banner-strip{flex-direction:column;text-align:center}
+  .cart-drawer{width:100%}
+}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .product-img{height:150px}
+  .cat-shelf{grid-template-columns:repeat(2,1fr)}
+  .mini-banners{grid-template-columns:1fr}
+  .hero-title{font-size:26px}
+  .top-banner{font-size:11px;gap:6px}
+  .logo{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- Glow blobs -->
+<div class="glow-blob glow-blob-1"></div>
+<div class="glow-blob glow-blob-2"></div>
+<div class="glow-blob glow-blob-3"></div>
+
+<div class="top-banner">
+  <span><i class="ti ti-truck"></i> Livraison Dakar 24h</span>
+  <span style="opacity:.4">|</span>
+  <span><i class="ti ti-credit-card"></i> Paiement à la livraison</span>
+  <span style="opacity:.4">|</span>
+  <span><i class="ti ti-shield-check"></i> Retour sous 7 jours</span>
+</div>
+
+<header>
+  <div class="header-main">
+    <div class="logo">Mon<span>Shop</span></div>
+    <div class="search-wrap">
+      <input type="text" id="search-input" placeholder="Rechercher meuble, décoration, cuisine..." oninput="filterProducts()">
+      <button><i class="ti ti-search"></i> <span class="hide-xs">Rechercher</span></button>
+    </div>
+    <div class="header-icons">
+      <a class="h-icon" href="index.html"><i class="ti ti-home"></i><span>Accueil</span></a>
+      <a class="h-icon" href="#"><i class="ti ti-heart"></i><span>Favoris</span></a>
+      <div class="h-icon cart" id="cart-icon" onclick="toggleCart()">
+        <i class="ti ti-shopping-cart"></i><span>Panier</span>
+        <div class="cart-badge" id="cart-badge">0</div>
+      </div>
+    </div>
+  </div>
+  <div class="cat-nav">
+    <div class="cat-nav-inner">
+      <a href="index.html" class="cat-nav-item"><i class="ti ti-layout-grid"></i> Tout voir</a>
+      <a href="cclphonestores.html" class="cat-nav-item"><i class="ti ti-device-mobile"></i> Électronique</a>
+      <a href="mode.html" class="cat-nav-item"><i class="ti ti-hanger"></i> Mode</a>
+      <a href="home.html" class="cat-nav-item active"><i class="ti ti-home"></i> Maison</a>
+      <a href="beaute.html" class="cat-nav-item"><i class="ti ti-sparkles"></i> Beauté</a>
+      <a href="#" class="cat-nav-item"><i class="ti ti-run"></i> Sport</a>
+      <a href="cuisinestore.html" class="cat-nav-item"><i class="ti ti-tools-kitchen-2"></i> Cuisine</a>
+      <a href="ssr_responsive_final.html" class="cat-nav-item"><i class="ti ti-leaf"></i> Senteurs</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag"><i class="ti ti-home" style="font-size:11px;vertical-align:middle"></i> Nouvelle Collection 2025</div>
+      <div class="hero-title">Maison &<br><em>Décoration</em></div>
+      <div class="hero-sub">Transformez votre intérieur avec nos meilleures sélections — livraison express à Dakar</div>
+      <a href="#products" class="hero-btn"><i class="ti ti-arrow-right"></i> Découvrir la collection</a>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">2 400+</div><div class="lbl">Produits</div></div>
+        <div class="hero-stat"><div class="num">24h</div><div class="lbl">Livraison</div></div>
+        <div class="hero-stat"><div class="num">4.8★</div><div class="lbl">Note client</div></div>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="hero-card" onclick="filterByCat('meubles')"><i class="ti ti-armchair"></i><span>Meubles</span></div>
+      <div class="hero-card" onclick="filterByCat('literie')"><i class="ti ti-bed"></i><span>Literie</span></div>
+      <div class="hero-card" onclick="filterByCat('deco')"><i class="ti ti-plant"></i><span>Déco</span></div>
+      <div class="hero-card" onclick="filterByCat('eclairage')"><i class="ti ti-bulb"></i><span>Éclairage</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CATEGORIES SHELF ═══ -->
+<div class="section-wrap" style="margin-bottom:0;padding-bottom:0">
+  <div class="sec-title-wrap"><div class="sec-title">Catégories</div></div>
+  <div class="cat-shelf">
+    <div class="cat-shelf-item" onclick="filterByCat('meubles')"><i class="ti ti-armchair"></i><span>Meubles</span></div>
+    <div class="cat-shelf-item" onclick="filterByCat('literie')"><i class="ti ti-bed"></i><span>Literie</span></div>
+    <div class="cat-shelf-item" onclick="filterByCat('deco')"><i class="ti ti-plant"></i><span>Décoration</span></div>
+    <div class="cat-shelf-item" onclick="filterByCat('eclairage')"><i class="ti ti-bulb"></i><span>Éclairage</span></div>
+    <div class="cat-shelf-item" onclick="filterByCat('rangement')"><i class="ti ti-box"></i><span>Rangement</span></div>
+    <div class="cat-shelf-item" onclick="filterByCat('jardin')"><i class="ti ti-trees"></i><span>Jardin</span></div>
+  </div>
+</div>
+
+<!-- ═══ MINI BANNERS ═══ -->
+<div class="section-wrap">
+  <div class="mini-banners">
+    <div class="mini-banner b1" onclick="filterByCat('meubles')"><h4><i class="ti ti-armchair"></i> Meubles & Salon</h4><p>Canapés, tables, étagères</p><i class="ti ti-armchair mb-icon"></i></div>
+    <div class="mini-banner b2" onclick="filterByCat('literie')"><h4><i class="ti ti-bed"></i> Literie & Chambre</h4><p>Lits, matelas, oreillers</p><i class="ti ti-bed mb-icon"></i></div>
+    <div class="mini-banner b3" onclick="filterByCat('deco')"><h4><i class="ti ti-plant"></i> Décoration</h4><p>Cadres, vases, tapis</p><i class="ti ti-plant mb-icon"></i></div>
+    <div class="mini-banner b4" onclick="filterByCat('eclairage')"><h4><i class="ti ti-bulb"></i> Éclairage</h4><p>Lampes, lustres, LED</p><i class="ti ti-bulb mb-icon"></i></div>
+  </div>
+</div>
+
+<!-- ═══ FLASH VENTE ═══ -->
+<div class="section-wrap">
+  <div class="flash-band">
+    <div class="flash-left">
+      <i class="ti ti-bolt flash-icon"></i>
+      <div class="flash-text">
+        <h3>Vente Flash du Jour</h3>
+        <p>Profitez de ces offres avant qu'elles expirent !</p>
+      </div>
+    </div>
+    <div class="flash-timer">
+      <div class="timer-block"><div class="t-num" id="t-h">05</div><div class="t-lbl">Hres</div></div>
+      <div class="timer-sep">:</div>
+      <div class="timer-block"><div class="t-num" id="t-m">32</div><div class="t-lbl">Min</div></div>
+      <div class="timer-sep">:</div>
+      <div class="timer-block"><div class="t-num" id="t-s">48</div><div class="t-lbl">Sec</div></div>
+    </div>
+  </div>
+  <!-- Flash products horizontal scroll -->
+  <div class="hscroll-wrap">
+    <div class="hscroll-grid" id="flash-grid"></div>
+  </div>
+</div>
+
+<div class="sec-sep" style="max-width:1400px;margin:0 auto 20px;padding:0 24px"><div style="height:2px;background:linear-gradient(90deg,transparent,var(--border),transparent)"></div></div>
+
+<!-- ═══ TRUST BAR ═══ -->
+<div class="section-wrap" style="margin-bottom:20px">
+  <div class="trust-bar">
+    <div class="trust-item"><i class="ti ti-truck"></i><div><h4>Livraison Dakar 24h</h4><p>Gratuite dès 25 000 FCFA</p></div></div>
+    <div class="trust-item"><i class="ti ti-credit-card"></i><div><h4>Paiement à la livraison</h4><p>Sécurisé & flexible</p></div></div>
+    <div class="trust-item"><i class="ti ti-shield-check"></i><div><h4>Retour sous 7 jours</h4><p>Satisfait ou remboursé</p></div></div>
+    <div class="trust-item"><i class="ti ti-headset"></i><div><h4>Support client</h4><p>7j/7 de 8h à 20h</p></div></div>
+  </div>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="main-wrap" id="products">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-box">
+      <div class="sidebar-title">Catégories</div>
+      <div class="sidebar-list">
+        <a href="#" class="active-cat" onclick="filterByCat('all');return false"><i class="ti ti-layout-grid"></i> Tout</a>
+        <a href="#" onclick="filterByCat('meubles');return false"><i class="ti ti-armchair"></i> Meubles & Salon</a>
+        <a href="#" onclick="filterByCat('literie');return false"><i class="ti ti-bed"></i> Literie & Chambre</a>
+        <a href="#" onclick="filterByCat('deco');return false"><i class="ti ti-plant"></i> Décoration</a>
+        <a href="#" onclick="filterByCat('eclairage');return false"><i class="ti ti-bulb"></i> Éclairage</a>
+        <a href="#" onclick="filterByCat('rangement');return false"><i class="ti ti-box"></i> Rangement</a>
+        <a href="#" onclick="filterByCat('sdb');return false"><i class="ti ti-bath"></i> Salle de bain</a>
+        <a href="#" onclick="filterByCat('jardin');return false"><i class="ti ti-trees"></i> Jardin & Extérieur</a>
+      </div>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">Prix (FCFA)</div>
+      <input type="range" min="0" max="200000" value="200000" style="margin-bottom:8px" oninput="updatePriceRange(this.value)">
+      <div class="price-range">
+        <input type="number" id="price-min" value="0" placeholder="Min">
+        <span style="color:var(--muted)">–</span>
+        <input type="number" id="price-max" value="200000" placeholder="Max">
+        <button class="price-ok" onclick="filterByPrice()">OK</button>
+      </div>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">Évaluation</div>
+      <div class="stars-filter" onclick="filterByRating(4)"><div class="stars">★★★★☆</div><span>et plus</span></div>
+      <div class="stars-filter" onclick="filterByRating(3)"><div class="stars">★★★☆☆</div><span>et plus</span></div>
+      <div class="stars-filter" onclick="filterByRating(2)"><div class="stars">★★☆☆☆</div><span>et plus</span></div>
+      <div class="stars-filter" onclick="filterByRating(0)"><div class="stars">★☆☆☆☆</div><span>et plus</span></div>
+    </div>
+    <div class="sidebar-box">
+      <div class="sidebar-title">Remise</div>
+      <div class="filter-check"><input type="checkbox" id="discount-cb" onchange="filterDiscount(this)"><span>Articles en promo uniquement</span></div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS AREA -->
+  <div class="products-area">
+    <div class="sec-title-wrap" style="margin-bottom:12px">
+      <div class="sec-title">Maison & <em>Décoration</em></div>
+      <span style="font-size:12px;color:var(--muted)" id="product-count">– résultats</span>
+    </div>
+    <div class="sort-bar">
+      <span>Trier :</span>
+      <button class="sort-btn active" onclick="sortProducts('popular',this)">Plus demandés</button>
+      <button class="sort-btn" onclick="sortProducts('price-asc',this)"><i class="ti ti-arrow-up" style="font-size:11px"></i> Prix</button>
+      <button class="sort-btn" onclick="sortProducts('price-desc',this)"><i class="ti ti-arrow-down" style="font-size:11px"></i> Prix</button>
+      <button class="sort-btn" onclick="sortProducts('rating',this)"><i class="ti ti-star" style="font-size:11px"></i> Notes</button>
+      <button class="sort-btn" onclick="sortProducts('new',this)">Nouveautés</button>
+    </div>
+    <div class="product-grid" id="product-grid"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION: SELECTIONS DU MOMENT ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="sec-title-wrap"><div class="sec-title">Sélections <em>du Moment</em></div><a href="#" class="see-all">Voir tout <i class="ti ti-arrow-right"></i></a></div>
+  <div class="featured-grid" id="featured-grid"></div>
+</div>
+
+<!-- ═══ BANNER OR GOLD ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="banner-strip">
+    <div class="bs-text">
+      <h3>🏆 Collection Or & Luxe</h3>
+      <p>Des pièces exclusives pour sublimer chaque pièce</p>
+    </div>
+    <div class="bs-items">
+      <div class="bs-item" onclick="filterByCat('deco')"><i class="ti ti-diamond"></i><span>Vases Or</span></div>
+      <div class="bs-item" onclick="filterByCat('eclairage')"><i class="ti ti-lamp"></i><span>Lustres</span></div>
+      <div class="bs-item" onclick="filterByCat('deco')"><i class="ti ti-frame"></i><span>Miroirs</span></div>
+      <div class="bs-item" onclick="filterByCat('meubles')"><i class="ti ti-armchair"></i><span>Fauteuils</span></div>
+    </div>
+    <button class="bs-btn" onclick="filterByCat('deco')">Découvrir <i class="ti ti-arrow-right"></i></button>
+  </div>
+</div>
+
+<!-- ═══ SECTION: MEUBLES ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="sec-title-wrap"><div class="sec-title"><em>Meubles</em> & Salon</div><a href="#" class="see-all" onclick="filterByCat('meubles');return false">Voir tout <i class="ti ti-arrow-right"></i></a></div>
+  <div class="hscroll-wrap"><div class="hscroll-grid" id="meuble-grid"></div></div>
+</div>
+
+<!-- ═══ SECTION: LITERIE ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="sec-title-wrap"><div class="sec-title"><em>Literie</em> & Chambre</div><a href="#" class="see-all" onclick="filterByCat('literie');return false">Voir tout <i class="ti ti-arrow-right"></i></a></div>
+  <div class="hscroll-wrap"><div class="hscroll-grid" id="literie-grid"></div></div>
+</div>
+
+<!-- ═══ SECTION: ECLAIRAGE ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="sec-title-wrap"><div class="sec-title"><em>Éclairage</em> & Lumières</div><a href="#" class="see-all" onclick="filterByCat('eclairage');return false">Voir tout <i class="ti ti-arrow-right"></i></a></div>
+  <div class="hscroll-wrap"><div class="hscroll-grid" id="eclairage-grid"></div></div>
+</div>
+
+<!-- ═══ SECTION: DECO ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="sec-title-wrap"><div class="sec-title"><em>Décoration</em> Intérieure</div><a href="#" class="see-all" onclick="filterByCat('deco');return false">Voir tout <i class="ti ti-arrow-right"></i></a></div>
+  <div class="hscroll-wrap"><div class="hscroll-grid" id="deco-grid"></div></div>
+</div>
+
+<!-- ═══ SECTION: JARDIN ═══ -->
+<div class="section-wrap" style="margin-bottom:24px">
+  <div class="sec-title-wrap"><div class="sec-title"><em>Jardin</em> & Extérieur</div><a href="#" class="see-all" onclick="filterByCat('jardin');return false">Voir tout <i class="ti ti-arrow-right"></i></a></div>
+  <div class="hscroll-wrap"><div class="hscroll-grid" id="jardin-grid"></div></div>
+</div>
+
+<!-- ═══ NEWSLETTER ═══ -->
+<div class="newsletter">
+  <div class="newsletter-inner">
+    <h3>🏡 Restez inspiré(e)</h3>
+    <p>Recevez nos nouvelles collections, bons plans et idées déco directement dans votre boîte mail.</p>
+    <div class="newsletter-form">
+      <input type="email" placeholder="Votre adresse email...">
+      <button onclick="showToast('Merci pour votre inscription !')">S'abonner</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAGS ═══ -->
+<div class="bottom-tags">
+  <h4>Recherches populaires</h4>
+  <div class="tags-wrap">
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Canapé</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Lit avec bureau</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Matelas</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Tapis salon</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Lampe de chevet</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Étagère murale</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Miroir décoratif</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Table basse</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Coussin décoratif</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Rideau</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Lustre LED</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Armoire</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Pouf</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Porte-manteau</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Salon de jardin</a>
+    <a href="#" class="tag-link" onclick="searchTag(this);return false">Organisateur</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-logo">Mon<span>Shop</span></div>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7">Votre marketplace de référence<br>à Dakar, Sénégal.</p>
+      </div>
+      <div class="footer-col"><h5>Navigation</h5><a href="index.html">Accueil</a><a href="#">Électronique</a><a href="#">Mode</a><a href="#">Cuisine</a></div>
+      <div class="footer-col"><h5>Aide</h5><a href="#">À propos</a><a href="#">Contact</a><a href="#">FAQ</a><a href="#">Retours</a></div>
+      <div class="footer-col"><h5>Livraison</h5><a href="#"><i class="ti ti-truck" style="margin-right:4px"></i> Dakar 24h</a><a href="#"><i class="ti ti-map-pin" style="margin-right:4px"></i> Banlieue 48h</a><a href="#"><i class="ti ti-credit-card" style="margin-right:4px"></i> Paiement livraison</a></div>
+    </div>
+    <div class="footer-copy">© 2025 MonShop – Dakar, Sénégal. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<!-- Cart -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-head">
+    <h3><i class="ti ti-shopping-cart" style="margin-right:6px"></i> Mon Panier</h3>
+    <button class="cart-close" onclick="toggleCart()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cart-total-price">0 FCFA</span></div>
+    <button class="checkout-btn" onclick="checkout()"><i class="ti ti-credit-card"></i> Commander maintenant</button>
+  </div>
+</div>
+<div class="toast" id="toast"><i class="ti ti-check"></i><span id="toast-msg"></span></div>
+
+<script>
+const products=[
+  {id:1,name:"Canapé 3 places en tissu gris",cat:"meubles",price:89900,old:120000,disc:-25,rating:4.5,reviews:234,badge:"promo",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",express:true,nouveau:false},
+  {id:2,name:"Table basse en verre trempé",cat:"meubles",price:34900,old:49900,disc:-30,rating:4.3,reviews:167,badge:"promo",img:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80",express:false,nouveau:false},
+  {id:3,name:"Lit 2 places avec tête de lit capitonnée",cat:"literie",price:129900,old:180000,disc:-28,rating:4.7,reviews:312,badge:"new",img:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80",express:true,nouveau:true},
+  {id:4,name:"Matelas mémoire de forme 160x200",cat:"literie",price:79900,old:110000,disc:-27,rating:4.6,reviews:445,badge:"flash",img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80",express:true,nouveau:false},
+  {id:5,name:"Tapis berbère 200x300 cm",cat:"deco",price:24900,old:39900,disc:-38,rating:4.4,reviews:189,badge:"promo",img:"https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80",express:false,nouveau:false},
+  {id:6,name:"Lustre LED moderne 36W",cat:"eclairage",price:19900,old:34900,disc:-43,rating:4.5,reviews:267,badge:"offre",img:"https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=400&q=80",express:true,nouveau:false},
+  {id:7,name:"Étagère murale flottante – lot 3",cat:"rangement",price:14900,old:24900,disc:-40,rating:4.2,reviews:534,badge:"promo",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",express:false,nouveau:false},
+  {id:8,name:"Miroir rond doré 60cm",cat:"deco",price:22900,old:35900,disc:-36,rating:4.6,reviews:298,badge:"new",img:"https://images.unsplash.com/photo-1615529328331-f8917597711f?w=400&q=80",express:true,nouveau:true},
+  {id:9,name:"Lampe de chevet tactile LED",cat:"eclairage",price:9900,old:19900,disc:-50,rating:4.3,reviews:712,badge:"flash",img:"https://images.unsplash.com/photo-1513506003901-1e6a35595f1f?w=400&q=80",express:true,nouveau:false},
+  {id:10,name:"Armoire 3 portes coulissantes",cat:"rangement",price:149900,old:220000,disc:-32,rating:4.5,reviews:156,badge:"promo",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",express:false,nouveau:false},
+  {id:11,name:"Rideau occultant 140x260 – paire",cat:"deco",price:14900,old:24900,disc:-40,rating:4.1,reviews:423,badge:"promo",img:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80",express:false,nouveau:false},
+  {id:12,name:"Pouf en velours rond",cat:"meubles",price:12900,old:22900,disc:-44,rating:4.4,reviews:334,badge:"new",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",express:true,nouveau:true},
+  {id:13,name:"Vase céramique artisanal – set 3",cat:"deco",price:7900,old:14900,disc:-47,rating:4.3,reviews:567,badge:"promo",img:"https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&q=80",express:false,nouveau:false},
+  {id:14,name:"Couette 4 saisons 220x240",cat:"literie",price:29900,old:49900,disc:-40,rating:4.6,reviews:289,badge:"offre",img:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80",express:true,nouveau:false},
+  {id:15,name:"Ensemble de draps brodés 6 pièces",cat:"literie",price:19900,old:34900,disc:-43,rating:4.4,reviews:678,badge:"promo",img:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80",express:true,nouveau:false},
+  {id:16,name:"Lampadaire arc design noir",cat:"eclairage",price:34900,old:59900,disc:-42,rating:4.5,reviews:201,badge:"new",img:"https://images.unsplash.com/photo-1513506003901-1e6a35595f1f?w=400&q=80",express:false,nouveau:true},
+  {id:17,name:"Organisateur tiroir cuisine – lot 6",cat:"rangement",price:8900,old:16900,disc:-47,rating:4.2,reviews:892,badge:"promo",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",express:true,nouveau:false},
+  {id:18,name:"Plante artificielle décorative 120cm",cat:"deco",price:16900,old:27900,disc:-39,rating:4.5,reviews:345,badge:"offre",img:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80",express:false,nouveau:false},
+  {id:19,name:"Table à manger 6 personnes bois",cat:"meubles",price:179900,old:259900,disc:-31,rating:4.7,reviews:134,badge:"new",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",express:false,nouveau:true},
+  {id:20,name:"Chaise salle à manger velours",cat:"meubles",price:24900,old:39900,disc:-38,rating:4.4,reviews:267,badge:"promo",img:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80",express:true,nouveau:false},
+  {id:21,name:"Ensemble salle de bain 4 pièces",cat:"sdb",price:19900,old:34900,disc:-43,rating:4.3,reviews:445,badge:"promo",img:"https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80",express:false,nouveau:false},
+  {id:22,name:"Porte-serviette mural chrome",cat:"sdb",price:7900,old:14900,disc:-47,rating:4.2,reviews:312,badge:"",img:"https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80",express:true,nouveau:false},
+  {id:23,name:"Salon de jardin en rotin 5 pièces",cat:"jardin",price:89900,old:149900,disc:-40,rating:4.5,reviews:178,badge:"new",img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80",express:false,nouveau:true},
+  {id:24,name:"Cadre photo mural – set 6 pièces",cat:"deco",price:11900,old:22900,disc:-48,rating:4.3,reviews:589,badge:"promo",img:"https://images.unsplash.com/photo-1513519245088-0e12902e35a6?w=400&q=80",express:true,nouveau:false},
+  {id:25,name:"Coussin décoratif velours – set 4",cat:"deco",price:12900,old:22900,disc:-44,rating:4.4,reviews:410,badge:"promo",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",express:true,nouveau:false},
+  {id:26,name:"Table de nuit moderne 2 tiroirs",cat:"literie",price:27900,old:44900,disc:-38,rating:4.3,reviews:220,badge:"new",img:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80",express:false,nouveau:true},
+  {id:27,name:"Suspension rotin naturel Ø40cm",cat:"eclairage",price:23900,old:38900,disc:-39,rating:4.6,reviews:156,badge:"new",img:"https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=400&q=80",express:true,nouveau:true},
+  {id:28,name:"Canapé-lit convertible 2 places",cat:"meubles",price:114900,old:169900,disc:-32,rating:4.5,reviews:198,badge:"offre",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",express:false,nouveau:false},
+  {id:29,name:"Bac à fleurs extérieur zinc 40L",cat:"jardin",price:9900,old:18900,disc:-48,rating:4.2,reviews:134,badge:"promo",img:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&q=80",express:true,nouveau:false},
+  {id:30,name:"Oreiller mémoire de forme duo",cat:"literie",price:16900,old:28900,disc:-42,rating:4.7,reviews:530,badge:"flash",img:"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80",express:true,nouveau:false},
+];
+
+let cart=[];let filteredProducts=[...products];let currentPage=1;const perPage=8;
+let activeDiscount=false;let minRating=0;let maxPriceFilter=999999;let currentCat='all';
+
+function fmt(n){return n.toLocaleString('fr-FR');}
+function stars(r){let s='';for(let i=1;i<=5;i++)s+=i<=Math.floor(r)?'★':'☆';return s;}
+function badgeLabel(b){return{promo:'PROMO',new:'NOUVEAU',flash:'FLASH',offre:'OFFRE'}[b]||'';}
+
+function cardHTML(p,mini){
+  const h=mini?160:185;
+  return`<div class="product-card" onclick="openProduct(${p.id})" style="${mini?'':''}">
+    <div class="product-img" style="height:${h}px">
+      ${p.nouveau?'<div class="nouveau-label">NOUVEAU</div>':''}
+      <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23f5faf6%22 width=%22100%22 height=%22100%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2230%22>🏠</text></svg>'">
+      ${p.badge?`<div class="badge ${p.badge}">${badgeLabel(p.badge)}</div>`:''}
+      ${p.express?'<div class="offert-ribbon"><i class="ti ti-bolt" style="font-size:9px"></i> OFFERT</div>':''}
+      <div class="wishlist-btn" onclick="event.stopPropagation();addWish(${p.id})"><i class="ti ti-heart"></i></div>
+    </div>
+    <div class="product-info">
+      <h3>${p.name}</h3>
+      <div class="product-stars">${stars(p.rating)} <span>(${p.reviews})</span></div>
+      <div class="price-row">
+        <span class="price-now">${fmt(p.price)} FCFA</span>
+        <span class="price-old">${fmt(p.old)}</span>
+        <span class="price-disc">${p.disc}%</span>
+      </div>
+      ${p.express?'<div class="express-tag"><i class="ti ti-bolt"></i> EXPRESS</div>':''}
+      <button class="add-cart-btn" onclick="event.stopPropagation();addToCart(${p.id})"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+    </div>
+  </div>`;
+}
+
+function renderProducts(){
+  const grid=document.getElementById('product-grid');
+  const start=(currentPage-1)*perPage;
+  const paginated=filteredProducts.slice(start,start+perPage);
+  document.getElementById('product-count').textContent=filteredProducts.length+' résultats';
+  if(paginated.length===0){
+    grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:56px;color:var(--muted);background:var(--bg2);border-radius:12px;border:1px solid var(--border)"><i class="ti ti-search-off" style="font-size:52px;display:block;margin-bottom:14px;opacity:.3;color:var(--g-mid)"></i><p style="font-weight:600">Aucun produit trouvé</p></div>';
+    renderPagination();return;
+  }
+  grid.innerHTML=paginated.map(p=>cardHTML(p,false)).join('');
+  renderPagination();
+}
+
+function renderSectionGrids(){
+  // Flash
+  const flash=products.filter(p=>p.badge==='flash'||p.disc<=-40).slice(0,8);
+  document.getElementById('flash-grid').innerHTML=flash.map(p=>cardHTML(p,true)).join('');
+  // Featured
+  const featured=products.filter(p=>p.nouveau||p.rating>=4.6).slice(0,6);
+  document.getElementById('featured-grid').innerHTML=featured.map(p=>`
+    <div class="featured-card" onclick="openProduct(${p.id})">
+      <div class="featured-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src=''"></div>
+      <div class="featured-info">
+        <h3>${p.name}</h3>
+        <div class="product-stars" style="margin-bottom:4px">${stars(p.rating)} <span>(${p.reviews})</span></div>
+        <div><span class="featured-info price-now">${fmt(p.price)} FCFA</span><span class="featured-info price-old">${fmt(p.old)}</span></div>
+        ${p.badge?`<div class="badge ${p.badge}" style="margin-top:6px;position:static;display:inline-block">${badgeLabel(p.badge)}</div>`:''}
+        <button class="add-cart-btn" style="margin-top:8px" onclick="event.stopPropagation();addToCart(${p.id})"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+      </div>
+    </div>
+  `).join('');
+  // Category rows
+  ['meubles','literie','eclairage','deco','jardin'].forEach(cat=>{
+    const el=document.getElementById(cat+'-grid');
+    if(el){
+      const list=products.filter(p=>p.cat===cat).slice(0,6);
+      el.innerHTML=list.map(p=>cardHTML(p,true)).join('');
+    }
+  });
+}
+
+function renderPagination(){
+  const totalPages=Math.ceil(filteredProducts.length/perPage);
+  const pag=document.getElementById('pagination');
+  if(totalPages<=1){pag.innerHTML='';return;}
+  let html=`<div class="page-btn" onclick="goPage(1)"><i class="ti ti-chevrons-left"></i></div>`;
+  html+=`<div class="page-btn" onclick="goPage(${Math.max(1,currentPage-1)})"><i class="ti ti-chevron-left"></i></div>`;
+  for(let i=1;i<=totalPages;i++){
+    if(i===1||i===totalPages||Math.abs(i-currentPage)<=1)html+=`<div class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</div>`;
+    else if(Math.abs(i-currentPage)===2)html+=`<div class="page-btn" style="pointer-events:none;border:none;color:var(--muted)">…</div>`;
+  }
+  html+=`<div class="page-btn" onclick="goPage(${Math.min(totalPages,currentPage+1)})"><i class="ti ti-chevron-right"></i></div>`;
+  html+=`<div class="page-btn" onclick="goPage(${totalPages})"><i class="ti ti-chevrons-right"></i></div>`;
+  pag.innerHTML=html;
+}
+
+function goPage(p){currentPage=p;renderProducts();window.scrollTo({top:document.getElementById('products').offsetTop-60,behavior:'smooth'});}
+function filterByCat(cat){
+  currentCat=cat;applyFilters();
+  document.querySelectorAll('.sidebar-list a').forEach(a=>a.classList.remove('active-cat'));
+  const map={'all':0,'meubles':1,'literie':2,'deco':3,'eclairage':4,'rangement':5,'sdb':6,'jardin':7};
+  const links=document.querySelectorAll('.sidebar-list a');
+  if(map[cat]!==undefined&&links[map[cat]])links[map[cat]].classList.add('active-cat');
+  document.getElementById('products').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function applyFilters(){
+  const q=document.getElementById('search-input').value.toLowerCase();
+  filteredProducts=products.filter(p=>p.name.toLowerCase().includes(q)&&(currentCat==='all'||p.cat===currentCat)&&p.price<=maxPriceFilter&&p.rating>=minRating&&(!activeDiscount||p.disc<=-20));
+  currentPage=1;renderProducts();
+}
+function filterProducts(){applyFilters();}
+function filterByPrice(){maxPriceFilter=parseInt(document.getElementById('price-max').value)||999999;applyFilters();}
+function updatePriceRange(val){document.getElementById('price-max').value=val;}
+function filterByRating(r){minRating=r;applyFilters();}
+function filterDiscount(cb){activeDiscount=cb.checked;applyFilters();}
+function sortProducts(type,btn){
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  if(type==='price-asc')filteredProducts.sort((a,b)=>a.price-b.price);
+  else if(type==='price-desc')filteredProducts.sort((a,b)=>b.price-a.price);
+  else if(type==='rating')filteredProducts.sort((a,b)=>b.rating-a.rating);
+  else if(type==='new')filteredProducts.sort((a,b)=>b.id-a.id);
+  else filteredProducts.sort((a,b)=>b.reviews-a.reviews);
+  currentPage=1;renderProducts();
+}
+function addToCart(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(c=>c.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCartBadge();renderCart();showToast(p.name.substring(0,28)+'… ajouté !');
+}
+function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCartBadge();renderCart();}
+function changeQty(id,delta){
+  const item=cart.find(c=>c.id===id);if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0)removeFromCart(id);else{updateCartBadge();renderCart();}
+}
+function updateCartBadge(){document.getElementById('cart-badge').textContent=cart.reduce((a,c)=>a+c.qty,0);}
+function renderCart(){
+  const el=document.getElementById('cart-items');const footer=document.getElementById('cart-footer');
+  if(cart.length===0){el.innerHTML=`<div class="cart-empty"><i class="ti ti-shopping-cart-off"></i><p>Votre panier est vide</p></div>`;footer.style.display='none';return;}
+  footer.style.display='block';let total=0;
+  el.innerHTML=cart.map(c=>{total+=c.price*c.qty;return`<div class="cart-item"><img src="${c.img}" alt="${c.name}" onerror="this.src=''"><div class="cart-item-info"><h4>${c.name}</h4><div class="price">${fmt(c.price)} FCFA</div><div class="cart-item-qty"><button class="qty-btn" onclick="changeQty(${c.id},-1)"><i class="ti ti-minus" style="font-size:12px"></i></button><span class="qty-num">${c.qty}</span><button class="qty-btn" onclick="changeQty(${c.id},1)"><i class="ti ti-plus" style="font-size:12px"></i></button></div></div><button class="remove-item" onclick="removeFromCart(${c.id})"><i class="ti ti-trash"></i></button></div>`;}).join('');
+  document.getElementById('cart-total-price').textContent=fmt(total)+' FCFA';
+}
+function toggleCart(){
+  const d=document.getElementById('cart-drawer');const o=document.getElementById('cart-overlay');
+  d.classList.toggle('open');o.classList.toggle('open');
+  document.body.style.overflow=d.classList.contains('open')?'hidden':'';
+  if(d.classList.contains('open'))renderCart();
+}
+function checkout(){showToast('Commande en cours…');toggleCart();}
+function addWish(id){const p=products.find(x=>x.id===id);showToast(p?p.name.substring(0,24)+'… ajouté aux favoris':'Ajouté !');}
+function openProduct(id){const p=products.find(x=>x.id===id);if(p)showToast('Produit : '+p.name.substring(0,28)+'…');}
+function searchTag(el){
+  document.getElementById('search-input').value=el.textContent;filterProducts();
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+function showToast(msg){
+  document.getElementById('toast-msg').textContent=msg;
+  const t=document.getElementById('toast');t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// Timer
+function updateTimer(){
+  const now=new Date();let s=59-now.getSeconds();let m=59-now.getMinutes();let h=5;
+  document.getElementById('t-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('t-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('t-s').textContent=String(s).padStart(2,'0');
+}
+setInterval(updateTimer,1000);updateTimer();
+
+renderProducts();
+renderSectionGrids();
+</script>
+</body>
+</html>
+HTMLEOF
+echo "Done"
+Output
+
+Done
