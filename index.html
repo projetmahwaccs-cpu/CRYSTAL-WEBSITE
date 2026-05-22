@@ -447,64 +447,79 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 <!-- CATEGORY NAV -->
 <div class="cat-nav">
   <div class="cat-nav-inner">
-    <div class="cat-nav-item active" onclick="filterCat('all',this)"><i class="ti ti-layout-grid"></i> Tout voir</div>
-   <a href="cclphonestores.html" class="cat-nav-item phonestore">
+   <div class="cat-nav-item active" onclick="filterCat('all',this)">
+  <i class="ti ti-layout-grid"></i> Tout voir
+</div>
+
+<a href="cclphonestores.html" class="cat-nav-item">
   <i class="ti ti-device-mobile"></i> Électronique
 </a>
-
 <style>
-  .phonestore {
-    cursor: pointer;
+  a.cat-nav-item {
     text-decoration: none;
-    display: inline-block; /* Helps with layout if it's a button-like item */
-    color: inherit;        /* Keeps your text color consistent */
+    color: inherit;
+    cursor: pointer;
   }
 </style>
-    
-     <div class="cat-nav-item mode" onclick="filterCat('maison',this); window.location.href='mode.html'"><i class="ti ti-hanger"></i> Mode</div>
-    <style>
-     .mode{
-    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
-    text-decoration: none; /* Removes the underline if you use Option 1 */
-  }
-    </style>
-    <div class="cat-nav-item home" onclick="filterCat('maison',this); window.location.href='home.html'"><i class="ti ti-home"></i> Maison</div>
-    <style>
-     .home{
-    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
-    text-decoration: none; /* Removes the underline if you use Option 1 */
-  }
-    </style>
-    
-    <div class="cat-nav-item beaute4" onclick="filterCat('beaute',this); window.location.href='beaute.html';"><i class="ti ti-sparkles"></i> Beauté</div>
+
+<a href="mode.html" class="cat-nav-item">
+  <i class="ti ti-hanger"></i> Mode
+</a>
 <style>
-     .beaute4{
-    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
-    text-decoration: none; /* Removes the underline if you use Option 1 */
+  a[href="mode.html"] {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
-    </style>
-    <div class="cat-nav-item" onclick="filterCat('sport',this)"><i class="ti ti-run"></i> Sport</div>
-    <div class="cat-nav-item cuisineshop" onclick="filterCat('cuisine',this); window.location.href='cuisinestore.html';"><i class="ti ti-tools-kitchen-2"></i> Cuisine</div> 
+</style>
 
-    <style>
-  
-  .cuisineshop {
-    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
-    text-decoration: none; /* Removes the underline if you use Option 1 */
+<a href="home.html" class="cat-nav-item">
+  <i class="ti ti-home"></i> Maison
+</a>
+<style>
+  a[href="home.html"] {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
+</style>
 
-  </style> 
-    <div class="cat-nav-item ssr-shop" onclick="filterCat('beaute', this); window.location.href='ssr_responsive_final.html';">
-  <i class="ti ti-tools-sparkles1"></i> Senteurs
-</div> 
-  <style>
-  
-  .ssr-shop {
-    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
-    text-decoration: none; /* Removes the underline if you use Option 1 */
+<a href="beaute.html" class="cat-nav-item">
+  <i class="ti ti-sparkles"></i> Beauté
+</a>
+<style>
+  a[href="beaute.html"] {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
+</style>
 
-  </style> 
+<div class="cat-nav-item" onclick="filterCat('sport',this)">
+  <i class="ti ti-run"></i> Sport
+</div>
+
+<a href="cuisinestore.html" class="cat-nav-item">
+  <i class="ti ti-tools-kitchen-2"></i> Cuisine
+</a>
+<style>
+  a[href="cuisinestore.html"] {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+</style>
+
+<a href="ssr_responsive_final.html" class="cat-nav-item">
+  <i class="ti ti-sparkles"></i> Senteurs
+</a>
+<style>
+  a[href="ssr_responsive_final.html"] {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+</style>
   </div>
 </div>
 
