@@ -1,0 +1,613 @@
+cat > /mnt/user-data/outputs/beaute.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beauté & Soin — Crystal Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --rose:     #c8687a;
+  --rose-lt:  #e8a0ad;
+  --rose-dk:  #8b3a48;
+  --blush:    #f9f0ee;
+  --blush-md: #f0ddd8;
+  --gold:     #c4963a;
+  --gold-lt:  #e0b85a;
+  --dark:     #1a0f12;
+  --text:     #2c1418;
+  --text-sec: #6b4a50;
+  --text-muted:#a88890;
+  --border:   #ead8d4;
+  --white:    #ffffff;
+  --shadow:   rgba(44,20,24,0.12);
+  --font-disp:'Cormorant Garamond', serif;
+  --font:     'Jost', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--blush); color: var(--text); overflow-x: hidden; }
+
+/* ── BACK BAR ── */
+.back-bar { background: var(--dark); padding: 10px 2rem; display: flex; align-items: center; gap: 10px; }
+.back-bar a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+.back-bar a:hover { color: var(--rose-lt); }
+.back-bar span { color: rgba(255,255,255,0.2); font-size: 12px; }
+.back-bar .curr { color: var(--rose-lt); font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+
+/* ── HERO ── */
+.beaute-hero { position: relative; height: 560px; background: var(--dark); overflow: hidden; display: flex; align-items: center; }
+.hero-bg-slider { position: absolute; inset: 0; z-index: 0; }
+.hero-bg-slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.8s ease; }
+.hero-bg-slider img.active { opacity: 0.5; }
+.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(26,15,18,0.95) 0%, rgba(26,15,18,0.5) 55%, transparent 100%); }
+.hero-content { position: relative; z-index: 2; padding: 0 5vw; max-width: 620px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+.hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--rose); }
+.hero-content h1 { font-family: var(--font-disp); font-size: clamp(52px, 7vw, 92px); color: white; line-height: 0.92; letter-spacing: -1px; margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+.hero-content h1 em { color: var(--rose-lt); font-style: italic; }
+.hero-content p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.9; max-width: 440px; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+.btn-rose { background: var(--rose); color: white; border: none; padding: 13px 28px; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.2s; }
+.btn-rose:hover { background: var(--rose-lt); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.25); padding: 13px 28px; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: var(--rose-lt); color: var(--rose-lt); }
+.hero-floats { position: absolute; right: 5vw; bottom: 3rem; z-index: 2; display: flex; gap: 2rem; opacity: 0; animation: fadeUp 0.8s 1s forwards; }
+.hf-stat .n { font-family: var(--font-disp); font-size: 38px; color: white; line-height: 1; }
+.hf-stat .l { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── SECTIONS ── */
+.section { padding: 80px 5vw; }
+.section-alt { background: var(--blush-md); }
+.section-dark { background: var(--dark); }
+.section-rose { background: linear-gradient(135deg, var(--rose-dk), var(--rose)); }
+
+.sec-label { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
+.sec-label::before { content: ''; width: 24px; height: 2px; background: var(--rose); }
+.sec-title { font-family: var(--font-disp); font-size: clamp(30px, 4vw, 52px); color: var(--text); line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+.sec-title-light { color: white; }
+.sec-sub { font-size: 14px; color: var(--text-muted); max-width: 480px; line-height: 1.8; }
+.sec-sub-light { color: rgba(255,255,255,0.45); }
+.sec-head-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── INFINITE SLIDER ── */
+.slider-track-wrap { position: relative; overflow: hidden; }
+.slider-track-wrap::before, .slider-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 10; pointer-events: none; }
+.slider-track-wrap::before { left: 0; background: linear-gradient(90deg, var(--blush), transparent); }
+.slider-track-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--blush), transparent); }
+.section-alt .slider-track-wrap::before { background: linear-gradient(90deg, var(--blush-md), transparent); }
+.section-alt .slider-track-wrap::after  { background: linear-gradient(-90deg, var(--blush-md), transparent); }
+.slider-track { display: flex; gap: 20px; animation: infiniteSlide 30s linear infinite; width: max-content; }
+.slider-track:hover { animation-play-state: paused; }
+.slider-track-rev { animation-duration: 38s; animation-direction: reverse; }
+.slider-track-fast { animation-duration: 22s; }
+@keyframes infiniteSlide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── PRODUCT SLIDE CARD ── */
+.prod-slide { width: 220px; flex-shrink: 0; background: white; border: 1px solid var(--border); cursor: pointer; transition: box-shadow 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+.prod-slide:hover { box-shadow: 0 16px 48px var(--shadow); transform: translateY(-6px); }
+.ps-img { width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative; background: var(--blush); }
+.ps-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.prod-slide:hover .ps-img img { transform: scale(1.08); }
+.ps-badge { position: absolute; top: 10px; left: 10px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; z-index: 2; }
+.badge-new   { background: #2a6b3c; color: white; }
+.badge-promo { background: var(--rose); color: white; }
+.badge-top   { background: var(--gold); color: #1a0f12; }
+.ps-fav { position: absolute; top: 8px; right: 8px; z-index: 2; width: 30px; height: 30px; border-radius: 50%; background: white; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 15px; cursor: pointer; transition: all 0.2s; }
+.ps-fav:hover { color: var(--rose); border-color: var(--rose); }
+.ps-body { padding: 14px 16px 16px; }
+.ps-cat { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--rose); margin-bottom: 4px; }
+.ps-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
+.ps-stars { color: var(--gold); font-size: 11px; margin-bottom: 8px; }
+.ps-pricing { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.ps-price { font-size: 17px; font-weight: 700; color: var(--rose); }
+.ps-old { font-size: 11px; color: var(--text-muted); text-decoration: line-through; }
+.ps-disc { font-size: 10px; font-weight: 700; color: white; background: var(--rose); padding: 2px 6px; }
+.ps-add { width: 100%; background: white; border: 1.5px solid var(--rose); color: var(--rose); padding: 8px 0; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
+.ps-add:hover { background: var(--rose); color: white; }
+
+/* ── FEATURED GRID ── */
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.feat-card { background: white; border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: box-shadow 0.3s, transform 0.3s; }
+.feat-card:hover { box-shadow: 0 20px 56px var(--shadow); transform: translateY(-4px); }
+.feat-card.tall { grid-row: span 2; }
+.fc-img { width: 100%; overflow: hidden; position: relative; }
+.feat-card:not(.tall) .fc-img { aspect-ratio: 4/3; }
+.feat-card.tall .fc-img { height: 100%; min-height: 340px; }
+.fc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.feat-card:hover .fc-img img { transform: scale(1.05); }
+.fc-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(26,15,18,0.65) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; }
+.feat-card:hover .fc-overlay { opacity: 1; }
+.fc-quick { position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2; display: flex; gap: 8px; transform: translateY(10px); opacity: 0; transition: all 0.3s; }
+.feat-card:hover .fc-quick { transform: translateY(0); opacity: 1; }
+.fc-quick button { flex: 1; background: white; border: none; padding: 9px; font-family: var(--font); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; color: var(--text); transition: background 0.2s, color 0.2s; }
+.fc-quick button:hover { background: var(--rose); color: white; }
+.fc-badge { position: absolute; top: 14px; left: 14px; z-index: 2; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; }
+.fc-body { padding: 18px 20px 20px; }
+.fc-cat { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--rose); margin-bottom: 4px; }
+.fc-name { font-family: var(--font-disp); font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 6px; }
+.fc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+.fc-footer { display: flex; align-items: center; justify-content: space-between; }
+.fc-price { font-size: 20px; font-weight: 700; color: var(--rose); }
+.fc-stars { color: var(--gold); font-size: 11px; }
+
+/* ── ROUTINE BANNER ── */
+.routine-banner { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; padding: 80px 5vw; background: var(--dark); position: relative; overflow: hidden; }
+.routine-banner::before { content: ''; position: absolute; right: -100px; top: -100px; width: 500px; height: 500px; border-radius: 50%; background: rgba(200,104,122,0.06); }
+.rb-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 1rem; }
+.rb-title { font-family: var(--font-disp); font-size: clamp(34px, 4vw, 56px); color: white; line-height: 1.0; margin-bottom: 1rem; letter-spacing: -0.5px; }
+.rb-title em { color: var(--rose-lt); }
+.rb-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 2rem; }
+.routine-steps { display: flex; flex-direction: column; gap: 16px; }
+.routine-step { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); transition: border-color 0.2s; }
+.routine-step:hover { border-color: rgba(200,104,122,0.4); }
+.rs-num { font-family: var(--font-disp); font-size: 32px; color: var(--rose); opacity: 0.4; line-height: 1; min-width: 40px; }
+.rs-info .rt { font-size: 13px; font-weight: 600; color: white; margin-bottom: 2px; }
+.rs-info .rs { font-size: 11px; color: rgba(255,255,255,0.35); }
+.rs-icon { margin-left: auto; font-size: 22px; color: var(--rose-lt); opacity: 0.6; }
+
+/* ── CATEGORIES GRID ── */
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.cat-card { position: relative; overflow: hidden; cursor: pointer; height: 200px; display: flex; align-items: flex-end; padding: 20px; transition: transform 0.3s; }
+.cat-card:hover { transform: scale(1.02); }
+.cat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.cat-card:hover img { transform: scale(1.06); }
+.cat-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(26,15,18,0.75) 0%, transparent 55%); z-index: 1; }
+.cc-content { position: relative; z-index: 2; }
+.cc-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 4px; }
+.cc-name { font-family: var(--font-disp); font-size: 18px; color: white; font-weight: 700; line-height: 1.2; }
+.cc-count { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+/* ── VIDEO GRID ── */
+.video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.vid-card { position: relative; overflow: hidden; cursor: pointer; background: #000; }
+.vid-card.large { grid-column: span 2; }
+.vc-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: transform 0.5s, opacity 0.3s; display: block; }
+.vid-card:hover .vc-thumb { transform: scale(1.04); opacity: 0.65; }
+.vc-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.65) 0%, transparent 60%); }
+.vc-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 58px; height: 58px; border-radius: 50%; background: rgba(200,104,122,0.2); border: 2px solid rgba(200,104,122,0.6); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; transition: all 0.2s; backdrop-filter: blur(4px); }
+.vid-card:hover .vc-play { background: var(--rose); border-color: var(--rose); transform: translate(-50%,-50%) scale(1.1); }
+.vc-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 18px; z-index: 2; }
+.vc-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 4px; }
+.vc-title { font-size: 14px; font-weight: 600; color: white; line-height: 1.3; }
+.vc-dur { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.vc-upload { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(26,15,18,0.88); gap: 10px; opacity: 0; transition: opacity 0.2s; }
+.vid-card:hover .vc-upload { opacity: 1; }
+.vc-upload i { font-size: 30px; color: var(--rose-lt); }
+.vc-upload span { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.vc-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+/* ── TESTIMONIALS ── */
+.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.testi-card { background: white; border: 1px solid var(--border); padding: 24px; transition: box-shadow 0.2s; }
+.testi-card:hover { box-shadow: 0 8px 28px var(--shadow); }
+.tc-stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
+.tc-text { font-family: var(--font-disp); font-size: 15px; font-style: italic; color: var(--text-sec); line-height: 1.8; margin-bottom: 16px; }
+.tc-author { display: flex; align-items: center; gap: 12px; }
+.tc-av { width: 38px; height: 38px; border-radius: 50%; background: var(--rose); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.tc-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.tc-city { font-size: 10px; color: var(--text-muted); }
+
+/* ── MARQUEE ── */
+.beaute-marquee { background: var(--rose-dk); padding: 14px 0; overflow: hidden; }
+.bm-inner { display: inline-flex; gap: 56px; white-space: nowrap; animation: marquee 22s linear infinite; }
+.bm-inner span { font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 12px; }
+.bm-inner span b { color: var(--rose-lt); }
+.bm-inner span::after { content: '✦'; opacity: 0.35; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── PROMO BAND ── */
+.promo-band { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 5vw; display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+.pb-item { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.pb-item i { font-size: 22px; color: var(--rose); }
+.pb-item .pt { font-size: 13px; font-weight: 600; color: var(--text); }
+.pb-item .ps { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.pb-sep { width: 1px; height: 32px; background: var(--border); flex-shrink: 0; }
+
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--dark); color: white; padding: 11px 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; z-index: 999; opacity: 0; transition: all 0.25s; display: flex; align-items: center; gap: 8px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast i { color: var(--rose-lt); font-size: 17px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .feat-grid { grid-template-columns: 1fr 1fr; }
+  .feat-card.tall { grid-row: span 1; }
+  .feat-card.tall .fc-img { min-height: auto; aspect-ratio: 4/3; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .routine-banner { grid-template-columns: 1fr; gap: 2.5rem; padding: 60px 5vw; }
+  .video-grid { grid-template-columns: 1fr 1fr; }
+  .vid-card.large { grid-column: span 2; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .beaute-hero { height: 440px; }
+  .hero-floats { display: none; }
+  .section { padding: 56px 4vw; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .video-grid { grid-template-columns: 1fr; }
+  .vid-card.large { grid-column: span 1; }
+  .testi-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .beaute-hero { height: 380px; }
+  .hero-ctas { flex-direction: column; }
+  .btn-rose, .btn-ghost { width: 100%; justify-content: center; }
+  .section { padding: 44px 1rem; }
+  .sec-head-row { flex-direction: column; align-items: flex-start; }
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cat-card { height: 160px; }
+  .prod-slide { width: 190px; }
+  .promo-band { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a href="index.html"><i class="ti ti-arrow-left"></i> Retour à l'accueil</a>
+  <span>/</span>
+  <span class="curr">Beauté & Soin</span>
+</div>
+
+<!-- HERO -->
+<div class="beaute-hero">
+  <div class="hero-bg-slider" id="heroBg">
+    <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=1400&q=80" class="active" alt="">
+    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&q=80" alt="">
+    <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=1400&q=80" alt="">
+    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1400&q=80" alt="">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Crystal Company · Beauté</div>
+    <h1>Sublimez<br>Votre <em>Beauté</em></h1>
+    <p>Soins premium, parfums envoûtants et cosmétiques naturels sélectionnés avec soin pour révéler votre éclat naturel.</p>
+    <div class="hero-ctas">
+      <button class="btn-rose" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-sparkles"></i> Découvrir la collection
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">
+        <i class="ti ti-player-play"></i> Voir les tutoriels
+      </button>
+    </div>
+  </div>
+  <div class="hero-floats">
+    <div class="hf-stat"><div class="n">100%</div><div class="l">Naturel</div></div>
+    <div class="hf-stat"><div class="n">30+</div><div class="l">Produits</div></div>
+    <div class="hf-stat"><div class="n">4.9★</div><div class="l">Avis clients</div></div>
+  </div>
+</div>
+
+<!-- PROMO BAND -->
+<div class="promo-band">
+  <div class="pb-item"><i class="ti ti-leaf"></i><div><div class="pt">100% Naturel</div><div class="ps">Ingrédients certifiés</div></div></div>
+  <div class="pb-sep"></div>
+  <div class="pb-item"><i class="ti ti-truck"></i><div><div class="pt">Livraison 48h</div><div class="ps">Dakar & régions</div></div></div>
+  <div class="pb-sep"></div>
+  <div class="pb-item"><i class="ti ti-shield-check"></i><div><div class="pt">Sans Paraben</div><div class="ps">Testé dermatologiquement</div></div></div>
+  <div class="pb-sep"></div>
+  <div class="pb-item"><i class="ti ti-brand-whatsapp"></i><div><div class="pt">Conseils Beauté</div><div class="ps">WhatsApp 8h–20h</div></div></div>
+</div>
+
+<!-- ══ SECTION 1 : SLIDER SOINS VISAGE ══ -->
+<section class="section" id="catalogue">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Soins Visage</div>
+      <h2 class="sec-title">Routine Éclat & Hydratation</h2>
+      <p class="sec-sub">Produits soigneusement sélectionnés pour une peau lumineuse au quotidien</p>
+    </div>
+    <button class="btn-rose" onclick="showToast('Catalogue complet bientôt !')">Tout voir <i class="ti ti-arrow-right"></i></button>
+  </div>
+  <div class="slider-track-wrap reveal">
+    <div class="slider-track" id="track1"></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 2 : PRODUITS EN VEDETTE ══ -->
+<section class="section section-alt">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Coups de Cœur</div>
+      <h2 class="sec-title">Produits en Vedette</h2>
+      <p class="sec-sub">Notre sélection beauté du moment</p>
+    </div>
+  </div>
+  <div class="feat-grid" id="featGrid"></div>
+</section>
+
+<!-- ══ SECTION 3 : SLIDER PARFUMS ══ -->
+<section class="section">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Fragrances</div>
+      <h2 class="sec-title">Parfums & Senteurs</h2>
+      <p class="sec-sub">Des fragrances envoûtantes venues du monde entier</p>
+    </div>
+  </div>
+  <div class="slider-track-wrap reveal">
+    <div class="slider-track slider-track-rev" id="track2"></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 4 : CATÉGORIES ══ -->
+<section class="section section-alt">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Univers Beauté</div>
+      <h2 class="sec-title">Nos Catégories</h2>
+    </div>
+  </div>
+  <div class="cat-grid reveal" id="catGrid"></div>
+</section>
+
+<!-- ══ SECTION 5 : ROUTINE BEAUTÉ ══ -->
+<div class="routine-banner reveal">
+  <div>
+    <div class="rb-eyebrow">Conseil Expert</div>
+    <h2 class="rb-title">Votre Routine<br><em>Beauté Parfaite</em></h2>
+    <p class="rb-desc">Nos expertes beauté vous guident pour construire une routine personnalisée adaptée à votre type de peau. Contactez-nous sur WhatsApp pour un conseil gratuit.</p>
+    <button class="btn-rose" onclick="window.open('https://wa.me/221774976364','_blank')">
+      <i class="ti ti-brand-whatsapp"></i> Conseil beauté gratuit
+    </button>
+  </div>
+  <div class="routine-steps">
+    <div class="routine-step"><div class="rs-num">01</div><div class="rs-info"><div class="rt">Nettoyage</div><div class="rs">Préparer la peau matin et soir</div></div><i class="ti ti-droplet rs-icon"></i></div>
+    <div class="routine-step"><div class="rs-num">02</div><div class="rs-info"><div class="rt">Tonique</div><div class="rs">Équilibrer le pH cutané</div></div><i class="ti ti-bottle rs-icon"></i></div>
+    <div class="routine-step"><div class="rs-num">03</div><div class="rs-info"><div class="rt">Sérum</div><div class="rs">Traitement ciblé concentré</div></div><i class="ti ti-flask rs-icon"></i></div>
+    <div class="routine-step"><div class="rs-num">04</div><div class="rs-info"><div class="rt">Hydratant</div><div class="rs">Sceller l'hydratation</div></div><i class="ti ti-sun rs-icon"></i></div>
+    <div class="routine-step"><div class="rs-num">05</div><div class="rs-info"><div class="rt">Protection</div><div class="rs">SPF indispensable en journée</div></div><i class="ti ti-shield rs-icon"></i></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 6 : SLIDER MAQUILLAGE ══ -->
+<section class="section">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Maquillage</div>
+      <h2 class="sec-title">Couleurs & Éclat</h2>
+      <p class="sec-sub">Toutes les teintes pour sublimer votre beauté naturelle</p>
+    </div>
+  </div>
+  <div class="slider-track-wrap reveal">
+    <div class="slider-track slider-track-fast" id="track3"></div>
+  </div>
+</section>
+
+<!-- ══ SECTION 7 : VIDÉOS TUTORIELS ══ -->
+<section class="section section-dark" id="videos">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label" style="color:var(--rose-lt);">Tutoriels</div>
+      <h2 class="sec-title sec-title-light">Vidéos & Démonstrations</h2>
+      <p class="sec-sub sec-sub-light">Apprenez à utiliser nos produits — ajoutez vos propres tutoriels</p>
+    </div>
+  </div>
+  <div class="video-grid reveal" id="videoGrid"></div>
+</section>
+
+<!-- ══ SECTION 8 : AVIS CLIENTS ══ -->
+<section class="section section-alt">
+  <div class="sec-head-row reveal">
+    <div>
+      <div class="sec-label">Témoignages</div>
+      <h2 class="sec-title">Elles Nous Font Confiance</h2>
+    </div>
+  </div>
+  <div class="testi-grid" id="testiGrid"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="beaute-marquee">
+  <div class="bm-inner">
+    <span>Beauté <b>Naturelle</b></span><span>Soins <b>Premium</b></span><span>Parfums <b>Authentiques</b></span><span>Livraison <b>Dakar</b></span><span>Sans <b>Paraben</b></span><span>Crystal <b>Company</b></span>
+    <span>Beauté <b>Naturelle</b></span><span>Soins <b>Premium</b></span><span>Parfums <b>Authentiques</b></span><span>Livraison <b>Dakar</b></span><span>Sans <b>Paraben</b></span><span>Crystal <b>Company</b></span>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
+
+<script>
+const fmt = n => n.toLocaleString('fr-FR') + ' FCFA';
+const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
+
+const soinsVisage = [
+  { name:"Crème Karité & Aloe Vera",   cat:"Hydratant",  price:4500,  oldPrice:null,  badge:"new",   stars:5, img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80" },
+  { name:"Sérum Éclat Vitamine C",     cat:"Sérum",      price:8900,  oldPrice:12000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80" },
+  { name:"Masque Argile Purifiante",   cat:"Masque",     price:3800,  oldPrice:null,  badge:null,    stars:4, img:"https://images.unsplash.com/photo-1570194065650-d99fb4d8b1c4?w=400&q=80" },
+  { name:"Eau Micellaire Douce",       cat:"Nettoyant",  price:3200,  oldPrice:null,  badge:null,    stars:4, img:"https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=400&q=80" },
+  { name:"Crème Nuit Régénérante",     cat:"Nuit",       price:6500,  oldPrice:9000,  badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80" },
+  { name:"Tonique Eau de Rose",        cat:"Tonique",    price:2800,  oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" },
+  { name:"Huile de Coco Pure",         cat:"Huile",      price:3500,  oldPrice:null,  badge:"top",   stars:5, img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80" },
+  { name:"SPF 50 Invisible",           cat:"Protection", price:5500,  oldPrice:7000,  badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=400&q=80" },
+];
+
+const parfums = [
+  { name:"Parfum Oud Intense 50ml",    cat:"Oriental",   price:16000, oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80" },
+  { name:"Eau de Rose Fraîche 30ml",   cat:"Floral",     price:9500,  oldPrice:12000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1595535873420-a599195b3f4a?w=400&q=80" },
+  { name:"Bois de Santal 50ml",        cat:"Boisé",      price:14000, oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1588776813677-77aaa5595652?w=400&q=80" },
+  { name:"Jasmin & Musc 30ml",         cat:"Floral",     price:11000, oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1594897030264-ab7d87efc473?w=400&q=80" },
+  { name:"Ambre & Vanille 50ml",       cat:"Gourmand",   price:13500, oldPrice:18000, badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&q=80" },
+  { name:"Neroli & Bergamote 30ml",    cat:"Agrume",     price:8800,  oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&q=80" },
+];
+
+const maquillage = [
+  { name:"Rouge à Lèvres Mat",         cat:"Lèvres",     price:3500,  oldPrice:null,  badge:"new",   stars:5, img:"https://images.unsplash.com/photo-1586495777744-4e6232bf4b4c?w=400&q=80" },
+  { name:"Fond de Teint Longue Tenue", cat:"Teint",      price:7500,  oldPrice:10000, badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80" },
+  { name:"Palette 9 Ombres à Paupières",cat:"Yeux",      price:8900,  oldPrice:null,  badge:"top",   stars:5, img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80" },
+  { name:"Mascara Volume Extrême",     cat:"Yeux",       price:4500,  oldPrice:6000,  badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1614159427027-c2b01c803a31?w=400&q=80" },
+  { name:"Blush Pêche Naturel",        cat:"Joues",      price:3800,  oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80" },
+  { name:"Highlighter Doré",           cat:"Éclat",      price:4200,  oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=400&q=80" },
+];
+
+const featProds = [
+  { name:"Miroir Maquillage LED",       cat:"Accessoire", price:11000, oldPrice:15000, badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600&q=80",  desc:"3 modes d'éclairage, grossissement ×10, rechargeable USB-C. Pliable pour le voyage.", tall:false },
+  { name:"Coffret Soin Complet",        cat:"Coffret",    price:22000, oldPrice:28000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80",  desc:"Crème hydratante + sérum + masque + eau micellaire. Tout pour une routine parfaite.", tall:true  },
+  { name:"Parfum Oud Intense 50ml",     cat:"Parfum",     price:16000, oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=80", desc:"Eau de parfum oriental oud et santal. Longue tenue 12h+. Flacon luxe 50ml.", tall:false },
+];
+
+const categories = [
+  { name:"Soins Visage",   label:"Hydratation & Éclat",   count:"12 produits", img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80" },
+  { name:"Parfums",        label:"Fragrances exclusives",  count:"8 produits",  img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80" },
+  { name:"Maquillage",     label:"Couleurs & Pigments",    count:"10 produits", img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&q=80" },
+  { name:"Soins Corps",    label:"Nutrition & Douceur",    count:"7 produits",  img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" },
+];
+
+const videosData = [
+  { title:"Tutoriel Routine Soin Visage",   tag:"Soins",      dur:"3:24", thumb:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80",  file:null },
+  { title:"Application Fond de Teint",      tag:"Maquillage", dur:"2:10", thumb:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&q=80", file:null },
+  { title:"Comment Choisir son Parfum",     tag:"Parfums",    dur:"1:45", thumb:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80", file:null },
+  { title:"Masque Argile Maison",           tag:"DIY Beauté", dur:"4:00", thumb:"https://images.unsplash.com/photo-1570194065650-d99fb4d8b1c4?w=400&q=80", file:null },
+  { title:"Soins Cheveux Naturels",         tag:"Cheveux",    dur:"2:55", thumb:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80", file:null },
+  { title:"Votre vidéo ici…",              tag:"À venir",    dur:"—",    thumb:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80", file:null },
+];
+
+const testimoniaux = [
+  { text:"La crème karité est incroyable ! Ma peau est tellement douce depuis que je l'utilise. Je la recommande à toutes mes amies à Dakar.", name:"Aïssatou Diop", city:"Dakar · Almadies", av:"AD", stars:5 },
+  { text:"Le parfum Oud est envoûtant, il tient toute la journée. J'ai reçu tellement de compliments ! Livraison rapide et emballage soigné.", name:"Mariama Bah",  city:"Dakar · Mermoz",   av:"MB", stars:5 },
+  { text:"Le miroir LED est parfait pour mon maquillage. La lumière est idéale. Crystal Company offre vraiment des produits de qualité !", name:"Fatou Sarr",   city:"Thiès · Centre",   av:"FS", stars:4 },
+];
+
+// ── BUILD SLIDE ──
+function buildSlide(p) {
+  const d = p.oldPrice ? '-' + Math.round((p.oldPrice-p.price)/p.oldPrice*100)+'%' : null;
+  return `<div class="prod-slide" onclick="showToast('${p.name} — ${fmt(p.price)}')">
+    <div class="ps-img">
+      <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+      ${p.badge?`<span class="ps-badge badge-${p.badge}">${p.badge==='new'?'Nouveau':p.badge==='promo'?'Promo':'Top'}</span>`:''}
+      <button class="ps-fav" onclick="event.stopPropagation();this.style.color='var(--rose)'"><i class="ti ti-heart"></i></button>
+    </div>
+    <div class="ps-body">
+      <div class="ps-cat">${p.cat}</div>
+      <div class="ps-name">${p.name}</div>
+      <div class="ps-stars">${stars(p.stars)}</div>
+      <div class="ps-pricing">
+        <span class="ps-price">${fmt(p.price)}</span>
+        ${p.oldPrice?`<span class="ps-old">${fmt(p.oldPrice)}</span>`:''}
+        ${d?`<span class="ps-disc">${d}</span>`:''}
+      </div>
+      <button class="ps-add" onclick="event.stopPropagation();showToast('${p.name} ajouté !')"><i class="ti ti-shopping-bag"></i> Ajouter</button>
+    </div>
+  </div>`;
+}
+
+function buildInfinite(id, items) {
+  const t = document.getElementById(id);
+  if (!t) return;
+  t.innerHTML = [...items,...items].map(buildSlide).join('');
+}
+buildInfinite('track1', soinsVisage);
+buildInfinite('track2', parfums);
+buildInfinite('track3', maquillage);
+
+// ── FEATURED ──
+document.getElementById('featGrid').innerHTML = featProds.map(p => `
+  <div class="feat-card ${p.tall?'tall':''} reveal" onclick="showToast('${p.name} — ${fmt(p.price)}')">
+    <div class="fc-img">
+      <img src="${p.img}" alt="${p.name}" loading="lazy">
+      <div class="fc-overlay"></div>
+      <div class="fc-quick">
+        <button onclick="event.stopPropagation();showToast('${p.name} ajouté !')"><i class="ti ti-shopping-bag"></i> Panier</button>
+        <button onclick="event.stopPropagation();showToast('Ajouté aux favoris !')"><i class="ti ti-heart"></i> Favori</button>
+      </div>
+      ${p.badge?`<span class="fc-badge badge-${p.badge}">${p.badge==='new'?'Nouveau':'Promo'}</span>`:''}
+    </div>
+    <div class="fc-body">
+      <div class="fc-cat">${p.cat}</div>
+      <div class="fc-name">${p.name}</div>
+      <p class="fc-desc">${p.desc}</p>
+      <div class="fc-footer">
+        <span class="fc-price">${fmt(p.price)}${p.oldPrice?`<span style="font-size:11px;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:8px;">${fmt(p.oldPrice)}</span>`:''}</span>
+        <span class="fc-stars">${stars(p.stars)}</span>
+      </div>
+    </div>
+  </div>`).join('');
+
+// ── CATEGORIES ──
+document.getElementById('catGrid').innerHTML = categories.map((c,i) => `
+  <div class="cat-card reveal reveal-delay-${i+1}" onclick="showToast('Catégorie : ${c.name}')">
+    <img src="${c.img}" alt="${c.name}" loading="lazy">
+    <div class="cc-content">
+      <div class="cc-label">${c.label}</div>
+      <div class="cc-name">${c.name}</div>
+      <div class="cc-count">${c.count}</div>
+    </div>
+  </div>`).join('');
+
+// ── VIDEOS ──
+document.getElementById('videoGrid').innerHTML = videosData.map((v,i) => `
+  <div class="vid-card ${i===0?'large':''} reveal">
+    <img class="vc-thumb" src="${v.thumb}" alt="${v.title}" loading="lazy">
+    <div class="vc-overlay"></div>
+    <div class="vc-play"><i class="ti ti-player-play"></i></div>
+    <div class="vc-info">
+      <div class="vc-tag">${v.tag}</div>
+      <div class="vc-title">${v.title}</div>
+      <div class="vc-dur">${v.dur!=='—'?'▶ '+v.dur:'📁 Cliquez pour ajouter votre vidéo'}</div>
+    </div>
+    <div class="vc-upload">
+      <i class="ti ti-upload"></i>
+      <span>Charger votre vidéo</span>
+      <input type="file" accept="video/*" onchange="loadVideo(this,${i})" title="Charger une vidéo">
+    </div>
+  </div>`).join('');
+
+// ── TESTIMONIALS ──
+document.getElementById('testiGrid').innerHTML = testimoniaux.map((t,i) => `
+  <div class="testi-card reveal reveal-delay-${i+1}">
+    <div class="tc-stars">${'★'.repeat(t.stars)+'☆'.repeat(5-t.stars)}</div>
+    <p class="tc-text">"${t.text}"</p>
+    <div class="tc-author">
+      <div class="tc-av">${t.av}</div>
+      <div><div class="tc-name">${t.name}</div><div class="tc-city">${t.city}</div></div>
+    </div>
+  </div>`).join('');
+
+// ── HERO SLIDER ──
+(function(){
+  const imgs = document.querySelectorAll('#heroBg img');
+  let idx = 0;
+  setInterval(()=>{ imgs[idx].classList.remove('active'); idx=(idx+1)%imgs.length; imgs[idx].classList.add('active'); }, 3800);
+})();
+
+// ── VIDEO UPLOAD ──
+function loadVideo(input, idx) {
+  const file = input.files[0]; if (!file) return;
+  const url = URL.createObjectURL(file);
+  const card = document.querySelectorAll('.vid-card')[idx];
+  card.innerHTML = `<video src="${url}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video><div class="vc-overlay"></div><div class="vc-info"><div class="vc-tag">Votre vidéo</div><div class="vc-title">${file.name.replace(/\.[^.]+$/,'')}</div></div>`;
+  showToast('Vidéo chargée !');
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
+HTMLEOF
+echo "Done — $(wc -l < /mnt/user-data/outputs/beaute.html) lines"
