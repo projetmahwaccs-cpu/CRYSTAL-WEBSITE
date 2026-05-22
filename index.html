@@ -462,7 +462,13 @@ body { background: var(--bg); color: var(--text); font-family: var(--font); over
 </style>
     <div class="cat-nav-item" onclick="filterCat('mode',this)"><i class="ti ti-hanger"></i> Mode</div>
     <div class="cat-nav-item" onclick="filterCat('maison',this)"><i class="ti ti-home"></i> Maison</div>
-    <div class="cat-nav-item" onclick="filterCat('beaute',this)"><i class="ti ti-sparkles"></i> Beauté</div>
+    <div class="cat-nav-item beaute4" onclick="filterCat('beaute',this); window.location.href='beaute.html';"><i class="ti ti-sparkles"></i> Beauté</div>
+<style>
+     .beaute4{
+    cursor: pointer; /* Makes the mouse cursor change to a hand on hover */
+    text-decoration: none; /* Removes the underline if you use Option 1 */
+  }
+    </style>
     <div class="cat-nav-item" onclick="filterCat('sport',this)"><i class="ti ti-run"></i> Sport</div>
     <div class="cat-nav-item cuisineshop" onclick="filterCat('cuisine',this); window.location.href='cuisinestore.html';"><i class="ti ti-tools-kitchen-2"></i> Cuisine</div> 
 
