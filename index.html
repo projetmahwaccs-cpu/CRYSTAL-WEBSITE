@@ -669,6 +669,176 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);overflow-x:h
   </div>
 </div>
 
+
+<!-- ═══════════════════════════════════
+     VIDEO REEL — Style Instagram/Reels
+═══════════════════════════════════ -->
+<div class="video-reel-section">
+  <div class="video-reel-head">
+    <div class="vrh-left">
+      <div class="vrh-bar"></div>
+      <div>
+        <h2>Nos Produits en Action 🎬</h2>
+        <div class="vrh-sub">Glissez pour voir plus · Tap pour lancer</div>
+      </div>
+    </div>
+    <div class="vrh-badge">
+      <i class="ti ti-player-play"></i> Vidéos clients
+    </div>
+  </div>
+
+  <div class="video-reel-track-wrap" id="reelWrap">
+    <!-- Arrow buttons -->
+    <button class="vr-arrow vr-arrow-left" onclick="reelScroll(-1)"><i class="ti ti-chevron-left"></i></button>
+    <button class="vr-arrow vr-arrow-right" onclick="reelScroll(1)"><i class="ti ti-chevron-right"></i></button>
+
+    <div class="video-reel-track" id="reelTrack">
+
+      <!-- Card 1 -->
+      <div class="vr-card" data-id="20" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="eplucheuse.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#1a3a1a,#2d7a45)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-new">Nouveau</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">Éplucheuse Électrique PRO</div>
+            <div class="vr-price-row"><span class="vr-price">1 100 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(20)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="vr-card" data-id="22" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="mixeur-mini.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a3a,#2d2d7a)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-promo">Promo</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">Mixeur Mini Portable</div>
+            <div class="vr-price-row"><span class="vr-price">1 750 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(22)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="vr-card" data-id="21" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="ferme-sachet.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#3a1a00,#7a3a00)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-new">Nouveau</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">Ferme-Sachet Automatique</div>
+            <div class="vr-price-row"><span class="vr-price">2 800 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(21)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="vr-card" data-id="23" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="mousticaire.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#0d2a3a,#1a5a6a)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-new">Nouveau</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">Moustiquaire Électrique</div>
+            <div class="vr-price-row"><span class="vr-price">2 400 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(23)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="vr-card" data-id="24" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="ecailleuse.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#1a2a1a,#2a4a2a)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-new">PRO</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">Écailleuse PRO</div>
+            <div class="vr-price-row"><span class="vr-price">700 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(24)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="vr-card" data-id="25" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="Coupeuse Uniform.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#2a1a00,#5a3a00)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-promo">PRO</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">Coupeuse Uniforme PRO</div>
+            <div class="vr-price-row"><span class="vr-price">1 500 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(25)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="vr-card" data-id="26" onclick="reelToggle(this)">
+        <div class="vr-card-inner">
+          <video class="vr-video" src="todolist.mp4" muted loop playsinline preload="none"
+                 onerror="this.parentElement.style.background='linear-gradient(135deg,#1a1a2a,#2a2a5a)'"></video>
+          <div class="vr-overlay"></div>
+          <span class="vr-badge badge-flash">⭐ Top</span>
+          <div class="vr-play-btn"><i class="ti ti-player-play-filled"></i></div>
+          <button class="vr-mute-btn" onclick="event.stopPropagation();reelMute(this)">
+            <i class="ti ti-volume-3"></i>
+          </button>
+          <div class="vr-progress"><div class="vr-progress-bar"></div></div>
+          <div class="vr-info">
+            <div class="vr-product-name">To-Do List Callable</div>
+            <div class="vr-price-row"><span class="vr-price">500 FCFA</span></div>
+            <button class="vr-add" onclick="event.stopPropagation();addToCart(26)"><i class="ti ti-shopping-cart"></i> Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end track -->
+  </div><!-- end wrap -->
+</div>
+<!-- FIN VIDEO REEL -->
+
 <div class="newsletter">
   <div class="newsletter-inner">
     <h2>Offres Exclusives</h2>
@@ -934,6 +1104,74 @@ function subscribeNl(){showToast('Inscription confirmée ! Merci.');}
 function showToast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
 renderFlash();renderDeals();renderProducts();
+
+// ══════════════════════════════════════════
+//  VIDEO REEL — Logic
+// ══════════════════════════════════════════
+(function initReel() {
+  const track = document.getElementById('reelTrack');
+  if (!track) return;
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft;
+    track.style.cursor = 'grabbing';
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return; e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX) * 1.4;
+  });
+  const progressTimers = new Map();
+  function startProgress(card) {
+    const bar = card.querySelector('.vr-progress-bar');
+    const vid = card.querySelector('.vr-video');
+    if (!bar || !vid) return;
+    stopProgress(card);
+    const t = setInterval(() => {
+      if (vid.duration) bar.style.width = (vid.currentTime / vid.duration * 100) + '%';
+    }, 100);
+    progressTimers.set(card, t);
+  }
+  function stopProgress(card) {
+    if (progressTimers.has(card)) { clearInterval(progressTimers.get(card)); progressTimers.delete(card); }
+    const bar = card.querySelector('.vr-progress-bar');
+    if (bar) bar.style.width = '0%';
+  }
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const vid = entry.target.querySelector('.vr-video');
+        if (!vid) return;
+        if (entry.isIntersecting) {
+          vid.play().then(() => { entry.target.classList.add('playing'); startProgress(entry.target); }).catch(() => {});
+        } else {
+          vid.pause(); entry.target.classList.remove('playing'); stopProgress(entry.target);
+        }
+      });
+    }, { threshold: 0.65 });
+    document.querySelectorAll('.vr-card').forEach(card => observer.observe(card));
+  }
+})();
+
+function reelToggle(card) {
+  const vid = card.querySelector('.vr-video');
+  if (!vid) return;
+  if (vid.paused) { vid.play().then(() => card.classList.add('playing')).catch(() => {}); }
+  else { vid.pause(); card.classList.remove('playing'); }
+}
+function reelMute(btn) {
+  const vid = btn.closest('.vr-card').querySelector('.vr-video');
+  if (!vid) return;
+  vid.muted = !vid.muted;
+  btn.innerHTML = vid.muted ? '<i class="ti ti-volume-3"></i>' : '<i class="ti ti-volume"></i>';
+}
+function reelScroll(dir) {
+  const track = document.getElementById('reelTrack');
+  if (track) track.scrollBy({ left: dir * 240, behavior: 'smooth' });
+}
+
 </script>
 </body>
 </html>
