@@ -1,5 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Crystal Company Limited — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --g1:#1a6b35;--g2:#2e9150;--g3:#4db870;--g4:#d4edd9;
@@ -13,10 +21,9 @@
   --shadow-lg:0 8px 60px rgba(26,107,53,0.14);
 }
 
-/* RESET / BASE */
 .port{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--txt);overflow-x:hidden;}
 
-/* SCROLL REVEAL */
+/* ══ SCROLL REVEAL ══ */
 .reveal{opacity:0;transform:translateX(0) translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
 .reveal.from-left{transform:translateX(-50px) translateY(0);}
 .reveal.from-right{transform:translateX(50px) translateY(0);}
@@ -28,17 +35,20 @@
 .reveal-delay-4{transition-delay:.4s;}
 .reveal-delay-5{transition-delay:.5s;}
 
-/* NAV */
+/* ══ NAV ══ */
 .nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:.9rem 2.5rem;background:rgba(255,255,255,0.96);
   border-bottom:1px solid rgba(46,145,80,0.15);
-  position:sticky;top:0;z-index:100;gap:1rem;flex-wrap:wrap;
+  position:sticky;top:0;z-index:200;
   backdrop-filter:blur(12px);
   box-shadow:0 1px 20px rgba(26,107,53,0.06);
   transition:box-shadow .3s;
 }
-.nav-logo{height:48px;object-fit:contain;}
+.nav-logo{height:48px;object-fit:contain;display:block;}
+.nav-logo-fallback{height:48px;display:none;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--g1);}
+
+/* Desktop links */
 .nav-links{display:flex;align-items:center;gap:1.4rem;list-style:none;}
 .nav-links a{
   color:var(--txt2);text-decoration:none;font-size:11px;
@@ -64,7 +74,56 @@
 }
 .nav-shop:hover{opacity:.9;transform:translateY(-1px);}
 
-/* HERO */
+/* Hamburger button — hidden on desktop */
+.nav-burger{
+  display:none;
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:5px;width:40px;height:40px;
+  background:none;border:1.5px solid rgba(46,145,80,0.25);
+  border-radius:6px;cursor:pointer;flex-shrink:0;
+  transition:border-color .2s,background .2s;
+}
+.nav-burger:hover{border-color:var(--g2);background:rgba(46,145,80,0.05);}
+.nav-burger span{display:block;width:18px;height:1.5px;background:var(--g2);border-radius:2px;transition:all .3s;}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+/* Mobile nav drawer */
+.nav-drawer{
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  z-index:150;
+  background:rgba(255,255,255,0.98);
+  backdrop-filter:blur(16px);
+  flex-direction:column;
+  padding:5rem 2rem 2rem;
+  gap:0;
+  transform:translateY(-100%);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
+}
+.nav-drawer.open{transform:translateY(0);}
+.nav-drawer ul{list-style:none;display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(46,145,80,0.1);}
+.nav-drawer ul li{border-bottom:1px solid rgba(46,145,80,0.08);}
+.nav-drawer ul li a{
+  display:flex;align-items:center;gap:12px;
+  padding:1rem 0;
+  font-size:14px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--txt2);text-decoration:none;transition:color .2s,padding-left .2s;
+}
+.nav-drawer ul li a:hover{color:var(--g2);padding-left:8px;}
+.nav-drawer ul li a i{font-size:18px;color:var(--g3);}
+.nav-drawer .drawer-shop{
+  margin-top:1.5rem;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,var(--d1),var(--d2));
+  color:#fff;padding:14px 24px;
+  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  border-radius:4px;text-decoration:none;
+  box-shadow:0 4px 18px rgba(184,145,26,0.3);
+}
+
+/* ══ HERO ══ */
 .hero{
   min-height:92vh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -77,35 +136,28 @@
   overflow:hidden;
 }
 .hero::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;bottom:0;
-  background-image:
-    radial-gradient(circle, rgba(46,145,80,0.04) 1px, transparent 1px);
-  background-size:32px 32px;
-  pointer-events:none;
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background-image:radial-gradient(circle,rgba(46,145,80,0.04) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;
 }
 .hero-logo-wrap{position:relative;z-index:1;margin-bottom:2.5rem;animation:floatY 5s ease-in-out infinite;}
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.hero-logo{width:260px;max-width:75vw;display:block;border-radius:50%;box-shadow:0 8px 40px rgba(46,145,80,0.18),0 0 0 8px rgba(77,184,112,0.06),0 0 0 16px rgba(77,184,112,0.03);}
+.hero-logo{width:220px;max-width:65vw;display:block;border-radius:50%;box-shadow:0 8px 40px rgba(46,145,80,0.18),0 0 0 8px rgba(77,184,112,0.06),0 0 0 16px rgba(77,184,112,0.03);}
 .hex-ring{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:330px;height:330px;max-width:85vw;
-  border:1px solid rgba(46,145,80,0.12);
-  border-radius:50%;
+  width:290px;height:290px;max-width:82vw;
+  border:1px solid rgba(46,145,80,0.12);border-radius:50%;
   animation:spinRing 30s linear infinite;
 }
 .hex-ring::after{
-  content:'';position:absolute;
-  top:-4px;left:50%;width:8px;height:8px;
-  background:var(--g3);border-radius:50%;
-  transform:translateX(-50%);
+  content:'';position:absolute;top:-4px;left:50%;width:8px;height:8px;
+  background:var(--g3);border-radius:50%;transform:translateX(-50%);
   box-shadow:0 0 10px var(--g3);
 }
 .hex-ring2{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:380px;height:380px;max-width:90vw;
-  border:1px solid rgba(200,168,48,0.08);
-  border-radius:50%;
+  width:340px;height:340px;max-width:88vw;
+  border:1px solid rgba(200,168,48,0.08);border-radius:50%;
   animation:spinRing 50s linear infinite reverse;
 }
 @keyframes spinRing{0%{transform:translate(-50%,-50%) rotate(0)}100%{transform:translate(-50%,-50%) rotate(360deg)}}
@@ -117,26 +169,31 @@
 }
 .hero h1{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.6rem,5.5vw,4.5rem);font-weight:700;line-height:1.08;
+  font-size:clamp(2.2rem,5.5vw,4.5rem);font-weight:700;line-height:1.08;
   color:var(--txt);margin-bottom:1rem;position:relative;z-index:1;
 }
 .hero h1 .gold{color:var(--d1);}
 .hero h1 .grn{color:var(--g2);}
-.hero-sub{font-size:11px;color:var(--txt3);letter-spacing:3.5px;margin-bottom:3.5rem;position:relative;z-index:1;text-transform:uppercase;}
-.hero-stats{display:flex;gap:3.5rem;position:relative;z-index:1;border-top:1px solid rgba(46,145,80,0.15);padding-top:2.5rem;}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:700;color:var(--d1);}
+.hero-sub{font-size:11px;color:var(--txt3);letter-spacing:3.5px;margin-bottom:3rem;position:relative;z-index:1;text-transform:uppercase;}
+.hero-stats{
+  display:flex;gap:3rem;position:relative;z-index:1;
+  border-top:1px solid rgba(46,145,80,0.15);padding-top:2.5rem;
+  flex-wrap:wrap;justify-content:center;
+}
+.stat{text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:var(--d1);}
 .stat-label{font-size:10px;color:var(--txt3);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
 
-/* DIVIDER */
+/* ══ DIVIDER ══ */
 .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(46,145,80,0.3),rgba(200,168,48,0.3),transparent);}
 
-/* SECTIONS */
+/* ══ SECTIONS ══ */
 .sec{padding:4.5rem 2.5rem;max-width:1100px;margin:0 auto;}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--txt);margin-bottom:.4rem;}
 .sec-bar{width:50px;height:2px;background:linear-gradient(90deg,var(--g2),var(--d2));margin-bottom:2.5rem;border-radius:1px;}
 .sec-intro{font-size:14px;color:var(--txt2);line-height:1.8;margin-bottom:2.5rem;}
 
-/* ABOUT */
+/* ══ ABOUT ══ */
 .about-wrap{background:var(--off);border-top:1px solid rgba(46,145,80,0.08);border-bottom:1px solid rgba(46,145,80,0.08);}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;padding:4.5rem 2.5rem;max-width:1100px;margin:0 auto;}
 .about-text p{font-size:14px;color:var(--txt2);line-height:1.9;margin-bottom:1.1rem;}
@@ -152,7 +209,7 @@
 .pillar h4{font-size:11px;font-weight:600;color:var(--d1);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
 .pillar p{font-size:12px;color:var(--txt3);line-height:1.6;}
 
-/* SERVICES */
+/* ══ SERVICES ══ */
 .services-bg{background:var(--white);}
 .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
 .srv-card{
@@ -169,7 +226,7 @@
 .srv-card p{font-size:13px;color:var(--txt3);line-height:1.7;}
 .srv-tag{display:inline-flex;align-items:center;gap:5px;margin-top:.9rem;background:rgba(200,168,48,0.08);border:1px solid rgba(200,168,48,0.2);color:var(--d1);font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:2px;}
 
-/* VIDEOS */
+/* ══ VIDEOS ══ */
 .vid-bg{background:var(--off);border-top:1px solid rgba(46,145,80,0.08);border-bottom:1px solid rgba(46,145,80,0.08);}
 .vid-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
 .vid-card{
@@ -193,7 +250,7 @@
 .vid-add:hover{background:rgba(46,145,80,0.08);border-color:rgba(46,145,80,0.35);}
 .vid-add span{font-size:13px;color:var(--g2);font-weight:500;}
 
-/* PARTNERS */
+/* ══ PARTNERS ══ */
 .partners-strip{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
 .partner{
   background:var(--off);border:1px solid rgba(46,145,80,0.1);
@@ -207,7 +264,7 @@
 .partner:hover{border-color:rgba(200,168,48,0.4);color:var(--d1);background:var(--d4);transform:translateY(-2px);box-shadow:0 4px 16px rgba(200,168,48,0.1);}
 .partner i{font-size:16px;color:var(--g2);}
 
-/* CONTACT */
+/* ══ CONTACT ══ */
 .contact-bg{
   background:linear-gradient(135deg,rgba(46,145,80,0.04),rgba(200,168,48,0.02)),var(--off);
   border-top:1px solid rgba(46,145,80,0.1);
@@ -219,8 +276,7 @@
 .c-info-val{font-size:13px;color:var(--txt2);line-height:1.6;}
 .form-col{display:flex;flex-direction:column;gap:.9rem;}
 .inp{
-  background:var(--white);
-  border:1px solid rgba(46,145,80,0.18);
+  background:var(--white);border:1px solid rgba(46,145,80,0.18);
   border-radius:6px;padding:13px 16px;
   font-size:13px;color:var(--txt);
   font-family:'DM Sans',sans-serif;outline:none;
@@ -230,9 +286,9 @@
 .inp::placeholder{color:var(--txt3);}
 textarea.inp{resize:vertical;min-height:100px;}
 .submit-btn{
-  background:var(--g1);color:#fff;
-  border:none;padding:14px 26px;
-  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  background:var(--g1);color:#fff;border:none;
+  padding:14px 26px;font-size:12px;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
   border-radius:5px;cursor:pointer;
   font-family:'DM Sans',sans-serif;
   display:flex;align-items:center;justify-content:center;gap:8px;
@@ -241,10 +297,9 @@ textarea.inp{resize:vertical;min-height:100px;}
 }
 .submit-btn:hover{background:var(--g2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,107,53,0.3);}
 
-/* FOOTER */
+/* ══ FOOTER ══ */
 .footer{
-  background:var(--white);
-  border-top:1px solid rgba(46,145,80,0.1);
+  background:var(--white);border-top:1px solid rgba(46,145,80,0.1);
   padding:2rem 2.5rem;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
 }
@@ -252,61 +307,142 @@ textarea.inp{resize:vertical;min-height:100px;}
 .footer-copy{font-size:11px;color:var(--txt3);letter-spacing:.8px;text-align:center;}
 .footer-socials{display:flex;gap:10px;}
 .social{
-  width:36px;height:36px;
-  border:1px solid rgba(46,145,80,0.2);border-radius:50%;
+  width:36px;height:36px;border:1px solid rgba(46,145,80,0.2);border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   color:var(--txt3);font-size:16px;cursor:pointer;
   transition:border-color .2s,color .2s,background .2s,transform .2s;
 }
 .social:hover{border-color:var(--g2);color:var(--g2);background:rgba(46,145,80,0.06);transform:scale(1.1);}
 
-/* COUNTER ANIMATION */
-.stat-num[data-count]{transition:none;}
+/* ══════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+══════════════════════════════════ */
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  .about-grid,.contact-grid{grid-template-columns:1fr;}
+/* Tablet ≤900px */
+@media(max-width:900px){
+  .nav{padding:.8rem 1.5rem;}
+  /* Hide desktop links, show burger */
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+  /* Show drawer when open */
+  .nav-drawer{display:flex;}
+
+  .about-grid{grid-template-columns:1fr;gap:2.5rem;padding:3.5rem 1.5rem;}
+  .contact-grid{grid-template-columns:1fr;gap:2.5rem;padding:3.5rem 1.5rem;}
   .srv-grid{grid-template-columns:1fr 1fr;}
-  .hero-stats{gap:2rem;flex-wrap:wrap;justify-content:center;}
+  .hero-stats{gap:2rem;}
   .pillars{grid-template-columns:1fr 1fr;}
   .vid-grid{grid-template-columns:1fr;}
-  .nav{padding:.75rem 1.2rem;}
+  .sec{padding:3.5rem 1.5rem;}
 }
-@media(max-width:480px){
+
+/* Mobile ≤640px */
+@media(max-width:640px){
+  .nav{padding:.7rem 1rem;}
+  .nav-logo{height:40px;}
+
+  /* Hero */
+  .hero{padding:4rem 1.25rem 3rem;min-height:auto;}
+  .hero-logo{width:160px;}
+  .hex-ring{width:210px;height:210px;}
+  .hex-ring2{width:250px;height:250px;}
+  .hero-badge{font-size:10px;letter-spacing:2px;padding:6px 14px;}
+  .hero h1{font-size:clamp(2rem,8vw,2.8rem);}
+  .hero-sub{font-size:10px;letter-spacing:2.5px;margin-bottom:2rem;}
+  .hero-stats{gap:1.5rem;padding-top:2rem;}
+  .stat-num{font-size:2rem;}
+  .stat-label{font-size:9px;}
+
+  /* Sections */
+  .sec{padding:2.5rem 1rem;}
+  .sec-title{font-size:1.75rem;}
+  .about-grid{padding:2.5rem 1rem;gap:2rem;}
+  .contact-grid{padding:2.5rem 1rem;gap:2rem;}
+
+  /* Services */
   .srv-grid{grid-template-columns:1fr;}
-  .hero-stats{gap:1.5rem;}
+  .srv-card{padding:1.5rem 1.25rem;}
+
+  /* Pillars */
   .pillars{grid-template-columns:1fr;}
+
+  /* Partners */
+  .partners-strip{gap:.75rem;}
+  .partner{font-size:11px;padding:.75rem 1.25rem;}
+
+  /* Videos */
+  .vid-grid{grid-template-columns:1fr;}
+  .vid-info{padding:1rem 1.1rem;}
+
+  /* Contact form */
+  .inp{padding:11px 14px;font-size:13px;}
+  .submit-btn{width:100%;}
+
+  /* Footer */
+  .footer{flex-direction:column;align-items:center;text-align:center;padding:1.5rem 1rem;gap:.75rem;}
+  .footer-copy{order:2;}
+  .footer-socials{order:3;}
+
+  /* Nav drawer */
+  .nav-drawer{padding:4.5rem 1.25rem 2rem;}
+}
+
+/* Very small ≤380px */
+@media(max-width:380px){
+  .hero-logo{width:130px;}
+  .hex-ring{width:175px;height:175px;}
+  .hex-ring2{width:210px;height:210px;}
+  .hero h1{font-size:1.85rem;}
+  .hero-stats{flex-direction:column;align-items:center;gap:1.2rem;}
+  .stat{display:flex;align-items:center;gap:12px;}
+  .stat-num{font-size:1.8rem;}
 }
 </style>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+</head>
+<body>
 
 <div class="port">
 
+<!-- ══ NAV ══ -->
 <nav class="nav">
-  <img src="/mnt/user-data/uploads/cclprofile.jpeg" alt="CCL" class="nav-logo" onerror="this.style.display='none'"/>
+  <img src="cclprofile.jpeg" alt="CCL" class="nav-logo" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='flex'"/>
+  <div class="nav-logo-fallback" id="logoFallback"><i class="ti ti-diamond" style="color:var(--g2);font-size:22px;"></i>CCL</div>
+
+  <!-- Desktop links -->
   <ul class="nav-links">
-    <li><a href="#about"><i class="ti ti-info-circle" aria-hidden="true"></i>À propos</a></li>
-    <li><a href="#services"><i class="ti ti-briefcase" aria-hidden="true"></i>Services</a></li>
-    <li><a href="#partners"><i class="ti ti-world" aria-hidden="true"></i>Marchés</a></li>
-    <li><a href="#contact"><i class="ti ti-mail" aria-hidden="true"></i>Contact</a></li>
+    <li><a href="#about"><i class="ti ti-info-circle"></i>À propos</a></li>
+    <li><a href="#services"><i class="ti ti-briefcase"></i>Services</a></li>
+    <li><a href="#partners"><i class="ti ti-world"></i>Marchés</a></li>
+    <li><a href="#contact"><i class="ti ti-mail"></i>Contact</a></li>
     <li><div class="nav-sep"></div></li>
-    <li>
-      <a href="index.html" class="nav-shop">
-        <i class="ti ti-shopping-bag" aria-hidden="true"></i>Boutique en ligne
-      </a>
-    </li>
+    <li><a href="index.html" class="nav-shop"><i class="ti ti-shopping-bag"></i>Boutique en ligne</a></li>
   </ul>
+
+  <!-- Hamburger -->
+  <button class="nav-burger" id="burgerBtn" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- HERO -->
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="navDrawer">
+  <ul>
+    <li><a href="#about" onclick="closeMenu()"><i class="ti ti-info-circle"></i>À propos</a></li>
+    <li><a href="#services" onclick="closeMenu()"><i class="ti ti-briefcase"></i>Services</a></li>
+    <li><a href="#partners" onclick="closeMenu()"><i class="ti ti-world"></i>Marchés</a></li>
+    <li><a href="#contact" onclick="closeMenu()"><i class="ti ti-mail"></i>Contact</a></li>
+  </ul>
+  <a href="index.html" class="drawer-shop"><i class="ti ti-shopping-bag"></i>Boutique en ligne</a>
+</div>
+
+<!-- ══ HERO ══ -->
 <section class="hero" id="hero">
   <div class="hero-logo-wrap">
     <div class="hex-ring"></div>
     <div class="hex-ring2"></div>
-    <img src="cclprofile.jpeg" alt="Crystal Company Limited" class="hero-logo"/>
+    <img src="cclprofile.jpeg" alt="Crystal Company Limited" class="hero-logo" onerror="this.style.opacity='.2'"/>
   </div>
-  <div class="hero-badge reveal from-bottom"><i class="ti ti-diamond" aria-hidden="true"></i>Import · Export · Commerce Général</div>
+  <div class="hero-badge reveal from-bottom"><i class="ti ti-diamond"></i>Import · Export · Commerce Général</div>
   <h1 class="reveal from-bottom reveal-delay-1">Votre partenaire<br><span class="grn">commerce</span> <span class="gold">mondial</span></h1>
   <p class="hero-sub reveal from-bottom reveal-delay-2">Excellence · Fiabilité · Croissance</p>
   <div class="hero-stats reveal from-bottom reveal-delay-3">
@@ -319,7 +455,7 @@ textarea.inp{resize:vertical;min-height:100px;}
 
 <div class="divider"></div>
 
-<!-- ABOUT -->
+<!-- ══ ABOUT ══ -->
 <section class="about-wrap" id="about">
   <div class="about-grid">
     <div class="about-text">
@@ -330,35 +466,35 @@ textarea.inp{resize:vertical;min-height:100px;}
       <p class="reveal from-left reveal-delay-4">Basés en Afrique de l'Ouest, nous construisons des <strong>ponts économiques durables</strong> pour accélérer la croissance de nos clients partout dans le monde.</p>
     </div>
     <div class="pillars">
-      <div class="pillar reveal from-right"><div class="pillar-icon"><i class="ti ti-world" aria-hidden="true"></i></div><h4>International</h4><p>Réseau mondial de partenaires et fournisseurs de confiance</p></div>
-      <div class="pillar reveal from-right reveal-delay-1"><div class="pillar-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div><h4>Fiabilité</h4><p>Engagement total envers la satisfaction et la transparence</p></div>
-      <div class="pillar reveal from-right reveal-delay-2"><div class="pillar-icon"><i class="ti ti-package" aria-hidden="true"></i></div><h4>Logistique</h4><p>Gestion complète de la chaîne d'approvisionnement</p></div>
-      <div class="pillar reveal from-right reveal-delay-3"><div class="pillar-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></div><h4>Croissance</h4><p>Solutions adaptées pour scaler votre business</p></div>
+      <div class="pillar reveal from-right"><div class="pillar-icon"><i class="ti ti-world"></i></div><h4>International</h4><p>Réseau mondial de partenaires et fournisseurs de confiance</p></div>
+      <div class="pillar reveal from-right reveal-delay-1"><div class="pillar-icon"><i class="ti ti-shield-check"></i></div><h4>Fiabilité</h4><p>Engagement total envers la satisfaction et la transparence</p></div>
+      <div class="pillar reveal from-right reveal-delay-2"><div class="pillar-icon"><i class="ti ti-package"></i></div><h4>Logistique</h4><p>Gestion complète de la chaîne d'approvisionnement</p></div>
+      <div class="pillar reveal from-right reveal-delay-3"><div class="pillar-icon"><i class="ti ti-trending-up"></i></div><h4>Croissance</h4><p>Solutions adaptées pour scaler votre business</p></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- SERVICES -->
+<!-- ══ SERVICES ══ -->
 <section class="services-bg" id="services">
   <div class="sec">
     <h2 class="sec-title reveal from-left">Nos Services</h2>
     <div class="sec-bar reveal from-left reveal-delay-1"></div>
     <div class="srv-grid">
-      <div class="srv-card reveal from-left"><div class="srv-icon"><i class="ti ti-ship" aria-hidden="true"></i></div><h3>Import & Export</h3><p>Gestion complète de vos opérations d'importation et d'exportation vers tous les marchés internationaux.</p><span class="srv-tag"><i class="ti ti-arrow-right" aria-hidden="true"></i>Commerce</span></div>
-      <div class="srv-card reveal from-bottom reveal-delay-1"><div class="srv-icon"><i class="ti ti-plant-2" aria-hidden="true"></i></div><h3>Produits Agricoles</h3><p>Sourcing et négoce de matières premières agricoles — céréales, légumineuses, produits tropicaux.</p><span class="srv-tag"><i class="ti ti-arrow-right" aria-hidden="true"></i>Agriculture</span></div>
-      <div class="srv-card reveal from-right reveal-delay-2"><div class="srv-icon"><i class="ti ti-building-warehouse" aria-hidden="true"></i></div><h3>Commerce Général</h3><p>Distribution de produits de grande consommation, équipements industriels et biens manufacturés.</p><span class="srv-tag"><i class="ti ti-arrow-right" aria-hidden="true"></i>Distribution</span></div>
-      <div class="srv-card reveal from-left reveal-delay-1"><div class="srv-icon"><i class="ti ti-handshake" aria-hidden="true"></i></div><h3>Mise en Relation</h3><p>Connexion stratégique entre acheteurs et vendeurs internationaux pour des partenariats durables.</p><span class="srv-tag"><i class="ti ti-arrow-right" aria-hidden="true"></i>B2B</span></div>
-      <div class="srv-card reveal from-bottom reveal-delay-2"><div class="srv-icon"><i class="ti ti-file-certificate" aria-hidden="true"></i></div><h3>Conseil & Conformité</h3><p>Accompagnement réglementaire, douanier et administratif pour sécuriser vos transactions.</p><span class="srv-tag"><i class="ti ti-arrow-right" aria-hidden="true"></i>Conseil</span></div>
-      <div class="srv-card reveal from-right reveal-delay-3"><div class="srv-icon"><i class="ti ti-truck-delivery" aria-hidden="true"></i></div><h3>Logistique & Transit</h3><p>Organisation du transport international, dédouanement et livraison porte-à-porte.</p><span class="srv-tag"><i class="ti ti-arrow-right" aria-hidden="true"></i>Logistique</span></div>
+      <div class="srv-card reveal from-left"><div class="srv-icon"><i class="ti ti-ship"></i></div><h3>Import &amp; Export</h3><p>Gestion complète de vos opérations d'importation et d'exportation vers tous les marchés internationaux.</p><span class="srv-tag"><i class="ti ti-arrow-right"></i>Commerce</span></div>
+      <div class="srv-card reveal from-bottom reveal-delay-1"><div class="srv-icon"><i class="ti ti-plant-2"></i></div><h3>Produits Agricoles</h3><p>Sourcing et négoce de matières premières agricoles — céréales, légumineuses, produits tropicaux.</p><span class="srv-tag"><i class="ti ti-arrow-right"></i>Agriculture</span></div>
+      <div class="srv-card reveal from-right reveal-delay-2"><div class="srv-icon"><i class="ti ti-building-warehouse"></i></div><h3>Commerce Général</h3><p>Distribution de produits de grande consommation, équipements industriels et biens manufacturés.</p><span class="srv-tag"><i class="ti ti-arrow-right"></i>Distribution</span></div>
+      <div class="srv-card reveal from-left reveal-delay-1"><div class="srv-icon"><i class="ti ti-handshake"></i></div><h3>Mise en Relation</h3><p>Connexion stratégique entre acheteurs et vendeurs internationaux pour des partenariats durables.</p><span class="srv-tag"><i class="ti ti-arrow-right"></i>B2B</span></div>
+      <div class="srv-card reveal from-bottom reveal-delay-2"><div class="srv-icon"><i class="ti ti-file-certificate"></i></div><h3>Conseil &amp; Conformité</h3><p>Accompagnement réglementaire, douanier et administratif pour sécuriser vos transactions.</p><span class="srv-tag"><i class="ti ti-arrow-right"></i>Conseil</span></div>
+      <div class="srv-card reveal from-right reveal-delay-3"><div class="srv-icon"><i class="ti ti-truck-delivery"></i></div><h3>Logistique &amp; Transit</h3><p>Organisation du transport international, dédouanement et livraison porte-à-porte.</p><span class="srv-tag"><i class="ti ti-arrow-right"></i>Logistique</span></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- VIDEOS -->
+<!-- ══ VIDEOS ══ -->
 <section class="vid-bg" id="videos">
   <div class="sec">
     <h2 class="sec-title reveal from-left">Nos Réalisations en Vidéo</h2>
@@ -368,34 +504,34 @@ textarea.inp{resize:vertical;min-height:100px;}
       <div class="vid-card reveal from-left">
         <div class="vid-thumb">
           <iframe id="v1" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          <div class="vid-placeholder" onclick="playVid('v1',this)"><div class="play-btn"><i class="ti ti-player-play" aria-hidden="true"></i></div><span>Présentation CCL</span></div>
+          <div class="vid-placeholder" onclick="playVid('v1',this)"><div class="play-btn"><i class="ti ti-player-play"></i></div><span>Présentation CCL</span></div>
         </div>
-        <div class="vid-info"><div class="vid-cat"><i class="ti ti-building" aria-hidden="true"></i>Présentation</div><h3>Crystal Company Limited — Qui sommes-nous ?</h3><p>Découvrez notre histoire, mission et vision pour le commerce international africain.</p></div>
+        <div class="vid-info"><div class="vid-cat"><i class="ti ti-building"></i>Présentation</div><h3>Crystal Company Limited — Qui sommes-nous ?</h3><p>Découvrez notre histoire, mission et vision pour le commerce international africain.</p></div>
       </div>
       <div class="vid-card reveal from-right reveal-delay-1">
         <div class="vid-thumb">
           <iframe id="v2" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          <div class="vid-placeholder" onclick="playVid('v2',this)"><div class="play-btn"><i class="ti ti-player-play" aria-hidden="true"></i></div><span>Import-Export</span></div>
+          <div class="vid-placeholder" onclick="playVid('v2',this)"><div class="play-btn"><i class="ti ti-player-play"></i></div><span>Import-Export</span></div>
         </div>
-        <div class="vid-info"><div class="vid-cat"><i class="ti ti-ship" aria-hidden="true"></i>Services</div><h3>Nos opérations d'import-export</h3><p>Un aperçu de notre processus logistique et de nos partenariats stratégiques.</p></div>
+        <div class="vid-info"><div class="vid-cat"><i class="ti ti-ship"></i>Services</div><h3>Nos opérations d'import-export</h3><p>Un aperçu de notre processus logistique et de nos partenariats stratégiques.</p></div>
       </div>
       <div class="vid-card reveal from-left reveal-delay-1">
         <div class="vid-thumb">
           <iframe id="v3" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          <div class="vid-placeholder" onclick="playVid('v3',this)"><div class="play-btn"><i class="ti ti-player-play" aria-hidden="true"></i></div><span>Agriculture</span></div>
+          <div class="vid-placeholder" onclick="playVid('v3',this)"><div class="play-btn"><i class="ti ti-player-play"></i></div><span>Agriculture</span></div>
         </div>
-        <div class="vid-info"><div class="vid-cat"><i class="ti ti-plant-2" aria-hidden="true"></i>Agriculture</div><h3>Sourcing & négoce de matières premières</h3><p>Comment CCL sécurise les meilleures matières premières agricoles pour ses clients.</p></div>
+        <div class="vid-info"><div class="vid-cat"><i class="ti ti-plant-2"></i>Agriculture</div><h3>Sourcing &amp; négoce de matières premières</h3><p>Comment CCL sécurise les meilleures matières premières agricoles pour ses clients.</p></div>
       </div>
       <div class="vid-card reveal from-right reveal-delay-2">
         <div class="vid-thumb">
           <iframe id="v4" data-src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          <div class="vid-placeholder" onclick="playVid('v4',this)"><div class="play-btn"><i class="ti ti-player-play" aria-hidden="true"></i></div><span>Témoignages</span></div>
+          <div class="vid-placeholder" onclick="playVid('v4',this)"><div class="play-btn"><i class="ti ti-player-play"></i></div><span>Témoignages</span></div>
         </div>
-        <div class="vid-info"><div class="vid-cat"><i class="ti ti-users" aria-hidden="true"></i>Clients</div><h3>Témoignages de nos partenaires</h3><p>Nos clients et partenaires partagent leur expérience avec Crystal Company Limited.</p></div>
+        <div class="vid-info"><div class="vid-cat"><i class="ti ti-users"></i>Clients</div><h3>Témoignages de nos partenaires</h3><p>Nos clients et partenaires partagent leur expérience avec Crystal Company Limited.</p></div>
       </div>
     </div>
     <div class="vid-add" onclick="addVid()">
-      <i class="ti ti-plus" style="font-size:20px;color:var(--g2);" aria-hidden="true"></i>
+      <i class="ti ti-plus" style="font-size:20px;color:var(--g2);"></i>
       <span>Ajouter une vidéo — collez votre lien YouTube ou Vimeo</span>
     </div>
   </div>
@@ -403,36 +539,36 @@ textarea.inp{resize:vertical;min-height:100px;}
 
 <div class="divider"></div>
 
-<!-- PARTNERS -->
+<!-- ══ PARTNERS ══ -->
 <section id="partners" style="background:var(--white);">
   <div class="sec">
-    <h2 class="sec-title reveal from-left">Marchés & Partenaires</h2>
+    <h2 class="sec-title reveal from-left">Marchés &amp; Partenaires</h2>
     <div class="sec-bar reveal from-left reveal-delay-1"></div>
     <div class="partners-strip">
-      <div class="partner reveal from-left"><i class="ti ti-map-pin" aria-hidden="true"></i>Sénégal</div>
-      <div class="partner reveal from-bottom reveal-delay-1"><i class="ti ti-map-pin" aria-hidden="true"></i>Côte d'Ivoire</div>
-      <div class="partner reveal from-bottom reveal-delay-2"><i class="ti ti-map-pin" aria-hidden="true"></i>Maroc</div>
-      <div class="partner reveal from-bottom reveal-delay-3"><i class="ti ti-map-pin" aria-hidden="true"></i>France</div>
-      <div class="partner reveal from-right reveal-delay-1"><i class="ti ti-map-pin" aria-hidden="true"></i>Chine</div>
-      <div class="partner reveal from-right reveal-delay-2"><i class="ti ti-map-pin" aria-hidden="true"></i>Dubaï</div>
-      <div class="partner reveal from-right reveal-delay-3"><i class="ti ti-map-pin" aria-hidden="true"></i>Brésil</div>
-      <div class="partner reveal from-right reveal-delay-4"><i class="ti ti-map-pin" aria-hidden="true"></i>Europe</div>
+      <div class="partner reveal from-left"><i class="ti ti-map-pin"></i>Sénégal</div>
+      <div class="partner reveal from-bottom reveal-delay-1"><i class="ti ti-map-pin"></i>Côte d'Ivoire</div>
+      <div class="partner reveal from-bottom reveal-delay-2"><i class="ti ti-map-pin"></i>Maroc</div>
+      <div class="partner reveal from-bottom reveal-delay-3"><i class="ti ti-map-pin"></i>France</div>
+      <div class="partner reveal from-right reveal-delay-1"><i class="ti ti-map-pin"></i>Chine</div>
+      <div class="partner reveal from-right reveal-delay-2"><i class="ti ti-map-pin"></i>Dubaï</div>
+      <div class="partner reveal from-right reveal-delay-3"><i class="ti ti-map-pin"></i>Brésil</div>
+      <div class="partner reveal from-right reveal-delay-4"><i class="ti ti-map-pin"></i>Europe</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- CONTACT -->
+<!-- ══ CONTACT ══ -->
 <section class="contact-bg" id="contact">
   <div class="contact-grid">
     <div>
       <h2 class="sec-title reveal from-left">Travaillons ensemble</h2>
       <div class="sec-bar reveal from-left reveal-delay-1"></div>
-      <div class="contact-item reveal from-left reveal-delay-1"><div class="c-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div><div><div class="c-info-label">Siège</div><div class="c-info-val">Dakar, Sénégal — Afrique de l'Ouest</div></div></div>
-      <div class="contact-item reveal from-left reveal-delay-2"><div class="c-icon"><i class="ti ti-phone" aria-hidden="true"></i></div><div><div class="c-info-label">Téléphone</div><div class="c-info-val">+221 XX XXX XX XX — Disponible 6j/7</div></div></div>
-      <div class="contact-item reveal from-left reveal-delay-3"><div class="c-icon"><i class="ti ti-mail" aria-hidden="true"></i></div><div><div class="c-info-label">Email</div><div class="c-info-val">contact@crystalcompany.com</div></div></div>
-      <div class="contact-item reveal from-left reveal-delay-4"><div class="c-icon"><i class="ti ti-clock" aria-hidden="true"></i></div><div><div class="c-info-label">Horaires</div><div class="c-info-val">Lun – Sam · 8h00 – 18h00 (GMT)</div></div></div>
+      <div class="contact-item reveal from-left reveal-delay-1"><div class="c-icon"><i class="ti ti-map-pin"></i></div><div><div class="c-info-label">Siège</div><div class="c-info-val">Dakar, Sénégal — Afrique de l'Ouest</div></div></div>
+      <div class="contact-item reveal from-left reveal-delay-2"><div class="c-icon"><i class="ti ti-phone"></i></div><div><div class="c-info-label">Téléphone</div><div class="c-info-val">+221 77 699 00 00<br>+221 77 622 00 00<br>+221 77 497 63 64</div></div></div>
+      <div class="contact-item reveal from-left reveal-delay-3"><div class="c-icon"><i class="ti ti-mail"></i></div><div><div class="c-info-label">Email</div><div class="c-info-val">crystalecom2026@gmail.com</div></div></div>
+      <div class="contact-item reveal from-left reveal-delay-4"><div class="c-icon"><i class="ti ti-clock"></i></div><div><div class="c-info-label">Horaires</div><div class="c-info-val">Lun – Sam · 8h00 – 20h00 (GMT)</div></div></div>
     </div>
     <div>
       <h3 style="font-family:'Cormorant Garamond',serif;color:var(--txt);font-size:1.4rem;margin-bottom:1.3rem;" class="reveal from-right">Envoyer un message</h3>
@@ -441,16 +577,16 @@ textarea.inp{resize:vertical;min-height:100px;}
         <input class="inp reveal from-right reveal-delay-2" type="email" placeholder="Votre adresse email"/>
         <input class="inp reveal from-right reveal-delay-3" type="text" placeholder="Objet (ex: Import riz, Partenariat...)"/>
         <textarea class="inp reveal from-right reveal-delay-4" placeholder="Décrivez votre projet ou demande..."></textarea>
-        <button class="submit-btn reveal from-right reveal-delay-5"><i class="ti ti-send" aria-hidden="true"></i>Envoyer le message</button>
+        <button class="submit-btn reveal from-right reveal-delay-5"><i class="ti ti-send"></i>Envoyer le message</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ══ FOOTER ══ -->
 <footer class="footer">
-  <img src="/mnt/user-data/uploads/cclprofile.jpeg" alt="CCL" class="footer-logo" onerror="this.style.display='none'"/>
-  <div class="footer-copy">© 2025 Crystal Company Limited<br><span style="font-size:10px;">Import-Export · Commerce Général · Tous droits réservés</span></div>
+  <img src="cclprofile.jpeg" alt="CCL" class="footer-logo" onerror="this.style.display='none'"/>
+  <div class="footer-copy">© 2026 Crystal Company Limited<br><span style="font-size:10px;">Import-Export · Commerce Général · Tous droits réservés</span></div>
   <div class="footer-socials">
     <div class="social" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></div>
     <div class="social" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></div>
@@ -459,21 +595,18 @@ textarea.inp{resize:vertical;min-height:100px;}
   </div>
 </footer>
 
-</div>
+</div><!-- end .port -->
 
 <script>
-/* ---- SCROLL REVEAL ---- */
+/* ── SCROLL REVEAL ── */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-/* ---- COUNTER ANIMATION ---- */
+/* ── COUNTER ANIMATION ── */
 function animateCounter(el) {
   const target = parseInt(el.getAttribute('data-count'));
   const suffix = target === 100 ? '%' : '+';
@@ -489,32 +622,45 @@ function animateCounter(el) {
   }
   requestAnimationFrame(update);
 }
-
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCounter(entry.target);
-      counterObserver.unobserve(entry.target);
-    }
+    if (entry.isIntersecting) { animateCounter(entry.target); counterObserver.unobserve(entry.target); }
   });
 }, { threshold: 0.5 });
-
 document.querySelectorAll('.stat-num[data-count]').forEach(el => counterObserver.observe(el));
 
-/* ---- NAV SCROLL SHADOW ---- */
+/* ── NAV SCROLL SHADOW ── */
 window.addEventListener('scroll', () => {
   document.querySelector('.nav').style.boxShadow =
     window.scrollY > 10 ? '0 2px 24px rgba(26,107,53,0.1)' : '0 1px 20px rgba(26,107,53,0.06)';
 });
 
-/* ---- TRIGGER HERO REVEALS ON LOAD ---- */
+/* ── HERO REVEALS ON LOAD ── */
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'));
   }, 200);
 });
 
-/* ---- VIDEO ---- */
+/* ── HAMBURGER MENU ── */
+function toggleMenu() {
+  const burger = document.getElementById('burgerBtn');
+  const drawer = document.getElementById('navDrawer');
+  const isOpen = burger.classList.toggle('open');
+  drawer.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('burgerBtn').classList.remove('open');
+  document.getElementById('navDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+/* Close drawer on outside tap */
+document.getElementById('navDrawer').addEventListener('click', function(e) {
+  if (e.target === this) closeMenu();
+});
+
+/* ── VIDEO ── */
 function playVid(id, ph) {
   var iframe = document.getElementById(id);
   iframe.src = iframe.getAttribute('data-src') + '?autoplay=1';
@@ -538,3 +684,5 @@ function addVid() {
   observer.observe(card);
 }
 </script>
+</body>
+</html>
