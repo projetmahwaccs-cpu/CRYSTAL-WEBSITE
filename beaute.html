@@ -1,4 +1,3 @@
-cat > /mnt/user-data/outputs/beaute.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,252 +5,365 @@ cat > /mnt/user-data/outputs/beaute.html << 'HTMLEOF'
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beauté & Soin — Crystal Company</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
-:root {
-  --rose:     #c8687a;
-  --rose-lt:  #e8a0ad;
-  --rose-dk:  #8b3a48;
-  --blush:    #f9f0ee;
-  --blush-md: #f0ddd8;
-  --gold:     #c4963a;
-  --gold-lt:  #e0b85a;
-  --dark:     #1a0f12;
-  --text:     #2c1418;
-  --text-sec: #6b4a50;
-  --text-muted:#a88890;
-  --border:   #ead8d4;
-  --white:    #ffffff;
-  --shadow:   rgba(44,20,24,0.12);
-  --font-disp:'Cormorant Garamond', serif;
-  --font:     'Jost', sans-serif;
+/* ═══════════════════════════════
+   CCL PALETTE — Green & Gold
+═══════════════════════════════ */
+:root{
+  --g1:#0B5D33; --g2:#1a7a45; --g3:#2e9150; --g4:#49D17C; --g5:#a6ffd0;
+  --d1:#b8911a; --d2:#c8a830; --d3:#e2c55a; --d4:#f2d57a; --d5:#fff0b2;
+  --dark:#041209; --dark2:#071a0e; --dark3:#0a2414;
+  --bg:#EFF7F2; --bg2:#f8faf9; --bg3:#e8f5ec;
+  --txt:#071a0e; --txt2:#1a4028; --txt3:#3d6b4a; --txt4:#6b9c78;
+  --border:rgba(46,145,80,0.18); --border-gold:rgba(200,168,48,0.3);
+  --shadow-g:rgba(11,93,51,0.18); --shadow-d:rgba(184,145,26,0.2);
+  --font:'DM Sans',sans-serif; --font-disp:'Cormorant Garamond',serif;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--blush); color: var(--text); overflow-x: hidden; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--g3),var(--d2));}
+::-webkit-scrollbar-track{background:var(--dark);}
+img{display:block;max-width:100%;}
 
-/* ── BACK BAR ── */
-.back-bar { background: var(--dark); padding: 10px 2rem; display: flex; align-items: center; gap: 10px; }
-.back-bar a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-.back-bar a:hover { color: var(--rose-lt); }
-.back-bar span { color: rgba(255,255,255,0.2); font-size: 12px; }
-.back-bar .curr { color: var(--rose-lt); font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+/* ═══════════════════════════════
+   SCROLL ANIMATIONS
+═══════════════════════════════ */
+/* Fade up */
+.sa{opacity:0;transform:translateY(48px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);}
+.sa.visible{opacity:1;transform:translateY(0);}
+/* From left */
+.sa-left{opacity:0;transform:translateX(-60px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);}
+.sa-left.visible{opacity:1;transform:translateX(0);}
+/* From right */
+.sa-right{opacity:0;transform:translateX(60px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);}
+.sa-right.visible{opacity:1;transform:translateX(0);}
+/* Scale in */
+.sa-scale{opacity:0;transform:scale(.88);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1);}
+.sa-scale.visible{opacity:1;transform:scale(1);}
+/* Clip reveal (bar grows) */
+.sa-clip{clip-path:inset(0 100% 0 0);transition:clip-path .9s cubic-bezier(.22,1,.36,1);}
+.sa-clip.visible{clip-path:inset(0 0% 0 0);}
+/* Stagger delays */
+.d1{transition-delay:.08s;} .d2{transition-delay:.16s;} .d3{transition-delay:.24s;}
+.d4{transition-delay:.32s;} .d5{transition-delay:.40s;} .d6{transition-delay:.48s;}
 
-/* ── HERO ── */
-.beaute-hero { position: relative; height: 560px; background: var(--dark); overflow: hidden; display: flex; align-items: center; }
-.hero-bg-slider { position: absolute; inset: 0; z-index: 0; }
-.hero-bg-slider img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.8s ease; }
-.hero-bg-slider img.active { opacity: 0.5; }
-.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(26,15,18,0.95) 0%, rgba(26,15,18,0.5) 55%, transparent 100%); }
-.hero-content { position: relative; z-index: 2; padding: 0 5vw; max-width: 620px; }
-.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
-.hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--rose); }
-.hero-content h1 { font-family: var(--font-disp); font-size: clamp(52px, 7vw, 92px); color: white; line-height: 0.92; letter-spacing: -1px; margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
-.hero-content h1 em { color: var(--rose-lt); font-style: italic; }
-.hero-content p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.9; max-width: 440px; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
-.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
-.btn-rose { background: var(--rose); color: white; border: none; padding: 13px 28px; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.2s; }
-.btn-rose:hover { background: var(--rose-lt); transform: translateY(-2px); }
-.btn-ghost { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.25); padding: 13px 28px; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
-.btn-ghost:hover { border-color: var(--rose-lt); color: var(--rose-lt); }
-.hero-floats { position: absolute; right: 5vw; bottom: 3rem; z-index: 2; display: flex; gap: 2rem; opacity: 0; animation: fadeUp 0.8s 1s forwards; }
-.hf-stat .n { font-family: var(--font-disp); font-size: 38px; color: white; line-height: 1; }
-.hf-stat .l { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+/* ═══════════════════════════════
+   BACK BAR
+═══════════════════════════════ */
+.back-bar{background:var(--dark);padding:10px 1.5rem;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(73,209,124,0.1);}
+.back-bar a{color:rgba(255,255,255,0.45);text-decoration:none;font-size:11px;font-weight:500;letter-spacing:1px;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.back-bar a:hover{color:var(--g5);}
+.back-bar .sep{color:rgba(255,255,255,0.15);font-size:12px;}
+.back-bar .curr{font-size:11px;font-weight:600;letter-spacing:1px;background:linear-gradient(90deg,var(--g4),var(--d4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.hero{position:relative;height:100svh;min-height:520px;max-height:800px;background:var(--dark);overflow:hidden;display:flex;align-items:center;}
+.hero-slides{position:absolute;inset:0;}
+.hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2s ease;transform:scale(1.05);transition:opacity 2s,transform 8s;}
+.hero-slides img.active{opacity:.45;transform:scale(1);}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(110deg,var(--dark) 0%,rgba(4,18,9,.85) 45%,rgba(4,18,9,.3) 100%);z-index:1;}
+.hero-grad2{position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,9,.95) 0%,transparent 40%);z-index:1;}
+/* Animated dots pattern */
+.hero-dots{position:absolute;inset:0;z-index:1;background-image:radial-gradient(circle,rgba(73,209,124,.06) 1px,transparent 1px);background-size:30px 30px;pointer-events:none;}
+/* Floating orbs */
+.orb{position:absolute;border-radius:50%;pointer-events:none;z-index:1;}
+.orb-1{width:400px;height:400px;right:-80px;top:-80px;background:radial-gradient(circle,rgba(46,145,80,.12),transparent 65%);animation:orbFloat 8s ease-in-out infinite;}
+.orb-2{width:300px;height:300px;left:10%;bottom:-60px;background:radial-gradient(circle,rgba(200,168,48,.08),transparent 65%);animation:orbFloat 11s ease-in-out infinite reverse;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0);}50%{transform:translate(-20px,-30px);}}
 
-/* ── SECTIONS ── */
-.section { padding: 80px 5vw; }
-.section-alt { background: var(--blush-md); }
-.section-dark { background: var(--dark); }
-.section-rose { background: linear-gradient(135deg, var(--rose-dk), var(--rose)); }
+.hero-content{position:relative;z-index:2;padding:0 5vw 0 clamp(1.2rem,5vw,5rem);max-width:700px;}
+.h-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--g4);margin-bottom:1.5rem;opacity:0;animation:heroUp .8s .2s forwards;}
+.h-eyebrow::before,.h-eyebrow::after{content:'';width:24px;height:1px;background:linear-gradient(90deg,var(--g3),var(--d3));}
+.hero-h1{font-family:var(--font-disp);font-size:clamp(3rem,7vw,6.5rem);color:white;line-height:.9;letter-spacing:-1px;margin-bottom:1.5rem;opacity:0;animation:heroUp .9s .35s forwards;}
+.hero-h1 em{background:linear-gradient(135deg,var(--g4),var(--d4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;}
+.hero-h1 .gold-word{background:linear-gradient(135deg,var(--d3),var(--d5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-p{font-size:clamp(13px,1.5vw,15px);color:rgba(255,255,255,.5);line-height:1.9;max-width:440px;margin-bottom:2.5rem;opacity:0;animation:heroUp .9s .5s forwards;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:heroUp .8s .65s forwards;}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--g1),var(--g3));color:white;border:none;padding:13px 28px;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 6px 24px var(--shadow-g);}
+.btn-primary:hover{background:linear-gradient(135deg,var(--g2),var(--g4));transform:translateY(-2px);box-shadow:0 10px 32px var(--shadow-g);}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--d1),var(--d2));color:#fff;border:none;padding:13px 28px;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 6px 24px var(--shadow-d);}
+.btn-gold:hover{background:linear-gradient(135deg,var(--d2),var(--d4));color:var(--dark);transform:translateY(-2px);}
+.btn-ghost-w{display:inline-flex;align-items:center;gap:8px;background:transparent;color:rgba(255,255,255,.65);border:1.5px solid rgba(255,255,255,.2);padding:13px 28px;font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-ghost-w:hover{border-color:var(--g4);color:var(--g4);}
+/* Hero stats */
+.hero-stats{position:absolute;bottom:3rem;right:5vw;z-index:2;display:flex;gap:3rem;opacity:0;animation:heroUp .8s 1s forwards;}
+.hs-stat .n{font-family:var(--font-disp);font-size:2.8rem;font-weight:700;background:linear-gradient(135deg,var(--g4),var(--d4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.hs-stat .l{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+/* Scroll indicator */
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:heroUp .8s 1.2s forwards;}
+.scroll-hint span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.25);}
+.scroll-line{width:1px;height:40px;background:linear-gradient(180deg,rgba(73,209,124,.5),transparent);animation:scrollPulse 1.8s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{transform:scaleY(1);opacity:.6;}50%{transform:scaleY(.6);opacity:1;}}
+@keyframes heroUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
 
-.sec-label { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--rose); margin-bottom: 0.75rem; }
-.sec-label::before { content: ''; width: 24px; height: 2px; background: var(--rose); }
-.sec-title { font-family: var(--font-disp); font-size: clamp(30px, 4vw, 52px); color: var(--text); line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
-.sec-title-light { color: white; }
-.sec-sub { font-size: 14px; color: var(--text-muted); max-width: 480px; line-height: 1.8; }
-.sec-sub-light { color: rgba(255,255,255,0.45); }
-.sec-head-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+/* ═══════════════════════════════
+   PROMO BAND
+═══════════════════════════════ */
+.promo-band{background:white;border-bottom:1px solid var(--border);padding:18px clamp(1rem,5vw,3rem);display:grid;grid-template-columns:repeat(4,1fr);gap:0;overflow:hidden;}
+.pb-item{display:flex;align-items:center;gap:14px;padding:0 1.5rem;border-right:1px solid var(--border);transition:background .2s;}
+.pb-item:first-child{padding-left:0;}
+.pb-item:last-child{border-right:none;}
+.pb-item:hover{background:var(--bg3);}
+.pb-icon{width:44px;height:44px;border-radius:12px;background:rgba(46,145,80,.08);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--g3);flex-shrink:0;}
+.pb-t{font-size:13px;font-weight:600;color:var(--txt);}
+.pb-s{font-size:11px;color:var(--txt4);margin-top:2px;}
 
-/* ── REVEAL ── */
-.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+/* ═══════════════════════════════
+   SECTION BASE
+═══════════════════════════════ */
+.section{padding:clamp(3rem,7vw,5.5rem) clamp(1rem,5vw,3rem);max-width:1380px;margin:0 auto;}
+.section-full{padding:clamp(3rem,7vw,5.5rem) 0;overflow:hidden;}
+.sec-wrap{max-width:1380px;margin:0 auto;padding:0 clamp(1rem,5vw,3rem);}
 
-/* ── INFINITE SLIDER ── */
-.slider-track-wrap { position: relative; overflow: hidden; }
-.slider-track-wrap::before, .slider-track-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 10; pointer-events: none; }
-.slider-track-wrap::before { left: 0; background: linear-gradient(90deg, var(--blush), transparent); }
-.slider-track-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--blush), transparent); }
-.section-alt .slider-track-wrap::before { background: linear-gradient(90deg, var(--blush-md), transparent); }
-.section-alt .slider-track-wrap::after  { background: linear-gradient(-90deg, var(--blush-md), transparent); }
-.slider-track { display: flex; gap: 20px; animation: infiniteSlide 30s linear infinite; width: max-content; }
-.slider-track:hover { animation-play-state: paused; }
-.slider-track-rev { animation-duration: 38s; animation-direction: reverse; }
-.slider-track-fast { animation-duration: 22s; }
-@keyframes infiniteSlide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.sec-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--g3);margin-bottom:.75rem;}
+.sec-eyebrow::before{content:'';width:20px;height:2px;background:linear-gradient(90deg,var(--g3),var(--d3));border-radius:1px;}
+.sec-eyebrow-light{color:var(--g5);}
+.sec-eyebrow-light::before{background:linear-gradient(90deg,var(--g4),var(--d4));}
+.sec-title{font-family:var(--font-disp);font-size:clamp(1.8rem,4vw,3.2rem);color:var(--txt);line-height:1.05;letter-spacing:-.5px;margin-bottom:.5rem;}
+.sec-title-light{color:white;}
+.sec-sub{font-size:14px;color:var(--txt3);line-height:1.85;max-width:500px;}
+.sec-sub-light{color:rgba(255,255,255,.4);}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-bottom:3rem;flex-wrap:wrap;}
+.sec-head-left{max-width:600px;}
+/* Animated underline on title */
+.sec-title span.ul{position:relative;display:inline-block;}
+.sec-title span.ul::after{content:'';position:absolute;bottom:-4px;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--g3),var(--d3),transparent);transform:scaleX(0);transform-origin:left;transition:transform .8s .3s cubic-bezier(.22,1,.36,1);}
+.visible .sec-title span.ul::after,.sec-title.animated span.ul::after{transform:scaleX(1);}
 
-/* ── PRODUCT SLIDE CARD ── */
-.prod-slide { width: 220px; flex-shrink: 0; background: white; border: 1px solid var(--border); cursor: pointer; transition: box-shadow 0.3s, transform 0.3s; position: relative; overflow: hidden; }
-.prod-slide:hover { box-shadow: 0 16px 48px var(--shadow); transform: translateY(-6px); }
-.ps-img { width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative; background: var(--blush); }
-.ps-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-.prod-slide:hover .ps-img img { transform: scale(1.08); }
-.ps-badge { position: absolute; top: 10px; left: 10px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; z-index: 2; }
-.badge-new   { background: #2a6b3c; color: white; }
-.badge-promo { background: var(--rose); color: white; }
-.badge-top   { background: var(--gold); color: #1a0f12; }
-.ps-fav { position: absolute; top: 8px; right: 8px; z-index: 2; width: 30px; height: 30px; border-radius: 50%; background: white; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 15px; cursor: pointer; transition: all 0.2s; }
-.ps-fav:hover { color: var(--rose); border-color: var(--rose); }
-.ps-body { padding: 14px 16px 16px; }
-.ps-cat { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--rose); margin-bottom: 4px; }
-.ps-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 8px; }
-.ps-stars { color: var(--gold); font-size: 11px; margin-bottom: 8px; }
-.ps-pricing { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
-.ps-price { font-size: 17px; font-weight: 700; color: var(--rose); }
-.ps-old { font-size: 11px; color: var(--text-muted); text-decoration: line-through; }
-.ps-disc { font-size: 10px; font-weight: 700; color: white; background: var(--rose); padding: 2px 6px; }
-.ps-add { width: 100%; background: white; border: 1.5px solid var(--rose); color: var(--rose); padding: 8px 0; font-family: var(--font); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
-.ps-add:hover { background: var(--rose); color: white; }
+/* ═══════════════════════════════
+   SECTION BG VARIANTS
+═══════════════════════════════ */
+.bg-white{background:white;}
+.bg-off{background:var(--bg);}
+.bg-dark{background:var(--dark);}
+.bg-dark2{background:var(--dark2);}
+.bg-green-stripe{background:linear-gradient(135deg,var(--dark) 0%,var(--dark3) 100%);position:relative;overflow:hidden;}
+.bg-green-stripe::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(73,209,124,.05) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
 
-/* ── FEATURED GRID ── */
-.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.feat-card { background: white; border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: box-shadow 0.3s, transform 0.3s; }
-.feat-card:hover { box-shadow: 0 20px 56px var(--shadow); transform: translateY(-4px); }
-.feat-card.tall { grid-row: span 2; }
-.fc-img { width: 100%; overflow: hidden; position: relative; }
-.feat-card:not(.tall) .fc-img { aspect-ratio: 4/3; }
-.feat-card.tall .fc-img { height: 100%; min-height: 340px; }
-.fc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-.feat-card:hover .fc-img img { transform: scale(1.05); }
-.fc-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(26,15,18,0.65) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; }
-.feat-card:hover .fc-overlay { opacity: 1; }
-.fc-quick { position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 2; display: flex; gap: 8px; transform: translateY(10px); opacity: 0; transition: all 0.3s; }
-.feat-card:hover .fc-quick { transform: translateY(0); opacity: 1; }
-.fc-quick button { flex: 1; background: white; border: none; padding: 9px; font-family: var(--font); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; color: var(--text); transition: background 0.2s, color 0.2s; }
-.fc-quick button:hover { background: var(--rose); color: white; }
-.fc-badge { position: absolute; top: 14px; left: 14px; z-index: 2; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; }
-.fc-body { padding: 18px 20px 20px; }
-.fc-cat { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--rose); margin-bottom: 4px; }
-.fc-name { font-family: var(--font-disp); font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 6px; }
-.fc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
-.fc-footer { display: flex; align-items: center; justify-content: space-between; }
-.fc-price { font-size: 20px; font-weight: 700; color: var(--rose); }
-.fc-stars { color: var(--gold); font-size: 11px; }
+/* ═══════════════════════════════
+   INFINITE SLIDER
+═══════════════════════════════ */
+.slider-wrap{position:relative;overflow:hidden;}
+.slider-wrap::before,.slider-wrap::after{content:'';position:absolute;top:0;bottom:0;width:100px;z-index:10;pointer-events:none;}
+.slider-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent);}
+.slider-wrap::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent);}
+.bg-white .slider-wrap::before{background:linear-gradient(90deg,white,transparent);}
+.bg-white .slider-wrap::after{background:linear-gradient(-90deg,white,transparent);}
+.slider-track{display:flex;gap:18px;animation:slide 32s linear infinite;width:max-content;padding:8px 0;}
+.slider-track:hover{animation-play-state:paused;}
+.st-rev{animation-direction:reverse;animation-duration:40s;}
+.st-fast{animation-duration:22s;}
+@keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* ── ROUTINE BANNER ── */
-.routine-banner { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; padding: 80px 5vw; background: var(--dark); position: relative; overflow: hidden; }
-.routine-banner::before { content: ''; position: absolute; right: -100px; top: -100px; width: 500px; height: 500px; border-radius: 50%; background: rgba(200,104,122,0.06); }
-.rb-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 1rem; }
-.rb-title { font-family: var(--font-disp); font-size: clamp(34px, 4vw, 56px); color: white; line-height: 1.0; margin-bottom: 1rem; letter-spacing: -0.5px; }
-.rb-title em { color: var(--rose-lt); }
-.rb-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 2rem; }
-.routine-steps { display: flex; flex-direction: column; gap: 16px; }
-.routine-step { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); transition: border-color 0.2s; }
-.routine-step:hover { border-color: rgba(200,104,122,0.4); }
-.rs-num { font-family: var(--font-disp); font-size: 32px; color: var(--rose); opacity: 0.4; line-height: 1; min-width: 40px; }
-.rs-info .rt { font-size: 13px; font-weight: 600; color: white; margin-bottom: 2px; }
-.rs-info .rs { font-size: 11px; color: rgba(255,255,255,0.35); }
-.rs-icon { margin-left: auto; font-size: 22px; color: var(--rose-lt); opacity: 0.6; }
+/* ── Product Slide Card ── */
+.ps-card{width:210px;flex-shrink:0;background:white;border:1px solid var(--border);cursor:pointer;position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s;}
+.ps-card:hover{box-shadow:0 20px 48px var(--shadow-g);transform:translateY(-7px);}
+.ps-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--d3));opacity:0;transition:opacity .3s;z-index:3;}
+.ps-card:hover::before{opacity:1;}
+.ps-img{width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;background:var(--bg);}
+.ps-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+.ps-card:hover .ps-img img{transform:scale(1.1);}
+.ps-badge{position:absolute;top:10px;left:10px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;z-index:2;}
+.b-new{background:var(--g1);color:white;}
+.b-promo{background:var(--d1);color:white;}
+.b-top{background:linear-gradient(135deg,var(--g1),var(--g3));color:white;}
+.ps-fav{position:absolute;top:8px;right:8px;z-index:2;width:30px;height:30px;border-radius:50%;background:white;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--txt4);font-size:15px;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.ps-fav:hover,.ps-fav.faved{color:var(--g3);border-color:var(--g3);}
+.ps-body{padding:13px 15px 15px;}
+.ps-cat{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin-bottom:4px;}
+.ps-name{font-size:13px;font-weight:600;color:var(--txt);line-height:1.3;margin-bottom:7px;}
+.ps-stars{font-size:11px;background:linear-gradient(90deg,var(--d1),var(--d3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px;}
+.ps-price-row{display:flex;align-items:baseline;gap:7px;margin-bottom:11px;flex-wrap:wrap;}
+.ps-price{font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--g1),var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ps-old{font-size:11px;color:var(--txt4);text-decoration:line-through;}
+.ps-disc{font-size:9px;font-weight:700;background:var(--d1);color:white;padding:2px 6px;}
+.ps-add{width:100%;background:white;border:1.5px solid var(--g3);color:var(--g3);padding:8px 0;font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s;border-radius:4px;}
+.ps-add:hover{background:var(--g3);color:white;}
 
-/* ── CATEGORIES GRID ── */
-.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.cat-card { position: relative; overflow: hidden; cursor: pointer; height: 200px; display: flex; align-items: flex-end; padding: 20px; transition: transform 0.3s; }
-.cat-card:hover { transform: scale(1.02); }
-.cat-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-.cat-card:hover img { transform: scale(1.06); }
-.cat-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(26,15,18,0.75) 0%, transparent 55%); z-index: 1; }
-.cc-content { position: relative; z-index: 2; }
-.cc-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 4px; }
-.cc-name { font-family: var(--font-disp); font-size: 18px; color: white; font-weight: 700; line-height: 1.2; }
-.cc-count { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+/* ═══════════════════════════════
+   FEATURED GRID
+═══════════════════════════════ */
+.feat-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;}
+.feat-card{background:white;border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:box-shadow .35s,transform .35s;position:relative;}
+.feat-card:hover{box-shadow:0 24px 64px var(--shadow-g);transform:translateY(-5px);}
+.feat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--g3),var(--d3),var(--g4));opacity:0;transition:opacity .3s;z-index:3;}
+.feat-card:hover::after{opacity:1;}
+.fc-img{position:relative;overflow:hidden;}
+.feat-card:first-child .fc-img{aspect-ratio:2/3;}
+.feat-card:not(:first-child) .fc-img{aspect-ratio:4/3;}
+.fc-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s;}
+.feat-card:hover .fc-img img{transform:scale(1.07);}
+.fc-dark{position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,9,.75) 0%,transparent 55%);opacity:0;transition:opacity .35s;z-index:1;}
+.feat-card:hover .fc-dark{opacity:1;}
+.fc-actions{position:absolute;bottom:16px;left:16px;right:16px;z-index:2;display:flex;gap:8px;transform:translateY(12px);opacity:0;transition:all .3s;}
+.feat-card:hover .fc-actions{transform:translateY(0);opacity:1;}
+.fc-actions button{flex:1;background:white;border:none;padding:9px;font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--g1);transition:background .2s,color .2s;}
+.fc-actions button:hover{background:linear-gradient(135deg,var(--g1),var(--g3));color:white;}
+.fc-badge{position:absolute;top:14px;left:14px;z-index:2;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;}
+.fc-body{padding:18px 20px 20px;}
+.fc-cat{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--g3);margin-bottom:4px;}
+.fc-name{font-family:var(--font-disp);font-size:clamp(16px,2vw,22px);font-weight:700;color:var(--txt);line-height:1.2;margin-bottom:7px;}
+.fc-desc{font-size:12px;color:var(--txt3);line-height:1.7;margin-bottom:14px;}
+.fc-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.fc-price{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--g1),var(--g3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.fc-price .old{font-size:11px;text-decoration:line-through;color:var(--txt4);margin-left:7px;font-weight:400;-webkit-text-fill-color:var(--txt4);}
+.fc-stars{font-size:12px;background:linear-gradient(90deg,var(--d1),var(--d3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-/* ── VIDEO GRID ── */
-.video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.vid-card { position: relative; overflow: hidden; cursor: pointer; background: #000; }
-.vid-card.large { grid-column: span 2; }
-.vc-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: transform 0.5s, opacity 0.3s; display: block; }
-.vid-card:hover .vc-thumb { transform: scale(1.04); opacity: 0.65; }
-.vc-overlay { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.65) 0%, transparent 60%); }
-.vc-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 58px; height: 58px; border-radius: 50%; background: rgba(200,104,122,0.2); border: 2px solid rgba(200,104,122,0.6); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; transition: all 0.2s; backdrop-filter: blur(4px); }
-.vid-card:hover .vc-play { background: var(--rose); border-color: var(--rose); transform: translate(-50%,-50%) scale(1.1); }
-.vc-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 18px; z-index: 2; }
-.vc-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 4px; }
-.vc-title { font-size: 14px; font-weight: 600; color: white; line-height: 1.3; }
-.vc-dur { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 3px; }
-.vc-upload { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(26,15,18,0.88); gap: 10px; opacity: 0; transition: opacity 0.2s; }
-.vid-card:hover .vc-upload { opacity: 1; }
-.vc-upload i { font-size: 30px; color: var(--rose-lt); }
-.vc-upload span { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-.vc-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+/* ═══════════════════════════════
+   ROUTINE BANNER
+═══════════════════════════════ */
+.routine{background:var(--dark);padding:clamp(3rem,7vw,5rem) clamp(1rem,5vw,4rem);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;overflow:hidden;}
+.routine::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(73,209,124,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.routine::after{content:'';position:absolute;right:-150px;top:-150px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(46,145,80,.07),transparent 65%);}
+.rb-eyebrow{font-size:10px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;color:var(--g4);margin-bottom:1rem;}
+.rb-title{font-family:var(--font-disp);font-size:clamp(2.2rem,4.5vw,4rem);color:white;line-height:.95;margin-bottom:1.2rem;letter-spacing:-.5px;}
+.rb-title em{background:linear-gradient(135deg,var(--g4),var(--d4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;}
+.rb-desc{font-size:14px;color:rgba(255,255,255,.4);line-height:1.9;margin-bottom:2rem;}
+.routine-steps{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1;}
+.r-step{display:flex;align-items:center;gap:16px;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:background .25s,border-color .25s,transform .25s;cursor:default;}
+.r-step:hover{background:rgba(73,209,124,.06);border-color:rgba(73,209,124,.25);transform:translateX(6px);}
+.r-num{font-family:var(--font-disp);font-size:2.4rem;color:var(--g3);opacity:.35;line-height:1;min-width:48px;transition:opacity .25s;}
+.r-step:hover .r-num{opacity:.8;}
+.r-label{font-size:13px;font-weight:600;color:white;margin-bottom:3px;}
+.r-sub{font-size:11px;color:rgba(255,255,255,.3);}
+.r-ico{margin-left:auto;font-size:22px;color:var(--g4);opacity:.5;transition:opacity .25s,transform .25s;}
+.r-step:hover .r-ico{opacity:1;transform:scale(1.15);}
 
-/* ── TESTIMONIALS ── */
-.testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.testi-card { background: white; border: 1px solid var(--border); padding: 24px; transition: box-shadow 0.2s; }
-.testi-card:hover { box-shadow: 0 8px 28px var(--shadow); }
-.tc-stars { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
-.tc-text { font-family: var(--font-disp); font-size: 15px; font-style: italic; color: var(--text-sec); line-height: 1.8; margin-bottom: 16px; }
-.tc-author { display: flex; align-items: center; gap: 12px; }
-.tc-av { width: 38px; height: 38px; border-radius: 50%; background: var(--rose); color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-.tc-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.tc-city { font-size: 10px; color: var(--text-muted); }
+/* ═══════════════════════════════
+   CATEGORIES GRID
+═══════════════════════════════ */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.cat-card{position:relative;overflow:hidden;cursor:pointer;height:220px;display:flex;align-items:flex-end;padding:18px;}
+.cat-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s;}
+.cat-card:hover img{transform:scale(1.1);}
+.cat-card::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,9,.82) 0%,transparent 55%);z-index:1;transition:opacity .3s;}
+.cat-card:hover::after{opacity:.9;}
+/* Gold top accent */
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--g3),var(--d3));z-index:3;transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.cat-card:hover::before{transform:scaleX(1);}
+.cc-inner{position:relative;z-index:2;transition:transform .3s;}
+.cat-card:hover .cc-inner{transform:translateY(-4px);}
+.cc-eyebrow{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--g4);margin-bottom:4px;}
+.cc-name{font-family:var(--font-disp);font-size:clamp(16px,2vw,20px);color:white;font-weight:700;line-height:1.2;}
+.cc-count{font-size:10px;color:rgba(255,255,255,.35);margin-top:4px;}
 
-/* ── MARQUEE ── */
-.beaute-marquee { background: var(--rose-dk); padding: 14px 0; overflow: hidden; }
-.bm-inner { display: inline-flex; gap: 56px; white-space: nowrap; animation: marquee 22s linear infinite; }
-.bm-inner span { font-size: 11px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 12px; }
-.bm-inner span b { color: var(--rose-lt); }
-.bm-inner span::after { content: '✦'; opacity: 0.35; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* ═══════════════════════════════
+   VIDEO SECTION
+═══════════════════════════════ */
+.vid-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:14px;}
+.vid-card{position:relative;overflow:hidden;cursor:pointer;background:var(--dark2);}
+.vid-card.large{grid-row:span 2;}
+.vc-img{width:100%;height:100%;min-height:200px;object-fit:cover;display:block;transition:transform .6s,opacity .3s;}
+.vid-card:hover .vc-img{transform:scale(1.05);opacity:.6;}
+.vc-grad{position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,9,.85) 0%,transparent 60%);}
+.vc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(73,209,124,.15);border:2px solid rgba(73,209,124,.5);display:flex;align-items:center;justify-content:center;color:white;font-size:22px;transition:all .25s;backdrop-filter:blur(4px);}
+.vid-card:hover .vc-play{background:var(--g3);border-color:var(--g3);transform:translate(-50%,-50%) scale(1.12);}
+.vc-info{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;z-index:2;}
+.vc-tag{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g4);margin-bottom:4px;}
+.vc-title{font-size:13px;font-weight:600;color:white;line-height:1.3;}
+.vc-dur{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px;}
+/* Upload overlay */
+.vc-upload{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(4,18,9,.9);gap:10px;opacity:0;transition:opacity .25s;}
+.vid-card:hover .vc-upload{opacity:1;}
+.vc-upload i{font-size:28px;color:var(--g4);}
+.vc-upload span{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.vc-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;}
 
-/* ── PROMO BAND ── */
-.promo-band { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 20px 5vw; display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
-.pb-item { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.pb-item i { font-size: 22px; color: var(--rose); }
-.pb-item .pt { font-size: 13px; font-weight: 600; color: var(--text); }
-.pb-item .ps { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-.pb-sep { width: 1px; height: 32px; background: var(--border); flex-shrink: 0; }
+/* ═══════════════════════════════
+   TESTIMONIALS
+═══════════════════════════════ */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.tc-card{background:white;border:1px solid var(--border);padding:24px;transition:box-shadow .25s,transform .25s,border-color .25s;position:relative;overflow:hidden;}
+.tc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--g3),var(--d3),transparent);}
+.tc-card:hover{box-shadow:0 12px 36px var(--shadow-g);transform:translateY(-4px);border-color:rgba(46,145,80,.3);}
+.tc-stars{font-size:14px;background:linear-gradient(90deg,var(--d1),var(--d3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
+.tc-text{font-family:var(--font-disp);font-size:15px;font-style:italic;color:var(--txt3);line-height:1.85;margin-bottom:18px;}
+.tc-author{display:flex;align-items:center;gap:12px;}
+.tc-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--g1),var(--g3));color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.tc-name{font-size:13px;font-weight:600;color:var(--txt);}
+.tc-city{font-size:10px;color:var(--txt4);}
 
-/* ── TOAST ── */
-.toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--dark); color: white; padding: 11px 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; z-index: 999; opacity: 0; transition: all 0.25s; display: flex; align-items: center; gap: 8px; white-space: nowrap; box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.toast i { color: var(--rose-lt); font-size: 17px; }
+/* ═══════════════════════════════
+   COUNTER STRIP
+═══════════════════════════════ */
+.counter-strip{background:linear-gradient(135deg,var(--dark),var(--dark3));padding:3.5rem clamp(1rem,5vw,3rem);display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;position:relative;overflow:hidden;}
+.counter-strip::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(73,209,124,.05) 1px,transparent 1px);background-size:24px 24px;}
+.cs-item{text-align:center;position:relative;z-index:1;}
+.cs-num{font-family:var(--font-disp);font-size:clamp(2.5rem,5vw,4rem);font-weight:700;background:linear-gradient(135deg,var(--g4),var(--d4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.cs-label{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:6px;}
+.cs-sep{display:none;}
 
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .feat-grid { grid-template-columns: 1fr 1fr; }
-  .feat-card.tall { grid-row: span 1; }
-  .feat-card.tall .fc-img { min-height: auto; aspect-ratio: 4/3; }
-  .cat-grid { grid-template-columns: repeat(2, 1fr); }
-  .routine-banner { grid-template-columns: 1fr; gap: 2.5rem; padding: 60px 5vw; }
-  .video-grid { grid-template-columns: 1fr 1fr; }
-  .vid-card.large { grid-column: span 2; }
-  .testi-grid { grid-template-columns: 1fr 1fr; }
+/* ═══════════════════════════════
+   MARQUEE
+═══════════════════════════════ */
+.marquee-wrap{background:var(--g1);padding:13px 0;overflow:hidden;}
+.marquee-inner{display:inline-flex;gap:56px;white-space:nowrap;animation:marq 24s linear infinite;}
+.marquee-inner span{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:12px;}
+.marquee-inner span b{background:linear-gradient(90deg,var(--d4),var(--d5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.marquee-inner span::after{content:'✦';color:var(--g4);opacity:.5;}
+@keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ═══════════════════════════════
+   TOAST
+═══════════════════════════════ */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(16px);background:linear-gradient(135deg,var(--dark2),var(--dark3));border:1px solid rgba(73,209,124,.3);color:white;padding:11px 20px;font-size:12px;font-weight:600;letter-spacing:.5px;z-index:999;opacity:0;transition:all .25s;display:flex;align-items:center;gap:8px;max-width:90vw;box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast i{font-size:17px;background:linear-gradient(135deg,var(--g4),var(--d4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ═══════════════════════════════
+   PARALLAX HELPER
+═══════════════════════════════ */
+.parallax-el{will-change:transform;}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:1100px){
+  .feat-grid{grid-template-columns:1fr 1fr;}
+  .feat-card:first-child .fc-img{aspect-ratio:4/3;}
+  .vid-grid{grid-template-columns:1fr 1fr;}
+  .vid-card.large{grid-column:span 2;grid-row:span 1;}
+  .routine{grid-template-columns:1fr;gap:3rem;}
+  .counter-strip{grid-template-columns:repeat(2,1fr);}
 }
-@media (max-width: 768px) {
-  .beaute-hero { height: 440px; }
-  .hero-floats { display: none; }
-  .section { padding: 56px 4vw; }
-  .feat-grid { grid-template-columns: 1fr; }
-  .video-grid { grid-template-columns: 1fr; }
-  .vid-card.large { grid-column: span 1; }
-  .testi-grid { grid-template-columns: 1fr; }
+@media(max-width:900px){
+  .hero-stats{display:none;}
+  .promo-band{grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+  .pb-item{background:white;padding:14px 1rem;}
+  .pb-item:last-child{border-right:none;}
+  .cat-grid{grid-template-columns:repeat(2,1fr);}
+  .testi-grid{grid-template-columns:1fr 1fr;}
+  .feat-grid{grid-template-columns:1fr;}
 }
-@media (max-width: 640px) {
-  .beaute-hero { height: 380px; }
-  .hero-ctas { flex-direction: column; }
-  .btn-rose, .btn-ghost { width: 100%; justify-content: center; }
-  .section { padding: 44px 1rem; }
-  .sec-head-row { flex-direction: column; align-items: flex-start; }
-  .cat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .cat-card { height: 160px; }
-  .prod-slide { width: 190px; }
-  .promo-band { gap: 1.5rem; }
+@media(max-width:640px){
+  .hero{max-height:100svh;}
+  .hero-btns{flex-direction:column;}
+  .btn-primary,.btn-gold,.btn-ghost-w{width:100%;justify-content:center;}
+  .promo-band{grid-template-columns:1fr;}
+  .pb-item{border-right:none;border-bottom:1px solid var(--border);}
+  .pb-item:last-child{border-bottom:none;}
+  .feat-grid{grid-template-columns:1fr;}
+  .vid-grid{grid-template-columns:1fr;}
+  .vid-card.large{grid-column:span 1;}
+  .testi-grid{grid-template-columns:1fr;}
+  .cat-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .cat-card{height:160px;}
+  .counter-strip{grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .routine{padding:3rem 1rem;}
+  .slider-wrap::before,.slider-wrap::after{width:50px;}
+  .sec-head{flex-direction:column;align-items:flex-start;}
+  .ps-card{width:180px;}
+  .scroll-hint{display:none;}
+}
+@media(max-width:380px){
+  .cat-grid{grid-template-columns:1fr;}
+  .counter-strip{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -259,164 +371,194 @@ body { font-family: var(--font); background: var(--blush); color: var(--text); o
 
 <!-- BACK BAR -->
 <div class="back-bar">
-  <a href="index.html"><i class="ti ti-arrow-left"></i> Retour à l'accueil</a>
-  <span>/</span>
-  <span class="curr">Beauté & Soin</span>
+  <a href="index.html"><i class="ti ti-arrow-left"></i> Accueil</a>
+  <span class="sep">/</span>
+  <span class="curr">Beauté &amp; Soin</span>
 </div>
 
-<!-- HERO -->
-<div class="beaute-hero">
-  <div class="hero-bg-slider" id="heroBg">
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero-slides" id="heroSlides">
     <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=1400&q=80" class="active" alt="">
     <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=1400&q=80" alt="">
     <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=1400&q=80" alt="">
     <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1400&q=80" alt="">
   </div>
-  <div class="hero-overlay"></div>
+  <div class="hero-dots"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-grad2"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Crystal Company · Beauté</div>
-    <h1>Sublimez<br>Votre <em>Beauté</em></h1>
-    <p>Soins premium, parfums envoûtants et cosmétiques naturels sélectionnés avec soin pour révéler votre éclat naturel.</p>
-    <div class="hero-ctas">
-      <button class="btn-rose" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">
-        <i class="ti ti-sparkles"></i> Découvrir la collection
-      </button>
-      <button class="btn-ghost" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">
-        <i class="ti ti-player-play"></i> Voir les tutoriels
-      </button>
+    <div class="h-eyebrow">Crystal Company · Beauté &amp; Soin</div>
+    <h1 class="hero-h1">Sublimez<br>Votre <em>Éclat</em><br><span class="gold-word">Naturel</span></h1>
+    <p class="hero-p">Soins premium, parfums envoûtants et cosmétiques naturels — importés avec soin, livrés en 48h partout au Sénégal.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})"><i class="ti ti-sparkles"></i> Découvrir la collection</button>
+      <button class="btn-gold" onclick="window.open('https://wa.me/221774976364','_blank')"><i class="ti ti-brand-whatsapp"></i> Commander sur WhatsApp</button>
+      <button class="btn-ghost-w" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})"><i class="ti ti-player-play"></i> Tutoriels</button>
     </div>
   </div>
-  <div class="hero-floats">
-    <div class="hf-stat"><div class="n">100%</div><div class="l">Naturel</div></div>
-    <div class="hf-stat"><div class="n">30+</div><div class="l">Produits</div></div>
-    <div class="hf-stat"><div class="n">4.9★</div><div class="l">Avis clients</div></div>
+  <div class="hero-stats">
+    <div class="hs-stat"><div class="n">100%</div><div class="l">Naturel</div></div>
+    <div class="hs-stat"><div class="n">30+</div><div class="l">Produits</div></div>
+    <div class="hs-stat"><div class="n">48h</div><div class="l">Livraison</div></div>
   </div>
-</div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Défiler</span>
+  </div>
+</section>
 
 <!-- PROMO BAND -->
 <div class="promo-band">
-  <div class="pb-item"><i class="ti ti-leaf"></i><div><div class="pt">100% Naturel</div><div class="ps">Ingrédients certifiés</div></div></div>
-  <div class="pb-sep"></div>
-  <div class="pb-item"><i class="ti ti-truck"></i><div><div class="pt">Livraison 48h</div><div class="ps">Dakar & régions</div></div></div>
-  <div class="pb-sep"></div>
-  <div class="pb-item"><i class="ti ti-shield-check"></i><div><div class="pt">Sans Paraben</div><div class="ps">Testé dermatologiquement</div></div></div>
-  <div class="pb-sep"></div>
-  <div class="pb-item"><i class="ti ti-brand-whatsapp"></i><div><div class="pt">Conseils Beauté</div><div class="ps">WhatsApp 8h–20h</div></div></div>
+  <div class="pb-item sa"><div class="pb-icon"><i class="ti ti-leaf"></i></div><div><div class="pb-t">100% Naturel</div><div class="pb-s">Ingrédients certifiés</div></div></div>
+  <div class="pb-item sa d1"><div class="pb-icon"><i class="ti ti-truck"></i></div><div><div class="pb-t">Livraison 48h</div><div class="pb-s">Dakar &amp; régions</div></div></div>
+  <div class="pb-item sa d2"><div class="pb-icon"><i class="ti ti-shield-check"></i></div><div><div class="pb-t">Sans Paraben</div><div class="pb-s">Testé dermatologiquement</div></div></div>
+  <div class="pb-item sa d3"><div class="pb-icon" style="background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.2);"><i class="ti ti-brand-whatsapp" style="color:#25d366;"></i></div><div><div class="pb-t">Conseils Beauté</div><div class="pb-s">WhatsApp 8h–20h</div></div></div>
 </div>
 
-<!-- ══ SECTION 1 : SLIDER SOINS VISAGE ══ -->
-<section class="section" id="catalogue">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label">Soins Visage</div>
-      <h2 class="sec-title">Routine Éclat & Hydratation</h2>
-      <p class="sec-sub">Produits soigneusement sélectionnés pour une peau lumineuse au quotidien</p>
+<!-- ══ SECTION 1: SLIDER SOINS ══ -->
+<div class="bg-white" id="catalogue">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow">Soins Visage</div>
+        <h2 class="sec-title">Routine <span class="ul">Éclat</span> &amp; Hydratation</h2>
+        <p class="sec-sub">Produits soigneusement sélectionnés pour une peau lumineuse au quotidien</p>
+      </div>
+      <button class="btn-primary sa-right" onclick="showToast('Catalogue complet bientôt !')">Tout voir <i class="ti ti-arrow-right"></i></button>
     </div>
-    <button class="btn-rose" onclick="showToast('Catalogue complet bientôt !')">Tout voir <i class="ti ti-arrow-right"></i></button>
-  </div>
-  <div class="slider-track-wrap reveal">
-    <div class="slider-track" id="track1"></div>
-  </div>
-</section>
-
-<!-- ══ SECTION 2 : PRODUITS EN VEDETTE ══ -->
-<section class="section section-alt">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label">Coups de Cœur</div>
-      <h2 class="sec-title">Produits en Vedette</h2>
-      <p class="sec-sub">Notre sélection beauté du moment</p>
+    <div class="slider-wrap sa">
+      <div class="slider-track" id="track1"></div>
     </div>
   </div>
-  <div class="feat-grid" id="featGrid"></div>
-</section>
+</div>
 
-<!-- ══ SECTION 3 : SLIDER PARFUMS ══ -->
-<section class="section">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label">Fragrances</div>
-      <h2 class="sec-title">Parfums & Senteurs</h2>
-      <p class="sec-sub">Des fragrances envoûtantes venues du monde entier</p>
+<!-- ══ COUNTER STRIP ══ -->
+<div class="counter-strip">
+  <div class="cs-item sa"><div class="cs-num" data-count="30" data-suffix="+">0</div><div class="cs-label">Produits Beauté</div></div>
+  <div class="cs-item sa d1"><div class="cs-num" data-count="100" data-suffix="%">0</div><div class="cs-label">Naturel &amp; Certifié</div></div>
+  <div class="cs-item sa d2"><div class="cs-num" data-count="48" data-suffix="h">0</div><div class="cs-label">Livraison Dakar</div></div>
+  <div class="cs-item sa d3"><div class="cs-num" data-count="500" data-suffix="+">0</div><div class="cs-label">Clientes Satisfaites</div></div>
+</div>
+
+<!-- ══ SECTION 2: PRODUITS VEDETTE ══ -->
+<div class="bg-off">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow">Coups de Cœur</div>
+        <h2 class="sec-title">Produits <span class="ul">en Vedette</span></h2>
+        <p class="sec-sub">Notre sélection beauté du moment</p>
+      </div>
+    </div>
+    <div class="feat-grid" id="featGrid"></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 3: PARFUMS SLIDER ══ -->
+<div class="bg-white">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow">Fragrances</div>
+        <h2 class="sec-title">Parfums &amp; <span class="ul">Senteurs</span></h2>
+        <p class="sec-sub">Des fragrances envoûtantes venues du monde entier</p>
+      </div>
+    </div>
+    <div class="slider-wrap sa">
+      <div class="slider-track st-rev" id="track2"></div>
     </div>
   </div>
-  <div class="slider-track-wrap reveal">
-    <div class="slider-track slider-track-rev" id="track2"></div>
-  </div>
-</section>
+</div>
 
-<!-- ══ SECTION 4 : CATÉGORIES ══ -->
-<section class="section section-alt">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label">Univers Beauté</div>
-      <h2 class="sec-title">Nos Catégories</h2>
+<!-- ══ SECTION 4: CATÉGORIES ══ -->
+<div class="bg-off">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow">Univers Beauté</div>
+        <h2 class="sec-title">Nos <span class="ul">Catégories</span></h2>
+      </div>
     </div>
+    <div class="cat-grid" id="catGrid"></div>
   </div>
-  <div class="cat-grid reveal" id="catGrid"></div>
-</section>
+</div>
 
-<!-- ══ SECTION 5 : ROUTINE BEAUTÉ ══ -->
-<div class="routine-banner reveal">
+<!-- ══ ROUTINE BEAUTÉ ══ -->
+<div class="routine sa">
   <div>
     <div class="rb-eyebrow">Conseil Expert</div>
     <h2 class="rb-title">Votre Routine<br><em>Beauté Parfaite</em></h2>
-    <p class="rb-desc">Nos expertes beauté vous guident pour construire une routine personnalisée adaptée à votre type de peau. Contactez-nous sur WhatsApp pour un conseil gratuit.</p>
-    <button class="btn-rose" onclick="window.open('https://wa.me/221774976364','_blank')">
-      <i class="ti ti-brand-whatsapp"></i> Conseil beauté gratuit
-    </button>
+    <p class="rb-desc">Nos expertes beauté vous guident pour une routine personnalisée adaptée à votre type de peau. Conseil gratuit sur WhatsApp !</p>
+    <button class="btn-primary" style="margin-top:.5rem;" onclick="window.open('https://wa.me/221774976364','_blank')"><i class="ti ti-brand-whatsapp"></i> Conseil beauté gratuit</button>
   </div>
   <div class="routine-steps">
-    <div class="routine-step"><div class="rs-num">01</div><div class="rs-info"><div class="rt">Nettoyage</div><div class="rs">Préparer la peau matin et soir</div></div><i class="ti ti-droplet rs-icon"></i></div>
-    <div class="routine-step"><div class="rs-num">02</div><div class="rs-info"><div class="rt">Tonique</div><div class="rs">Équilibrer le pH cutané</div></div><i class="ti ti-bottle rs-icon"></i></div>
-    <div class="routine-step"><div class="rs-num">03</div><div class="rs-info"><div class="rt">Sérum</div><div class="rs">Traitement ciblé concentré</div></div><i class="ti ti-flask rs-icon"></i></div>
-    <div class="routine-step"><div class="rs-num">04</div><div class="rs-info"><div class="rt">Hydratant</div><div class="rs">Sceller l'hydratation</div></div><i class="ti ti-sun rs-icon"></i></div>
-    <div class="routine-step"><div class="rs-num">05</div><div class="rs-info"><div class="rt">Protection</div><div class="rs">SPF indispensable en journée</div></div><i class="ti ti-shield rs-icon"></i></div>
+    <div class="r-step sa d1"><div class="r-num">01</div><div><div class="r-label">Nettoyage</div><div class="r-sub">Préparer la peau matin et soir</div></div><i class="ti ti-droplet r-ico"></i></div>
+    <div class="r-step sa d2"><div class="r-num">02</div><div><div class="r-label">Tonique</div><div class="r-sub">Équilibrer le pH cutané</div></div><i class="ti ti-bottle r-ico"></i></div>
+    <div class="r-step sa d3"><div class="r-num">03</div><div><div class="r-label">Sérum</div><div class="r-sub">Traitement ciblé concentré</div></div><i class="ti ti-flask r-ico"></i></div>
+    <div class="r-step sa d4"><div class="r-num">04</div><div><div class="r-label">Hydratant</div><div class="r-sub">Sceller l'hydratation</div></div><i class="ti ti-sun r-ico"></i></div>
+    <div class="r-step sa d5"><div class="r-num">05</div><div><div class="r-label">Protection SPF</div><div class="r-sub">Indispensable en journée</div></div><i class="ti ti-shield r-ico"></i></div>
   </div>
 </div>
 
-<!-- ══ SECTION 6 : SLIDER MAQUILLAGE ══ -->
-<section class="section">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label">Maquillage</div>
-      <h2 class="sec-title">Couleurs & Éclat</h2>
-      <p class="sec-sub">Toutes les teintes pour sublimer votre beauté naturelle</p>
+<!-- ══ SECTION 5: MAQUILLAGE SLIDER ══ -->
+<div class="bg-white">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow">Maquillage</div>
+        <h2 class="sec-title">Couleurs &amp; <span class="ul">Éclat</span></h2>
+        <p class="sec-sub">Toutes les teintes pour sublimer votre beauté naturelle</p>
+      </div>
+    </div>
+    <div class="slider-wrap sa">
+      <div class="slider-track st-fast" id="track3"></div>
     </div>
   </div>
-  <div class="slider-track-wrap reveal">
-    <div class="slider-track slider-track-fast" id="track3"></div>
-  </div>
-</section>
+</div>
 
-<!-- ══ SECTION 7 : VIDÉOS TUTORIELS ══ -->
-<section class="section section-dark" id="videos">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label" style="color:var(--rose-lt);">Tutoriels</div>
-      <h2 class="sec-title sec-title-light">Vidéos & Démonstrations</h2>
-      <p class="sec-sub sec-sub-light">Apprenez à utiliser nos produits — ajoutez vos propres tutoriels</p>
-    </div>
-  </div>
-  <div class="video-grid reveal" id="videoGrid"></div>
-</section>
-
-<!-- ══ SECTION 8 : AVIS CLIENTS ══ -->
-<section class="section section-alt">
-  <div class="sec-head-row reveal">
-    <div>
-      <div class="sec-label">Témoignages</div>
-      <h2 class="sec-title">Elles Nous Font Confiance</h2>
-    </div>
-  </div>
-  <div class="testi-grid" id="testiGrid"></div>
-</section>
-
-<!-- MARQUEE -->
-<div class="beaute-marquee">
-  <div class="bm-inner">
+<!-- ══ MARQUEE ══ -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
     <span>Beauté <b>Naturelle</b></span><span>Soins <b>Premium</b></span><span>Parfums <b>Authentiques</b></span><span>Livraison <b>Dakar</b></span><span>Sans <b>Paraben</b></span><span>Crystal <b>Company</b></span>
     <span>Beauté <b>Naturelle</b></span><span>Soins <b>Premium</b></span><span>Parfums <b>Authentiques</b></span><span>Livraison <b>Dakar</b></span><span>Sans <b>Paraben</b></span><span>Crystal <b>Company</b></span>
+  </div>
+</div>
+
+<!-- ══ SECTION 6: VIDÉOS ══ -->
+<div class="bg-dark2" id="videos">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow sec-eyebrow-light">Tutoriels</div>
+        <h2 class="sec-title sec-title-light">Vidéos &amp; <span class="ul" style="color:var(--g4)">Démonstrations</span></h2>
+        <p class="sec-sub sec-sub-light">Apprenez à utiliser nos produits — ajoutez vos propres tutoriels</p>
+      </div>
+    </div>
+    <div class="vid-grid" id="vidGrid"></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 7: AVIS ══ -->
+<div class="bg-off">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-head-left sa-left">
+        <div class="sec-eyebrow">Témoignages</div>
+        <h2 class="sec-title">Elles Nous Font <span class="ul">Confiance</span></h2>
+      </div>
+    </div>
+    <div class="testi-grid" id="testiGrid"></div>
+  </div>
+</div>
+
+<!-- FINAL MARQUEE -->
+<div class="marquee-wrap" style="background:var(--g1);">
+  <div class="marquee-inner" style="animation-direction:reverse;">
+    <span>Commandez <b>maintenant</b></span><span>Livraison <b>48h Dakar</b></span><span>WhatsApp <b>77 699 00 00</b></span><span>Qualité <b>garantie</b></span><span>Crystal <b>Company</b></span>
+    <span>Commandez <b>maintenant</b></span><span>Livraison <b>48h Dakar</b></span><span>WhatsApp <b>77 699 00 00</b></span><span>Qualité <b>garantie</b></span><span>Crystal <b>Company</b></span>
   </div>
 </div>
 
@@ -424,154 +566,155 @@ body { font-family: var(--font); background: var(--blush); color: var(--text); o
 <div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
 
 <script>
+/* ══ DATA ══ */
 const fmt = n => n.toLocaleString('fr-FR') + ' FCFA';
 const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
 
-const soinsVisage = [
-  { name:"Crème Karité & Aloe Vera",   cat:"Hydratant",  price:4500,  oldPrice:null,  badge:"new",   stars:5, img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80" },
-  { name:"Sérum Éclat Vitamine C",     cat:"Sérum",      price:8900,  oldPrice:12000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80" },
-  { name:"Masque Argile Purifiante",   cat:"Masque",     price:3800,  oldPrice:null,  badge:null,    stars:4, img:"https://images.unsplash.com/photo-1570194065650-d99fb4d8b1c4?w=400&q=80" },
-  { name:"Eau Micellaire Douce",       cat:"Nettoyant",  price:3200,  oldPrice:null,  badge:null,    stars:4, img:"https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=400&q=80" },
-  { name:"Crème Nuit Régénérante",     cat:"Nuit",       price:6500,  oldPrice:9000,  badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80" },
-  { name:"Tonique Eau de Rose",        cat:"Tonique",    price:2800,  oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" },
-  { name:"Huile de Coco Pure",         cat:"Huile",      price:3500,  oldPrice:null,  badge:"top",   stars:5, img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80" },
-  { name:"SPF 50 Invisible",           cat:"Protection", price:5500,  oldPrice:7000,  badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=400&q=80" },
+const soins = [
+  {name:"Crème Karité & Aloe Vera",cat:"Hydratant",price:4500,old:null,badge:"new",s:5,img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80"},
+  {name:"Sérum Éclat Vitamine C",cat:"Sérum",price:8900,old:12000,badge:"promo",s:5,img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"},
+  {name:"Masque Argile Purifiante",cat:"Masque",price:3800,old:null,badge:null,s:4,img:"https://images.unsplash.com/photo-1570194065650-d99fb4d8b1c4?w=400&q=80"},
+  {name:"Eau Micellaire Douce",cat:"Nettoyant",price:3200,old:null,badge:null,s:4,img:"https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=400&q=80"},
+  {name:"Crème Nuit Régénérante",cat:"Nuit",price:6500,old:9000,badge:"promo",s:5,img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80"},
+  {name:"Tonique Eau de Rose",cat:"Tonique",price:2800,old:null,badge:"new",s:4,img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80"},
+  {name:"Huile de Coco Pure",cat:"Huile",price:3500,old:null,badge:"top",s:5,img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80"},
+  {name:"SPF 50 Invisible",cat:"Protection",price:5500,old:7000,badge:"promo",s:4,img:"https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=400&q=80"},
 ];
-
 const parfums = [
-  { name:"Parfum Oud Intense 50ml",    cat:"Oriental",   price:16000, oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80" },
-  { name:"Eau de Rose Fraîche 30ml",   cat:"Floral",     price:9500,  oldPrice:12000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1595535873420-a599195b3f4a?w=400&q=80" },
-  { name:"Bois de Santal 50ml",        cat:"Boisé",      price:14000, oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1588776813677-77aaa5595652?w=400&q=80" },
-  { name:"Jasmin & Musc 30ml",         cat:"Floral",     price:11000, oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1594897030264-ab7d87efc473?w=400&q=80" },
-  { name:"Ambre & Vanille 50ml",       cat:"Gourmand",   price:13500, oldPrice:18000, badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&q=80" },
-  { name:"Neroli & Bergamote 30ml",    cat:"Agrume",     price:8800,  oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&q=80" },
+  {name:"Parfum Oud Intense 50ml",cat:"Oriental",price:16000,old:null,badge:null,s:5,img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80"},
+  {name:"Eau de Rose Fraîche 30ml",cat:"Floral",price:9500,old:12000,badge:"promo",s:5,img:"https://images.unsplash.com/photo-1595535873420-a599195b3f4a?w=400&q=80"},
+  {name:"Bois de Santal 50ml",cat:"Boisé",price:14000,old:null,badge:"new",s:4,img:"https://images.unsplash.com/photo-1588776813677-77aaa5595652?w=400&q=80"},
+  {name:"Jasmin & Musc 30ml",cat:"Floral",price:11000,old:null,badge:null,s:5,img:"https://images.unsplash.com/photo-1594897030264-ab7d87efc473?w=400&q=80"},
+  {name:"Ambre & Vanille 50ml",cat:"Gourmand",price:13500,old:18000,badge:"promo",s:4,img:"https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=400&q=80"},
+  {name:"Neroli & Bergamote 30ml",cat:"Agrume",price:8800,old:null,badge:"new",s:4,img:"https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&q=80"},
 ];
-
 const maquillage = [
-  { name:"Rouge à Lèvres Mat",         cat:"Lèvres",     price:3500,  oldPrice:null,  badge:"new",   stars:5, img:"https://images.unsplash.com/photo-1586495777744-4e6232bf4b4c?w=400&q=80" },
-  { name:"Fond de Teint Longue Tenue", cat:"Teint",      price:7500,  oldPrice:10000, badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80" },
-  { name:"Palette 9 Ombres à Paupières",cat:"Yeux",      price:8900,  oldPrice:null,  badge:"top",   stars:5, img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80" },
-  { name:"Mascara Volume Extrême",     cat:"Yeux",       price:4500,  oldPrice:6000,  badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1614159427027-c2b01c803a31?w=400&q=80" },
-  { name:"Blush Pêche Naturel",        cat:"Joues",      price:3800,  oldPrice:null,  badge:"new",   stars:4, img:"https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80" },
-  { name:"Highlighter Doré",           cat:"Éclat",      price:4200,  oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=400&q=80" },
+  {name:"Rouge à Lèvres Mat",cat:"Lèvres",price:3500,old:null,badge:"new",s:5,img:"https://images.unsplash.com/photo-1586495777744-4e6232bf4b4c?w=400&q=80"},
+  {name:"Fond de Teint Longue Tenue",cat:"Teint",price:7500,old:10000,badge:"promo",s:4,img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&q=80"},
+  {name:"Palette 9 Ombres",cat:"Yeux",price:8900,old:null,badge:"top",s:5,img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80"},
+  {name:"Mascara Volume Extrême",cat:"Yeux",price:4500,old:6000,badge:"promo",s:4,img:"https://images.unsplash.com/photo-1614159427027-c2b01c803a31?w=400&q=80"},
+  {name:"Blush Pêche Naturel",cat:"Joues",price:3800,old:null,badge:"new",s:4,img:"https://images.unsplash.com/photo-1617922001439-4a2e6562f328?w=400&q=80"},
+  {name:"Highlighter Doré",cat:"Éclat",price:4200,old:null,badge:null,s:5,img:"https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=400&q=80"},
 ];
-
 const featProds = [
-  { name:"Miroir Maquillage LED",       cat:"Accessoire", price:11000, oldPrice:15000, badge:"promo", stars:4, img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=600&q=80",  desc:"3 modes d'éclairage, grossissement ×10, rechargeable USB-C. Pliable pour le voyage.", tall:false },
-  { name:"Coffret Soin Complet",        cat:"Coffret",    price:22000, oldPrice:28000, badge:"promo", stars:5, img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80",  desc:"Crème hydratante + sérum + masque + eau micellaire. Tout pour une routine parfaite.", tall:true  },
-  { name:"Parfum Oud Intense 50ml",     cat:"Parfum",     price:16000, oldPrice:null,  badge:null,    stars:5, img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=80", desc:"Eau de parfum oriental oud et santal. Longue tenue 12h+. Flacon luxe 50ml.", tall:false },
+  {name:"Miroir Maquillage LED",cat:"Accessoire",price:11000,old:15000,badge:"promo",s:4,img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=700&q=80",desc:"3 modes d'éclairage, grossissement ×10, rechargeable USB-C. Idéal voyage."},
+  {name:"Coffret Soin Complet",cat:"Coffret",price:22000,old:28000,badge:"promo",s:5,img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80",desc:"Crème + sérum + masque + eau micellaire. Tout pour une routine parfaite."},
+  {name:"Parfum Oud Intense 50ml",cat:"Parfum",price:16000,old:null,badge:null,s:5,img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=700&q=80",desc:"Eau de parfum oriental oud et santal. Longue tenue 12h+. Flacon luxe 50ml."},
 ];
-
 const categories = [
-  { name:"Soins Visage",   label:"Hydratation & Éclat",   count:"12 produits", img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&q=80" },
-  { name:"Parfums",        label:"Fragrances exclusives",  count:"8 produits",  img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80" },
-  { name:"Maquillage",     label:"Couleurs & Pigments",    count:"10 produits", img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&q=80" },
-  { name:"Soins Corps",    label:"Nutrition & Douceur",    count:"7 produits",  img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" },
+  {name:"Soins Visage",label:"Hydratation & Éclat",count:"12 produits",img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80"},
+  {name:"Parfums",label:"Fragrances exclusives",count:"8 produits",img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=500&q=80"},
+  {name:"Maquillage",label:"Couleurs & Pigments",count:"10 produits",img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500&q=80"},
+  {name:"Soins Corps",label:"Nutrition & Douceur",count:"7 produits",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&q=80"},
 ];
-
-const videosData = [
-  { title:"Tutoriel Routine Soin Visage",   tag:"Soins",      dur:"3:24", thumb:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80",  file:null },
-  { title:"Application Fond de Teint",      tag:"Maquillage", dur:"2:10", thumb:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&q=80", file:null },
-  { title:"Comment Choisir son Parfum",     tag:"Parfums",    dur:"1:45", thumb:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80", file:null },
-  { title:"Masque Argile Maison",           tag:"DIY Beauté", dur:"4:00", thumb:"https://images.unsplash.com/photo-1570194065650-d99fb4d8b1c4?w=400&q=80", file:null },
-  { title:"Soins Cheveux Naturels",         tag:"Cheveux",    dur:"2:55", thumb:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80", file:null },
-  { title:"Votre vidéo ici…",              tag:"À venir",    dur:"—",    thumb:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80", file:null },
+const vids = [
+  {title:"Tutoriel Routine Soin Visage",tag:"Soins",dur:"3:24",img:"https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=700&q=80",large:true},
+  {title:"Application Fond de Teint",tag:"Maquillage",dur:"2:10",img:"https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=500&q=80",large:false},
+  {title:"Comment Choisir son Parfum",tag:"Parfums",dur:"1:45",img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=500&q=80",large:false},
+  {title:"Masque Argile Maison",tag:"DIY Beauté",dur:"4:00",img:"https://images.unsplash.com/photo-1570194065650-d99fb4d8b1c4?w=500&q=80",large:false},
+  {title:"Soins Cheveux Naturels",tag:"Cheveux",dur:"2:55",img:"https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&q=80",large:false},
+  {title:"Votre vidéo ici…",tag:"À venir",dur:"—",img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&q=80",large:false},
 ];
-
 const testimoniaux = [
-  { text:"La crème karité est incroyable ! Ma peau est tellement douce depuis que je l'utilise. Je la recommande à toutes mes amies à Dakar.", name:"Aïssatou Diop", city:"Dakar · Almadies", av:"AD", stars:5 },
-  { text:"Le parfum Oud est envoûtant, il tient toute la journée. J'ai reçu tellement de compliments ! Livraison rapide et emballage soigné.", name:"Mariama Bah",  city:"Dakar · Mermoz",   av:"MB", stars:5 },
-  { text:"Le miroir LED est parfait pour mon maquillage. La lumière est idéale. Crystal Company offre vraiment des produits de qualité !", name:"Fatou Sarr",   city:"Thiès · Centre",   av:"FS", stars:4 },
+  {text:"La crème karité est incroyable ! Ma peau est tellement douce depuis que je l'utilise. Je la recommande à toutes mes amies à Dakar.",name:"Aïssatou Diop",city:"Dakar · Almadies",av:"AD",s:5},
+  {text:"Le parfum Oud est envoûtant, il tient toute la journée. J'ai reçu tellement de compliments ! Livraison rapide et emballage soigné.",name:"Mariama Bah",city:"Dakar · Mermoz",av:"MB",s:5},
+  {text:"Le miroir LED est parfait pour mon maquillage. La lumière est idéale. Crystal Company offre vraiment des produits de qualité premium !",name:"Fatou Sarr",city:"Thiès · Centre",av:"FS",s:4},
 ];
 
-// ── BUILD SLIDE ──
-function buildSlide(p) {
-  const d = p.oldPrice ? '-' + Math.round((p.oldPrice-p.price)/p.oldPrice*100)+'%' : null;
-  return `<div class="prod-slide" onclick="showToast('${p.name} — ${fmt(p.price)}')">
+/* ══ BUILD SLIDE CARD ══ */
+function buildCard(p) {
+  const d = p.old ? '-'+Math.round((p.old-p.price)/p.old*100)+'%' : null;
+  const bCls = p.badge==='new'?'b-new':p.badge==='promo'?'b-promo':'b-top';
+  const bLbl = p.badge==='new'?'Nouveau':p.badge==='promo'?'Promo':'Top';
+  return `<div class="ps-card" onclick="showToast('${p.name.replace(/'/g,'&#39;')} — ${fmt(p.price)}')">
     <div class="ps-img">
       <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
-      ${p.badge?`<span class="ps-badge badge-${p.badge}">${p.badge==='new'?'Nouveau':p.badge==='promo'?'Promo':'Top'}</span>`:''}
-      <button class="ps-fav" onclick="event.stopPropagation();this.style.color='var(--rose)'"><i class="ti ti-heart"></i></button>
+      ${p.badge?`<span class="ps-badge ${bCls}">${bLbl}</span>`:''}
+      <button class="ps-fav" onclick="event.stopPropagation();this.classList.toggle('faved')"><i class="ti ti-heart"></i></button>
     </div>
     <div class="ps-body">
       <div class="ps-cat">${p.cat}</div>
       <div class="ps-name">${p.name}</div>
-      <div class="ps-stars">${stars(p.stars)}</div>
-      <div class="ps-pricing">
+      <div class="ps-stars">${stars(p.s)}</div>
+      <div class="ps-price-row">
         <span class="ps-price">${fmt(p.price)}</span>
-        ${p.oldPrice?`<span class="ps-old">${fmt(p.oldPrice)}</span>`:''}
+        ${p.old?`<span class="ps-old">${fmt(p.old)}</span>`:''}
         ${d?`<span class="ps-disc">${d}</span>`:''}
       </div>
-      <button class="ps-add" onclick="event.stopPropagation();showToast('${p.name} ajouté !')"><i class="ti ti-shopping-bag"></i> Ajouter</button>
+      <button class="ps-add" onclick="event.stopPropagation();showToast('${p.name.replace(/'/g,'&#39;')} ajouté au panier !')"><i class="ti ti-shopping-bag"></i> Ajouter</button>
     </div>
   </div>`;
 }
 
-function buildInfinite(id, items) {
-  const t = document.getElementById(id);
-  if (!t) return;
-  t.innerHTML = [...items,...items].map(buildSlide).join('');
+function buildSlider(id, items) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = [...items, ...items].map(buildCard).join('');
 }
-buildInfinite('track1', soinsVisage);
-buildInfinite('track2', parfums);
-buildInfinite('track3', maquillage);
+buildSlider('track1', soins);
+buildSlider('track2', parfums);
+buildSlider('track3', maquillage);
 
-// ── FEATURED ──
-document.getElementById('featGrid').innerHTML = featProds.map(p => `
-  <div class="feat-card ${p.tall?'tall':''} reveal" onclick="showToast('${p.name} — ${fmt(p.price)}')">
+/* ══ FEATURED GRID ══ */
+document.getElementById('featGrid').innerHTML = featProds.map((p,i) => {
+  const d = p.old ? '-'+Math.round((p.old-p.price)/p.old*100)+'%' : null;
+  const bCls = p.badge==='new'?'b-new':p.badge==='promo'?'b-promo':'b-top';
+  const bLbl = p.badge==='new'?'Nouveau':'Promo';
+  return `<div class="feat-card sa d${i+1}" onclick="showToast('${p.name.replace(/'/g,'&#39;')} — ${fmt(p.price)}')">
     <div class="fc-img">
       <img src="${p.img}" alt="${p.name}" loading="lazy">
-      <div class="fc-overlay"></div>
-      <div class="fc-quick">
-        <button onclick="event.stopPropagation();showToast('${p.name} ajouté !')"><i class="ti ti-shopping-bag"></i> Panier</button>
+      <div class="fc-dark"></div>
+      <div class="fc-actions">
+        <button onclick="event.stopPropagation();showToast('${p.name.replace(/'/g,'&#39;')} ajouté !')"><i class="ti ti-shopping-bag"></i> Panier</button>
         <button onclick="event.stopPropagation();showToast('Ajouté aux favoris !')"><i class="ti ti-heart"></i> Favori</button>
       </div>
-      ${p.badge?`<span class="fc-badge badge-${p.badge}">${p.badge==='new'?'Nouveau':'Promo'}</span>`:''}
+      ${p.badge?`<span class="fc-badge ${bCls}">${bLbl}</span>`:''}
     </div>
     <div class="fc-body">
       <div class="fc-cat">${p.cat}</div>
       <div class="fc-name">${p.name}</div>
       <p class="fc-desc">${p.desc}</p>
-      <div class="fc-footer">
-        <span class="fc-price">${fmt(p.price)}${p.oldPrice?`<span style="font-size:11px;color:var(--text-muted);text-decoration:line-through;font-weight:400;margin-left:8px;">${fmt(p.oldPrice)}</span>`:''}</span>
-        <span class="fc-stars">${stars(p.stars)}</span>
+      <div class="fc-bottom">
+        <span class="fc-price">${fmt(p.price)}${p.old?`<span class="old">${fmt(p.old)}</span>`:''}</span>
+        <span class="fc-stars">${stars(p.s)}</span>
       </div>
     </div>
-  </div>`).join('');
+  </div>`;
+}).join('');
 
-// ── CATEGORIES ──
+/* ══ CATEGORIES ══ */
 document.getElementById('catGrid').innerHTML = categories.map((c,i) => `
-  <div class="cat-card reveal reveal-delay-${i+1}" onclick="showToast('Catégorie : ${c.name}')">
+  <div class="cat-card sa d${i+1}" onclick="showToast('${c.name}')">
     <img src="${c.img}" alt="${c.name}" loading="lazy">
-    <div class="cc-content">
-      <div class="cc-label">${c.label}</div>
+    <div class="cc-inner">
+      <div class="cc-eyebrow">${c.label}</div>
       <div class="cc-name">${c.name}</div>
       <div class="cc-count">${c.count}</div>
     </div>
   </div>`).join('');
 
-// ── VIDEOS ──
-document.getElementById('videoGrid').innerHTML = videosData.map((v,i) => `
-  <div class="vid-card ${i===0?'large':''} reveal">
-    <img class="vc-thumb" src="${v.thumb}" alt="${v.title}" loading="lazy">
-    <div class="vc-overlay"></div>
+/* ══ VIDEOS ══ */
+document.getElementById('vidGrid').innerHTML = vids.map((v,i) => `
+  <div class="vid-card ${v.large?'large':''} sa d${i+1}" onclick="showToast('${v.title}')">
+    <img class="vc-img" src="${v.img}" alt="${v.title}" loading="lazy">
+    <div class="vc-grad"></div>
     <div class="vc-play"><i class="ti ti-player-play"></i></div>
     <div class="vc-info">
       <div class="vc-tag">${v.tag}</div>
       <div class="vc-title">${v.title}</div>
-      <div class="vc-dur">${v.dur!=='—'?'▶ '+v.dur:'📁 Cliquez pour ajouter votre vidéo'}</div>
+      <div class="vc-dur">${v.dur!=='—'?'▶ '+v.dur:'📁 Cliquez pour charger'}</div>
     </div>
     <div class="vc-upload">
       <i class="ti ti-upload"></i>
       <span>Charger votre vidéo</span>
-      <input type="file" accept="video/*" onchange="loadVideo(this,${i})" title="Charger une vidéo">
+      <input type="file" accept="video/*" onchange="loadVideo(this,${i})" title="Charger">
     </div>
   </div>`).join('');
 
-// ── TESTIMONIALS ──
+/* ══ TESTIMONIALS ══ */
 document.getElementById('testiGrid').innerHTML = testimoniaux.map((t,i) => `
-  <div class="testi-card reveal reveal-delay-${i+1}">
-    <div class="tc-stars">${'★'.repeat(t.stars)+'☆'.repeat(5-t.stars)}</div>
+  <div class="tc-card sa d${i+1}">
+    <div class="tc-stars">${'★'.repeat(t.s)+'☆'.repeat(5-t.s)}</div>
     <p class="tc-text">"${t.text}"</p>
     <div class="tc-author">
       <div class="tc-av">${t.av}</div>
@@ -579,28 +722,68 @@ document.getElementById('testiGrid').innerHTML = testimoniaux.map((t,i) => `
     </div>
   </div>`).join('');
 
-// ── HERO SLIDER ──
+/* ══ HERO SLIDER ══ */
 (function(){
-  const imgs = document.querySelectorAll('#heroBg img');
+  const imgs = document.querySelectorAll('#heroSlides img');
   let idx = 0;
-  setInterval(()=>{ imgs[idx].classList.remove('active'); idx=(idx+1)%imgs.length; imgs[idx].classList.add('active'); }, 3800);
+  setInterval(()=>{
+    imgs[idx].classList.remove('active');
+    idx = (idx+1)%imgs.length;
+    imgs[idx].classList.add('active');
+  }, 4200);
 })();
 
-// ── VIDEO UPLOAD ──
-function loadVideo(input, idx) {
-  const file = input.files[0]; if (!file) return;
+/* ══ SCROLL REVEAL ══ */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin:'0px 0px -50px 0px' });
+document.querySelectorAll('.sa, .sa-left, .sa-right, .sa-scale, .sa-clip').forEach(el => revealObs.observe(el));
+
+/* ══ COUNTER ANIMATION ══ */
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const el = e.target;
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1800;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min((now-start)/dur,1);
+        const ease = 1-Math.pow(1-p,3);
+        el.textContent = Math.floor(ease*target) + (p===1?suffix:'');
+        if(p<1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObs.unobserve(el);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.cs-num[data-count]').forEach(el => counterObs.observe(el));
+
+/* ══ PARALLAX ON SCROLL ══ */
+function onScroll(){
+  const scrollY = window.scrollY;
+  // Hero content slight parallax
+  const heroContent = document.querySelector('.hero-content');
+  if(heroContent) heroContent.style.transform = `translateY(${scrollY*0.18}px)`;
+  // Hero stats
+  const heroStats = document.querySelector('.hero-stats');
+  if(heroStats) heroStats.style.transform = `translateY(${scrollY*0.12}px)`;
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+
+/* ══ VIDEO UPLOAD ══ */
+function loadVideo(input, i){
+  const file = input.files[0]; if(!file) return;
   const url = URL.createObjectURL(file);
-  const card = document.querySelectorAll('.vid-card')[idx];
-  card.innerHTML = `<video src="${url}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;"></video><div class="vc-overlay"></div><div class="vc-info"><div class="vc-tag">Votre vidéo</div><div class="vc-title">${file.name.replace(/\.[^.]+$/,'')}</div></div>`;
+  const card = document.querySelectorAll('.vid-card')[i];
+  card.innerHTML = `<video src="${url}" autoplay muted loop playsinline style="width:100%;height:100%;min-height:180px;object-fit:cover;display:block;"></video><div class="vc-grad"></div><div class="vc-info"><div class="vc-tag">Votre vidéo</div><div class="vc-title">${file.name.replace(/\.[^.]+$/,'')}</div></div>`;
   showToast('Vidéo chargée !');
 }
 
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// ── TOAST ──
-function showToast(msg) {
+/* ══ TOAST ══ */
+function showToast(msg){
   const t = document.getElementById('toast');
   document.getElementById('toastMsg').textContent = msg;
   t.classList.add('show');
@@ -609,5 +792,3 @@ function showToast(msg) {
 </script>
 </body>
 </html>
-HTMLEOF
-echo "Done — $(wc -l < /mnt/user-data/outputs/beaute.html) lines"
