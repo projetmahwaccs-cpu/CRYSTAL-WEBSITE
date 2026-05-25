@@ -103,6 +103,9 @@ nav{background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);paddi
 .hfb-item i{font-size:14px;color:var(--gold);}
 .hfb-sep{color:var(--gold);opacity:.4;font-size:14px;}
 @keyframes hUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+.hero-video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;}
+.hero-video-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(10,8,4,0.82) 0%,rgba(10,8,4,0.65) 50%,rgba(10,8,4,0.55) 100%);pointer-events:none;}
+.hero-pattern{z-index:2;}.hero-smoke{z-index:2;}.hero-corner{z-index:3;}.hero::before{z-index:4;}.hero-logo-wrap{z-index:5;}.hero-content{z-index:5;}.hero-footer-bar{z-index:5;}
 
 /* FEATURES */
 .features{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--creme);}
@@ -135,16 +138,13 @@ nav{background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);paddi
 .prod-row:hover::before{opacity:1;}
 .prod-row.rev{grid-template-columns:1fr 300px;}
 .prod-media{position:relative;background:var(--creme);overflow:hidden;min-height:280px;}
-.prod-media img{width:100%;height:100%;object-fit:cover;display:block;min-height:280px;max-height:320px;transition:transform .6s;}
+.prod-media img{width:100%;height:100%;object-fit:cover;display:block;min-height:280px;max-height:340px;transition:transform .6s;}
 .prod-row:hover .prod-media img{transform:scale(1.04);}
+.prod-media video{width:100%;height:100%;object-fit:cover;display:block;min-height:280px;max-height:340px;}
 .media-tabs{position:absolute;bottom:0;left:0;right:0;display:flex;background:rgba(255,255,255,.95);border-top:1px solid var(--border);backdrop-filter:blur(4px);}
 .mtab{flex:1;padding:.48rem;font-family:var(--font-disp);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-align:center;color:var(--txt4);border:none;background:transparent;display:flex;align-items:center;justify-content:center;gap:.3rem;transition:all .25s;}
 .mtab.active,.mtab:hover{color:var(--gold);background:var(--gold-dim);}
 .mtab i{font-size:12px;}
-.vid-zone{width:100%;min-height:280px;background:var(--creme);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;padding-bottom:2.5rem;}
-.vid-zone i{font-size:42px;color:var(--gold);opacity:.5;}
-.vid-zone-t{font-family:var(--font-disp);font-size:.58rem;letter-spacing:.16em;color:var(--txt4);text-transform:uppercase;}
-.vid-zone-s{font-family:var(--font-body);font-size:.9rem;color:var(--txt4);font-style:italic;}
 .prod-badge{position:absolute;top:12px;left:12px;background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:var(--noir);font-family:var(--font-disp);font-size:.46rem;letter-spacing:.14em;padding:4px 11px;text-transform:uppercase;font-weight:700;z-index:2;}
 .prod-info{padding:clamp(1.2rem,3vw,2rem) clamp(1.2rem,3vw,1.8rem);display:flex;flex-direction:column;justify-content:space-between;}
 .prod-cat{font-family:var(--font-disp);font-size:.48rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:.45rem;display:flex;align-items:center;gap:.5rem;}
@@ -165,6 +165,53 @@ nav{background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);paddi
 .btn-wa{background:transparent;color:var(--txt3);border:1px solid var(--border);padding:.7rem 1.2rem;font-family:var(--font-disp);font-size:.57rem;letter-spacing:.12em;cursor:pointer;text-transform:uppercase;display:flex;align-items:center;gap:.45rem;transition:all .25s;}
 .btn-wa:hover{border-color:var(--gold-border);color:var(--gold);background:var(--gold-dim);}
 .btn-wa i{font-size:14px;}
+
+/* ==========================================
+   VIDEO LOOP SECTION — VITRINE PRODUITS
+   ========================================== */
+.video-section{background:var(--noir);padding:clamp(2.5rem,5vw,4rem) 0;border-top:2px solid var(--gold-border);border-bottom:2px solid var(--gold-border);position:relative;overflow:hidden;}
+.video-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(184,149,42,.06),transparent 60%);pointer-events:none;}
+.video-section .sec-head{padding:0 clamp(1rem,4vw,2rem);margin-bottom:2rem;}
+.video-section .sec-title{color:rgba(255,255,255,.88);}
+.video-section .sec-eye{color:var(--gold-lt);}
+
+/* Scrolling strip */
+.vid-strip-wrap{position:relative;}
+.vid-strip{display:flex;gap:1.5rem;padding:0 clamp(1rem,4vw,2rem);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:.5rem;}
+.vid-strip::-webkit-scrollbar{display:none;}
+/* Auto-scroll animation for a seamless loop feel */
+.vid-strip-inner{display:flex;gap:1.5rem;animation:vidScroll 30s linear infinite;}
+.vid-strip-inner:hover{animation-play-state:paused;}
+@keyframes vidScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+.vid-card{flex-shrink:0;width:clamp(220px,30vw,300px);position:relative;border:1px solid var(--gold-border);overflow:hidden;background:var(--noir3);transition:transform .35s,box-shadow .35s;cursor:pointer;}
+.vid-card::before{content:'';position:absolute;inset:0;border:1px solid transparent;transition:border-color .3s;z-index:2;pointer-events:none;}
+.vid-card:hover{transform:scale(1.04) translateY(-4px);box-shadow:0 16px 48px rgba(184,149,42,.2);}
+.vid-card:hover::before{border-color:var(--gold);}
+.vid-card video{width:100%;height:clamp(280px,40vw,380px);object-fit:cover;display:block;}
+.vid-card-overlay{position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(to top,rgba(10,8,4,.95) 0%,rgba(10,8,4,.6) 50%,transparent 100%);padding:1.2rem 1rem .9rem;}
+.vid-card-cat{font-family:var(--font-disp);font-size:.46rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:.25rem;}
+.vid-card-name{font-family:var(--font-body);font-size:1.05rem;color:#fff;font-style:italic;line-height:1.3;margin-bottom:.4rem;}
+.vid-card-price{font-family:var(--font-disp);font-size:.78rem;font-weight:700;background:linear-gradient(90deg,var(--gold),var(--gold-lt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.vid-card-badge{position:absolute;top:10px;right:10px;z-index:4;background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:var(--noir);font-family:var(--font-disp);font-size:.44rem;letter-spacing:.14em;padding:3px 10px;font-weight:700;text-transform:uppercase;}
+.vid-card-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;width:48px;height:48px;border-radius:50%;background:rgba(184,149,42,.25);border:1px solid rgba(184,149,42,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;backdrop-filter:blur(4px);}
+.vid-card-play i{font-size:20px;color:#fff;}
+.vid-card:hover .vid-card-play{opacity:1;}
+.vid-card-add{position:absolute;bottom:1rem;right:1rem;z-index:5;background:linear-gradient(135deg,var(--gold),var(--gold-lt));color:var(--noir);border:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;box-shadow:0 4px 14px rgba(184,149,42,.4);}
+.vid-card-add i{font-size:15px;}
+.vid-card-add:hover{transform:scale(1.12);}
+.vid-card:hover .vid-card-add{opacity:1;}
+
+/* Fade edges */
+.vid-fade-l,.vid-fade-r{position:absolute;top:0;bottom:0;width:80px;z-index:10;pointer-events:none;}
+.vid-fade-l{left:0;background:linear-gradient(to right,var(--noir),transparent);}
+.vid-fade-r{right:0;background:linear-gradient(to left,var(--noir),transparent);}
+
+/* Nav arrows */
+.vid-nav{display:flex;gap:.6rem;justify-content:center;margin-top:1.5rem;padding:0 clamp(1rem,4vw,2rem);}
+.vid-nav-btn{background:transparent;border:1px solid var(--gold-border);color:var(--gold);width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;border-radius:2px;}
+.vid-nav-btn:hover{background:var(--gold-dim);border-color:var(--gold);}
+.vid-nav-btn i{font-size:18px;}
 
 /* MINI GRID */
 .grid-wrap{background:var(--creme);padding:clamp(2rem,5vw,3.5rem) clamp(1rem,4vw,2rem);border-top:1px solid var(--border);}
@@ -250,40 +297,19 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .toast i{font-size:15px;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
-/* VIDEO BACKGROUND HERO */
-.hero-video-bg{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;z-index:0;
-  pointer-events:none;
-}
-.hero-video-overlay{
-  position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(135deg,rgba(10,8,4,0.82) 0%,rgba(10,8,4,0.65) 50%,rgba(10,8,4,0.55) 100%);
-  pointer-events:none;
-}
-/* Ensure all hero children sit above video */
-.hero-pattern{z-index:2;}
-.hero-smoke{z-index:2;}
-.hero-corner{z-index:3;}
-.hero::before{z-index:4;}
-.hero-logo-wrap{z-index:5;}
-.hero-content{z-index:5;}
-.hero-footer-bar{z-index:5;}
-
 /* RESPONSIVE */
 @media(max-width:900px){
   .nav-links{display:none;}
   .hamburger{display:flex;}
   .prod-row,.prod-row.rev{grid-template-columns:1fr;}
   .prod-row.rev .prod-info{order:-1;}
-  .prod-media img{min-height:240px;max-height:280px;}
-  .vid-zone{min-height:240px;}
+  .prod-media img,.prod-media video{min-height:240px;max-height:280px;}
   .features{grid-template-columns:repeat(2,1fr);}
   .feat:nth-child(2){border-right:none;}
   .feat:nth-child(3){border-top:1px solid var(--border);border-right:1px solid var(--border);}
   .feat:nth-child(4){border-top:1px solid var(--border);}
   .hero-logo-wrap{width:clamp(140px,22vw,220px);}
+  .vid-card{width:clamp(200px,60vw,260px);}
 }
 @media(max-width:640px){
   nav{padding:0 1rem;height:58px;}
@@ -294,39 +320,31 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .hero-eyebrow,.hero-sub{justify-content:center;}
   .hero-footer-bar,.hero-corner{display:none;}
   .features{grid-template-columns:1fr 1fr;}
-  .feat:nth-child(n){border-right:none;border-top:none;}
-  .feat:nth-child(odd){border-right:1px solid var(--border);}
-  .feat:nth-child(3),.feat:nth-child(4){border-top:1px solid var(--border);}
   .prod-info{padding:1.2rem;}
   .btn-row{flex-direction:column;}
   .btn-add,.btn-wa{width:100%;justify-content:center;}
   .mini-grid{grid-template-columns:repeat(2,1fr);}
   .cart-sidebar{width:100%;right:-100%;}
   .toast{font-size:.54rem;padding:.6rem 1.2rem;}
-}
-@media(max-width:380px){
-  .hero-title .ssr{font-size:2.2rem;}
-  .mini-grid{gap:.75rem;}
-  .features{grid-template-columns:1fr;}
-  .feat:nth-child(n){border-right:none!important;border-top:1px solid var(--border);}
-  .feat:first-child{border-top:none;}
+  .vid-card{width:clamp(180px,75vw,240px);}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html">
+  <a class="nav-brand" href="#">
     <span class="nb-main">SSR</span>
     <span class="nb-sub">Sen Senteurs Royal</span>
   </a>
   <ul class="nav-links">
-    <li><a href="index.html" class="nav-ccl"><i class="ti ti-shopping-bag"></i>Boutique CCL</a></li>
+    <li><a href="#" class="nav-ccl"><i class="ti ti-shopping-bag"></i>Boutique CCL</a></li>
     <li><a onclick="filterCat('all')">Tous</a></li>
     <li><a onclick="filterCat('parfum')">Parfums</a></li>
     <li><a onclick="filterCat('bakhoor')">Bakhoors</a></li>
     <li><a onclick="filterCat('thiourayes')">Thiourays</a></li>
     <li><a onclick="filterCat('brume')">Brumes</a></li>
+    <li><a onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Vidéos</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:.75rem;">
     <div class="nav-cart" onclick="toggleCart()">
@@ -338,25 +356,19 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </nav>
 
 <div class="mob-nav" id="mobNav">
-  <a href="index.html" class="mob-ccl"><i class="ti ti-shopping-bag"></i>Boutique CCL</a>
+  <a href="#" class="mob-ccl"><i class="ti ti-shopping-bag"></i>Boutique CCL</a>
   <a onclick="filterCat('all');closeMob()"><i class="ti ti-grid"></i>Tous les produits</a>
   <a onclick="filterCat('parfum');closeMob()"><i class="ti ti-sparkles"></i>Parfums</a>
   <a onclick="filterCat('bakhoor');closeMob()"><i class="ti ti-flame"></i>Bakhoors</a>
   <a onclick="filterCat('thiourayes');closeMob()"><i class="ti ti-leaf"></i>Thiourays</a>
   <a onclick="filterCat('brume');closeMob()"><i class="ti ti-droplet"></i>Brumes Corps</a>
+  <a onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'});closeMob()"><i class="ti ti-video"></i>Vidéos Produits</a>
 </div>
 
+<!-- HERO -->
 <div class="hero">
-  <!-- VIDEO BACKGROUND EN LOOP -->
-  <video
-    class="hero-video-bg"
-    src="Sen_Senteurs_Royal_advertisement_PUB 2.mp4"
-    autoplay muted loop playsinline
-    onerror="this.style.display='none'"
-  ></video>
-  <!-- Overlay pour lisibilité des textes -->
+  <video class="hero-video-bg" src="Sen_Senteurs_Royal_advertisement_PUB_2.mp4" autoplay muted loop playsinline onerror="this.style.display='none'"></video>
   <div class="hero-video-overlay"></div>
-
   <div class="hero-pattern"></div>
   <div class="hero-smoke"></div>
   <div class="hero-corner tl">✦</div><div class="hero-corner tr">✦</div>
@@ -364,7 +376,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="hero-logo-wrap">
     <div class="hero-logo-ring"></div>
     <div class="hero-logo-ring2"></div>
-    <img src="logo SSR.jpeg" alt="SSR Sen Senteurs Royal" onerror="this.src='https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80'">
+    <img src="THIOURAYE.png" alt="SSR Sen Senteurs Royal" onerror="this.src='https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80'">
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Maison de Senteurs &nbsp;·&nbsp; Dakar</div>
@@ -386,6 +398,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
 
+<!-- FEATURES -->
 <div class="features">
   <div class="feat sa d1"><div class="feat-icon"><i class="ti ti-star"></i></div><div class="feat-title">Qualité Premium</div><div class="feat-text">Ingrédients sélectionnés</div></div>
   <div class="feat sa d2"><div class="feat-icon"><i class="ti ti-truck-delivery"></i></div><div class="feat-title">Livraison Dakar</div><div class="feat-text">Rapide et fiable</div></div>
@@ -393,6 +406,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="feat sa d4"><div class="feat-icon"><i class="ti ti-crown"></i></div><div class="feat-title">Collection Royale</div><div class="feat-text">Fragrances d'exception</div></div>
 </div>
 
+<!-- CAT BAR -->
 <div class="cat-bar">
   <button class="cat-btn active" onclick="filterCat('all');setActive(this)">Tous</button>
   <button class="cat-btn" onclick="filterCat('parfum');setActive(this)">Parfums</button>
@@ -401,6 +415,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <button class="cat-btn" onclick="filterCat('brume');setActive(this)">Brumes</button>
 </div>
 
+<!-- FEATURED PRODUCTS -->
 <div class="section" id="shop">
   <div class="sec-head sa">
     <div class="sec-eye">Notre Sélection</div>
@@ -410,6 +425,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="prod-list" id="featuredList"></div>
 </div>
 
+<!-- MARQUEE -->
 <div class="marquee-band">
   <div class="mq-inner">
     <span>Parfums <b>de Classes</b></span><span>Bakhoors <b>Royaux</b></span><span>Thiourays <b>Haut de Gamme</b></span><span>Brumes <b>Fleuries</b></span><span>Livraison <b>Dakar</b></span><span>SSR <b>Sen Senteurs</b></span>
@@ -417,6 +433,30 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
 
+<!-- ==========================================
+     SECTION VIDÉOS EN LOOP
+     ========================================== -->
+<div class="video-section" id="videos">
+  <div class="sec-head sa">
+    <div class="sec-eye">Nos Produits en Mouvement</div>
+    <div class="sec-title">Vitrine Vidéo SSR</div>
+    <div class="sec-line sa-clip"></div>
+  </div>
+
+  <div class="vid-strip-wrap">
+    <div class="vid-fade-l"></div>
+    <div class="vid-fade-r"></div>
+    <!-- La strip défile en boucle automatiquement, contenu doublé pour seamless loop -->
+    <div class="vid-strip-inner" id="vidStrip"></div>
+  </div>
+
+  <div class="vid-nav">
+    <button class="vid-nav-btn" onclick="scrollVid(-1)"><i class="ti ti-chevron-left"></i></button>
+    <button class="vid-nav-btn" onclick="scrollVid(1)"><i class="ti ti-chevron-right"></i></button>
+  </div>
+</div>
+
+<!-- MINI GRID -->
 <div class="grid-wrap">
   <div class="sec-head sa" style="margin-bottom:2rem">
     <div class="sec-eye">La Collection Complète</div>
@@ -426,6 +466,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="mini-grid" id="miniGrid"></div>
 </div>
 
+<!-- CONTACT -->
 <div class="contact">
   <div class="sec-eye sa">Commander</div>
   <div class="sec-title sa" style="font-size:clamp(1.5rem,4vw,1.9rem);margin:.4rem 0">Contactez-nous</div>
@@ -450,7 +491,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
   <div class="foot-sub">Bakhoors · Thiourays · Brumes · Parfums — Dakar, Sénégal</div>
   <div class="foot-copy">© 2025 Sen Senteurs Royal. Tous droits réservés.</div>
-  <div class="foot-partner">Partenaire <a href="index.html">Crystal Company Limited</a></div>
+  <div class="foot-partner">Partenaire <a href="#">Crystal Company Limited</a></div>
 </footer>
 
 <div class="overlay" id="overlay" onclick="toggleCart()"></div>
@@ -471,45 +512,296 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
 
 <script>
-const PRODUCTS=[
-  {id:1,cat:'parfum',badge:'Bestseller',name:'Parfum de Classes SSR',desc:"Un sillage intense et envoûtant, signature de la maison SSR. Notes fraîches et fruitées qui laissent place à un cœur floral opulent, sur un fond boisé et ambré d'une profondeur remarquable.",notes:['Bergamote','Rose de Damas','Oud','Musc blanc','Ambre'],price:15000,stars:'★★★★★',img:'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80'},
-  {id:2,cat:'bakhoor',badge:'Exclusif',name:'Bakhoor Royal Or',desc:"Chips de bois d'oud imprégnées d'huiles essentielles rares. Idéal pour parfumer votre intérieur lors des grandes occasions et créer une atmosphère orientale unique.",notes:['Oud','Santal','Ambre gris','Rose','Musc'],price:12000,stars:'★★★★★',img:'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80'},
-  {id:3,cat:'thiourayes',badge:'Nouveau',name:'Thiourayes Premium SSR',desc:"Encens traditionnel sénégalais aux notes de bois précieux, préparé selon les méthodes ancestrales. Un rituel olfactif qui purifie l'espace et crée une atmosphère apaisante.",notes:['Bois précieux','Encens','Vanille','Épices','Ambre'],price:8500,stars:'★★★★★',img:'THIOURAYE.png'},
-  {id:4,cat:'brume',badge:'',name:'Brume Pour le Corps SSR',desc:"Brume légère aux notes fleuries et musquées. Sa formule hydratante laisse la peau douce et délicatement parfumée avec un sillage discret et raffiné.",notes:['Fleurs blanches','Jasmin','Musc','Cèdre','Vanille'],price:7000,stars:'★★★★☆',img:'BRUMEPOURLECORPS.png'}
+// =====================
+// PRODUCT DATA — avec vos vraies images
+// =====================
+const PRODUCTS = [
+  {
+    id:1, cat:'parfum', badge:'Bestseller',
+    name:'Parfum de Classes SSR',
+    desc:"Un sillage intense et envoûtant, signature de la maison SSR. Notes fraîches et fruitées qui laissent place à un cœur floral opulent, sur un fond boisé et ambré d'une profondeur remarquable.",
+    notes:['Bergamote','Rose de Damas','Oud','Musc blanc','Ambre'],
+    price:15000, stars:'★★★★★',
+    img:'PARFUMDECLASSE.png',
+    imgFallback:'ChatGPT_Image_24_mai_2026__19_33_38.png',
+    videos:['thiourayebestseller.mp4']
+  },
+  {
+    id:2, cat:'bakhoor', badge:'Exclusif',
+    name:'Bakhoor Royal Or',
+    desc:"Chips de bois d'oud imprégnées d'huiles essentielles rares. Idéal pour parfumer votre intérieur lors des grandes occasions et créer une atmosphère orientale unique.",
+    notes:['Oud','Santal','Ambre gris','Rose','Musc'],
+    price:12000, stars:'★★★★★',
+    img:'ChatGPT_Image_24_mai_2026__19_23_59.png',
+    imgFallback:'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80',
+    videos:['POTTRANSPARANT.mp4']
+  },
+  {
+    id:3, cat:'thiourayes', badge:'Nouveau',
+    name:'Thiourayes Premium SSR',
+    desc:"Encens traditionnel sénégalais aux notes de bois précieux, préparé selon les méthodes ancestrales. Un rituel olfactif qui purifie l'espace et crée une atmosphère apaisante.",
+    notes:['Bois précieux','Encens','Vanille','Épices','Ambre'],
+    price:8500, stars:'★★★★★',
+    img:'THIOURAYE.png',
+    imgFallback:'THIOURAYE_-_Copy.png',
+    videos:['thiourayebestseller.mp4','POTTRANSPARANT.mp4']
+  },
+  {
+    id:4, cat:'brume', badge:'',
+    name:'Brume Pour le Corps SSR',
+    desc:"Brume légère aux notes fleuries et musquées. Sa formule hydratante laisse la peau douce et délicatement parfumée avec un sillage discret et raffiné.",
+    notes:['Fleurs blanches','Jasmin','Musc','Cèdre','Vanille'],
+    price:7000, stars:'★★★★☆',
+    img:'BRUMEPOURLECORPS.png',
+    imgFallback:'ChatGPT_Image_24_mai_2026__19_31_38.png',
+    videos:['Luxury_body_mist_bottle_202605241943.mp4','Luxury_body_mist_bottle_202605241944.mp4']
+  }
 ];
-const MINI=[
-  {id:5,cat:'parfum',name:'Nuit de Dakar',price:18000,img:'PARFUMDECLASSE.png',badge:'Prestige'},
-  {id:6,cat:'thiourayes',name:'Thiourayes Santal',price:9000,img:'POTTRANSPARANT.mp4',badge:''},
-  {id:7,cat:'brume',name:'Brume Florale Royale',price:6500,img:'https://images.unsplash.com/photo-1547887538-047f814cfa5e?w=400&q=80',badge:''},
-  {id:8,cat:'bakhoor',name:'Bakhoor Prestige Coffret',price:25000,img:'https://images.unsplash.com/photo-1584471974648-34da21d37b8e?w=400&q=80',badge:'Coffret'},
-  {id:9,cat:'parfum',name:'Essence Royale',price:22000,img:'https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80',badge:'New'},
-  {id:10,cat:'brume',name:'Brume Musquée',price:7500,img:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&q=80',badge:''}
+
+const MINI = [
+  {id:5, cat:'parfum', name:'Nuit de Dakar', price:18000, img:'ChatGPT_Image_24_mai_2026__19_33_38.png', badge:'Prestige'},
+  {id:6, cat:'thiourayes', name:'Thiourayes Santal', price:9000, img:'THIOURAYE_-_Copy.png', badge:''},
+  {id:7, cat:'brume', name:'Brume Florale Royale', price:6500, img:'ChatGPT_Image_24_mai_2026__19_31_38.png', badge:''},
+  {id:8, cat:'bakhoor', name:'Bakhoor Prestige Coffret', price:25000, img:'ChatGPT_Image_24_mai_2026__19_23_50.png', badge:'Coffret'},
+  {id:9, cat:'parfum', name:'Essence Royale', price:22000, img:'PARFUMDECLASSE.png', badge:'New'},
+  {id:10, cat:'brume', name:'Brume Musquée', price:7500, img:'BRUMEPOURLECORPS.png', badge:''}
 ];
-let cart=[],mediaState={},currentFilter='all';
-const ALL=[...PRODUCTS,...MINI];
-const fmt=n=>n.toLocaleString('fr-FR');
+
+// Videos for the loop section
+const VIDEO_ITEMS = [
+  {id:101, cat:'brume', name:'Brume Pour le Corps', price:7000, badge:'Bestseller', video:'Luxury_body_mist_bottle_202605241943.mp4'},
+  {id:102, cat:'brume', name:'Body Mist SSR', price:7000, badge:'', video:'Luxury_body_mist_bottle_202605241944.mp4'},
+  {id:103, cat:'thiourayes', name:'Thiourayes Premium', price:8500, badge:'Nouveau', video:'thiourayebestseller.mp4'},
+  {id:104, cat:'thiourayes', name:'Thiouraye Bestseller', price:8500, badge:'Top Vente', video:'thiourayebestseller_-_Copy.mp4'},
+  {id:105, cat:'bakhoor', name:'Pot Transparant SSR', price:12000, badge:'Exclusif', video:'POTTRANSPARANT.mp4'},
+  {id:106, cat:'bakhoor', name:'Bakhoor Royal', price:12000, badge:'', video:'POTTRANSPARANT_-_Copy.mp4'},
+  {id:107, cat:'parfum', name:'Sen Senteurs Royal', price:15000, badge:'Collection', video:'Sen_Senteurs_Royal_advertisement_202605241720.mp4'},
+];
+
+const ALL = [...PRODUCTS, ...MINI];
+let cart = [], mediaState = {}, currentFilter = 'all';
+
+const fmt = n => n.toLocaleString('fr-FR');
 function getCL(c){return{parfum:'Parfum de Classes',bakhoor:'Bakhoor',thiourayes:'Thiouraye',brume:'Brume Corps'}[c]||c;}
-function mediaHTML(p){const ms=mediaState[p.id]||'img';return`<div class="prod-media" id="media-${p.id}">${ms==='img'?`${p.badge?`<div class="prod-badge">${p.badge}</div>`:''}<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600'">`:`<div class="vid-zone"><i class="ti ti-player-play"></i><div class="vid-zone-t">Vidéo du produit</div><div class="vid-zone-s">Zone réservée à votre vidéo</div></div>`}<div class="media-tabs"><button class="mtab${ms==='img'?' active':''}" onclick="setMedia(${p.id},'img')"><i class="ti ti-photo"></i>Photo</button><button class="mtab${ms==='video'?' active':''}" onclick="setMedia(${p.id},'video')"><i class="ti ti-video"></i>Vidéo</button></div></div>`;}
-function infoHTML(p){return`<div class="prod-info"><div><div class="prod-cat">${getCL(p.cat)}</div><div class="prod-name">${p.name}</div><div class="prod-stars">${p.stars}</div><div class="prod-desc">${p.desc}</div><div class="prod-notes">${p.notes.map(n=>`<span class="ntag">${n}</span>`).join('')}</div></div><div><div class="prod-price-row"><div class="prod-price">${fmt(p.price)}<span>FCFA</span></div></div><div class="btn-row"><button class="btn-add" onclick="addToCart(${p.id})"><i class="ti ti-shopping-cart"></i>Ajouter</button><button class="btn-wa" onclick="quickOrder(${p.id})"><i class="ti ti-brand-whatsapp"></i>Commander</button></div></div></div>`;}
-function renderFeatured(f){const el=document.getElementById('featuredList');const data=f==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===f);if(!data.length){el.innerHTML='<p style="text-align:center;font-style:italic;color:var(--txt4);padding:2rem">Aucun produit dans cette catégorie.</p>';return;}el.innerHTML=data.map((p,i)=>{const rev=i%2===1;const cls=`prod-row${rev?' rev':''} sa${rev?' sa-r':' sa-l'}`;return`<div class="${cls}">${rev?infoHTML(p):''}${mediaHTML(p)}${!rev?infoHTML(p):''}</div>`;}).join('');el.querySelectorAll('.sa,.sa-l,.sa-r').forEach(el=>obs.observe(el));}
-function renderMini(f){const el=document.getElementById('miniGrid');const data=f==='all'?MINI:MINI.filter(p=>p.cat===f);if(!data.length){el.innerHTML='<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--txt4);padding:2rem">Aucun produit.</p>';return;}el.innerHTML=data.map((p,i)=>`<div class="mini-card sa d${(i%6)+1}" onclick="addToCart(${p.id})"><div class="mini-img">${p.badge?`<div class="mini-bdg">${p.badge}</div>`:''}<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400'"></div><div class="mini-body"><div class="mini-cat">${getCL(p.cat)}</div><div class="mini-name">${p.name}</div><div class="mini-price">${fmt(p.price)} FCFA</div></div></div>`).join('');el.querySelectorAll('.sa').forEach(el=>obs.observe(el));}
-function setMedia(id,mode){mediaState[id]=mode;renderFeatured(currentFilter);}
-function filterCat(f){currentFilter=f;renderFeatured(f);renderMini(f);}
-function setActive(el){document.querySelectorAll('.cat-btn').forEach(e=>e.classList.remove('active'));el.classList.add('active');}
-function addToCart(id){const p=ALL.find(x=>x.id===id);if(!p)return;const ex=cart.find(c=>c.id===id);if(ex)ex.qty++;else cart.push({...p,qty:1});updateCart();showToast('Ajouté — '+p.name.substring(0,22));}
-function removeFromCart(id){cart=cart.filter(c=>c.id!==id);updateCart();}
-function updateCart(){document.getElementById('cartCount').textContent=cart.reduce((a,c)=>a+c.qty,0);renderCart();}
-function renderCart(){const body=document.getElementById('cartBody');const foot=document.getElementById('cartFoot');if(!cart.length){body.innerHTML='<div class="cart-empty"><i class="ti ti-shopping-cart"></i>Votre panier est vide</div>';foot.style.display='none';return;}foot.style.display='block';const total=cart.reduce((a,c)=>a+c.price*c.qty,0);body.innerHTML=cart.map(item=>`<div class="ci"><img class="ci-img" src="${item.img||''}" alt="${item.name}" onerror="this.style.display='none'"><div class="ci-det"><div class="ci-name">${item.name}${item.qty>1?' ×'+item.qty:''}</div><div class="ci-price">${fmt(item.price*item.qty)} FCFA</div></div><button class="ci-rm" onclick="removeFromCart(${item.id})"><i class="ti ti-x"></i></button></div>`).join('');document.getElementById('cartTotalAmt').textContent=fmt(total)+' FCFA';}
-function toggleCart(){document.getElementById('cartSidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('visible');}
-function quickOrder(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const m=encodeURIComponent(`Bonjour SSR!\n\nJe souhaite commander:\n${p.name} — ${fmt(p.price)} FCFA\n\nMerci!`);window.open(`https://wa.me/221775220000?text=${m}`,'_blank');}
-function orderWA(){if(!cart.length)return;const items=cart.map(c=>`${c.name} ×${c.qty} — ${fmt(c.price*c.qty)} FCFA`).join('\n');const total=cart.reduce((a,c)=>a+c.price*c.qty,0);const m=encodeURIComponent(`Bonjour SSR!\n\nCommande:\n${items}\n\nTotal: ${fmt(total)} FCFA\n\nMerci!`);window.open(`https://wa.me/221775220000?text=${m}`,'_blank');}
-function toggleMob(){document.getElementById('mobNav').classList.toggle('open');}
-function closeMob(){document.getElementById('mobNav').classList.remove('open');}
-function showToast(msg){document.getElementById('toastMsg').textContent=msg;const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
-window.addEventListener('scroll',()=>{document.querySelector('nav').style.boxShadow=window.scrollY>10?'0 3px 24px rgba(184,149,42,0.13)':'0 1px 16px rgba(184,149,42,0.06)';},{passive:true});
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.07,rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.sa,.sa-l,.sa-r,.sa-s,.sa-clip').forEach(el=>obs.observe(el));
-renderFeatured('all');renderMini('all');renderCart();
+
+// =====================
+// FEATURED ROWS
+// =====================
+function mediaHTML(p) {
+  const ms = mediaState[p.id] || 'img';
+  if (ms === 'video' && p.videos && p.videos[0]) {
+    return `<div class="prod-media" id="media-${p.id}">
+      ${p.badge ? `<div class="prod-badge">${p.badge}</div>` : ''}
+      <video src="${p.videos[0]}" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;min-height:280px;max-height:340px;display:block;"></video>
+      <div class="media-tabs">
+        <button class="mtab" onclick="setMedia(${p.id},'img')"><i class="ti ti-photo"></i>Photo</button>
+        <button class="mtab active" onclick="setMedia(${p.id},'video')"><i class="ti ti-video"></i>Vidéo</button>
+      </div>
+    </div>`;
+  }
+  return `<div class="prod-media" id="media-${p.id}">
+    ${p.badge ? `<div class="prod-badge">${p.badge}</div>` : ''}
+    <img src="${p.img}" alt="${p.name}" loading="lazy"
+         onerror="this.src='${p.imgFallback||'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600'}'">
+    ${p.videos && p.videos.length ? `<div class="media-tabs">
+      <button class="mtab active" onclick="setMedia(${p.id},'img')"><i class="ti ti-photo"></i>Photo</button>
+      <button class="mtab" onclick="setMedia(${p.id},'video')"><i class="ti ti-video"></i>Vidéo</button>
+    </div>` : ''}
+  </div>`;
+}
+
+function infoHTML(p) {
+  return `<div class="prod-info">
+    <div>
+      <div class="prod-cat">${getCL(p.cat)}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-stars">${p.stars}</div>
+      <div class="prod-desc">${p.desc}</div>
+      <div class="prod-notes">${p.notes.map(n=>`<span class="ntag">${n}</span>`).join('')}</div>
+    </div>
+    <div>
+      <div class="prod-price-row"><div class="prod-price">${fmt(p.price)}<span>FCFA</span></div></div>
+      <div class="btn-row">
+        <button class="btn-add" onclick="addToCart(${p.id})"><i class="ti ti-shopping-cart"></i>Ajouter</button>
+        <button class="btn-wa" onclick="quickOrder(${p.id})"><i class="ti ti-brand-whatsapp"></i>Commander</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderFeatured(f) {
+  const el = document.getElementById('featuredList');
+  const data = f === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === f);
+  if (!data.length) { el.innerHTML = '<p style="text-align:center;font-style:italic;color:var(--txt4);padding:2rem">Aucun produit dans cette catégorie.</p>'; return; }
+  el.innerHTML = data.map((p, i) => {
+    const rev = i % 2 === 1;
+    const cls = `prod-row${rev?' rev':''} sa${rev?' sa-r':' sa-l'}`;
+    return `<div class="${cls}">${rev ? infoHTML(p) : ''}${mediaHTML(p)}${!rev ? infoHTML(p) : ''}</div>`;
+  }).join('');
+  el.querySelectorAll('.sa,.sa-l,.sa-r').forEach(el => obs.observe(el));
+}
+
+// =====================
+// MINI GRID
+// =====================
+function renderMini(f) {
+  const el = document.getElementById('miniGrid');
+  const data = f === 'all' ? MINI : MINI.filter(p => p.cat === f);
+  if (!data.length) { el.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--txt4);padding:2rem">Aucun produit.</p>'; return; }
+  el.innerHTML = data.map((p, i) => `
+    <div class="mini-card sa d${(i%6)+1}" onclick="addToCart(${p.id})">
+      <div class="mini-img">
+        ${p.badge ? `<div class="mini-bdg">${p.badge}</div>` : ''}
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400'">
+      </div>
+      <div class="mini-body">
+        <div class="mini-cat">${getCL(p.cat)}</div>
+        <div class="mini-name">${p.name}</div>
+        <div class="mini-price">${fmt(p.price)} FCFA</div>
+      </div>
+    </div>`).join('');
+  el.querySelectorAll('.sa').forEach(el => obs.observe(el));
+}
+
+// =====================
+// VIDEO LOOP SECTION
+// =====================
+function renderVideoSection() {
+  const strip = document.getElementById('vidStrip');
+  // Double the items for seamless infinite loop
+  const allVids = [...VIDEO_ITEMS, ...VIDEO_ITEMS];
+  strip.innerHTML = allVids.map(v => `
+    <div class="vid-card" onclick="addToCart(${v.id})">
+      ${v.badge ? `<div class="vid-card-badge">${v.badge}</div>` : ''}
+      <video src="${v.video}" autoplay muted loop playsinline preload="metadata"
+        onerror="this.parentElement.style.background='var(--noir4)'"></video>
+      <div class="vid-card-play"><i class="ti ti-player-play"></i></div>
+      <div class="vid-card-overlay">
+        <div class="vid-card-cat">${getCL(v.cat)}</div>
+        <div class="vid-card-name">${v.name}</div>
+        <div class="vid-card-price">${fmt(v.price)} FCFA</div>
+      </div>
+      <button class="vid-card-add" onclick="event.stopPropagation();addToCartById(${v.id},'${v.name}',${v.price})">
+        <i class="ti ti-shopping-cart-plus"></i>
+      </button>
+    </div>`).join('');
+}
+
+function addToCartById(id, name, price) {
+  const ex = cart.find(c => c.id === id);
+  if (ex) ex.qty++;
+  else cart.push({id, name, price, qty:1, img:'', stars:'★★★★★'});
+  updateCart();
+  showToast('Ajouté — ' + name.substring(0, 22));
+}
+
+let vidScrollPos = 0;
+function scrollVid(dir) {
+  const strip = document.getElementById('vidStrip');
+  strip.style.animation = 'none';
+  vidScrollPos += dir * 280;
+  strip.style.transform = `translateX(${-vidScrollPos}px)`;
+  strip.style.transition = 'transform .4s cubic-bezier(.22,1,.36,1)';
+  setTimeout(() => {
+    strip.style.animation = 'vidScroll 30s linear infinite';
+    strip.style.transform = '';
+    strip.style.transition = '';
+    vidScrollPos = 0;
+  }, 2000);
+}
+
+// =====================
+// CART
+// =====================
+function setMedia(id, mode) { mediaState[id] = mode; renderFeatured(currentFilter); }
+function filterCat(f) { currentFilter = f; renderFeatured(f); renderMini(f); }
+function setActive(el) { document.querySelectorAll('.cat-btn').forEach(e => e.classList.remove('active')); el.classList.add('active'); }
+
+function addToCart(id) {
+  const p = ALL.find(x => x.id === id);
+  if (!p) return;
+  const ex = cart.find(c => c.id === id);
+  if (ex) ex.qty++;
+  else cart.push({...p, qty:1});
+  updateCart();
+  showToast('Ajouté — ' + p.name.substring(0, 22));
+}
+
+function removeFromCart(id) { cart = cart.filter(c => c.id !== id); updateCart(); }
+
+function updateCart() {
+  document.getElementById('cartCount').textContent = cart.reduce((a, c) => a + c.qty, 0);
+  renderCart();
+}
+
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = '<div class="cart-empty"><i class="ti ti-shopping-cart"></i>Votre panier est vide</div>';
+    foot.style.display = 'none'; return;
+  }
+  foot.style.display = 'block';
+  const total = cart.reduce((a, c) => a + c.price * c.qty, 0);
+  body.innerHTML = cart.map(item => `
+    <div class="ci">
+      <img class="ci-img" src="${item.img||''}" alt="${item.name}" onerror="this.style.display='none'">
+      <div class="ci-det">
+        <div class="ci-name">${item.name}${item.qty > 1 ? ' ×' + item.qty : ''}</div>
+        <div class="ci-price">${fmt(item.price * item.qty)} FCFA</div>
+      </div>
+      <button class="ci-rm" onclick="removeFromCart(${item.id})"><i class="ti ti-x"></i></button>
+    </div>`).join('');
+  document.getElementById('cartTotalAmt').textContent = fmt(total) + ' FCFA';
+}
+
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('visible');
+}
+
+function quickOrder(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const m = encodeURIComponent(`Bonjour SSR!\n\nJe souhaite commander:\n${p.name} — ${fmt(p.price)} FCFA\n\nMerci!`);
+  window.open(`https://wa.me/221775220000?text=${m}`, '_blank');
+}
+
+function orderWA() {
+  if (!cart.length) return;
+  const items = cart.map(c => `${c.name} ×${c.qty} — ${fmt(c.price * c.qty)} FCFA`).join('\n');
+  const total = cart.reduce((a, c) => a + c.price * c.qty, 0);
+  const m = encodeURIComponent(`Bonjour SSR!\n\nCommande:\n${items}\n\nTotal: ${fmt(total)} FCFA\n\nMerci!`);
+  window.open(`https://wa.me/221775220000?text=${m}`, '_blank');
+}
+
+function toggleMob() { document.getElementById('mobNav').classList.toggle('open'); }
+function closeMob() { document.getElementById('mobNav').classList.remove('open'); }
+
+function showToast(msg) {
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// Scroll animations
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 10
+    ? '0 3px 24px rgba(184,149,42,0.13)' : '0 1px 16px rgba(184,149,42,0.06)';
+}, {passive: true});
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: 0.07, rootMargin: '0px 0px -50px 0px'});
+
+document.querySelectorAll('.sa,.sa-l,.sa-r,.sa-s,.sa-clip').forEach(el => obs.observe(el));
+
+// Init
+renderFeatured('all');
+renderMini('all');
+renderVideoSection();
+renderCart();
 </script>
 </body>
 </html>
