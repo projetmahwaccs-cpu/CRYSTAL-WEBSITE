@@ -1879,6 +1879,7 @@ button{cursor:pointer;font-family:var(--font);}
   <button class="gb-cta" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})"><i class="ti ti-shopping-bag"></i>Commander</button>
 </div>
 
+  
 <!-- NOS CATÉGORIES -->
 <div class="sec">
   <div class="sec-head"><div class="sec-head-left"><div class="sec-bar"></div><div><div class="sec-title">Nos <span>Catégories</span></div></div></div></div>
@@ -1890,6 +1891,7 @@ button{cursor:pointer;font-family:var(--font);}
   </div>
 </div>
 
+  
 <!-- GUARANTEE -->
 <div class="guarantee">
   <div class="gi"><div class="gi-ico"><i class="ti ti-truck"></i></div><div><div class="gi-t">Livraison Rapide</div><div class="gi-s">48h Dakar · 72h régions</div></div></div>
@@ -3142,6 +3144,7 @@ button{cursor:pointer;font-family:var(--font);}
   </div>
   <div class="li-right">
     <div class="li-price">15 000 FCFA</div>
+
     
     <button class="li-add" onclick="event.stopPropagation();addToCart(5)"><i class="ti ti-shopping-cart"></i>Ajouter</button>
   </div>
@@ -3181,6 +3184,7 @@ button{cursor:pointer;font-family:var(--font);}
   </div>
 </div>
 
+  
 <!-- ═══ END 7 CATALOGUE SECTIONS ═══ -->
 
 
@@ -3284,6 +3288,7 @@ button{cursor:pointer;font-family:var(--font);}
   </div>
 </div>
 
+  
 <!-- ═══ SECTION 3: MARQUES & PARTENAIRES ═══ -->
 <div class="brands-section">
   <div class="brands-title">Nos Marques &amp; <span>Partenaires</span></div>
@@ -3490,7 +3495,7 @@ button{cursor:pointer;font-family:var(--font);}
       <div class="popup-input-row">
         <input class="popup-input" style="max-width:70px;" value="+221" readonly>
         <input class="popup-input wa" id="popupPhone" type="tel" placeholder="77 000 00 00" maxlength="12">
-      </div>
+      </div> 
       <button class="popup-btn" onclick="claimPopupOffer()">
         <i class="ti ti-brand-whatsapp"></i>
         Recevoir mon code -10%
@@ -3626,13 +3631,13 @@ function addToCart(id){const p=products.find(x=>x.id===id);if(!p)return;const ex
 function removeItem(id){cart=cart.filter(x=>x.id!==id);updateBadge();renderCdrawer();}
 function changeQty(id,d){const it=cart.find(x=>x.id===id);if(!it)return;it.qty+=d;if(it.qty<=0)removeItem(id);else{updateBadge();renderCdrawer();}}
 function updateBadge(){const n=cart.reduce((a,b)=>a+b.qty,0);document.getElementById('cartBadge').textContent=n;const dbd=document.getElementById('cartBadgeDesktop');if(dbd)dbd.textContent=n;const bb=document.getElementById('bnBadge');bb.textContent=n;bb.style.display=n?'flex':'none';}
-function renderCdrawer(){
+function renderCdrawer(){ 
   const body=document.getElementById('cdBody'),foot=document.getElementById('cdFoot');
   if(!cart.length){body.innerHTML='<div class="cd-empty"><i class="ti ti-shopping-bag"></i><p>Votre panier est vide</p></div>';foot.style.display='none';return;}
   foot.style.display='block';const total=cart.reduce((a,c)=>a+c.price*c.qty,0);
   body.innerHTML=cart.map(it=>{const img=(productImages[it.id]||[])[0];return`<div class="cd-item">${img?`<img class="cdi-img" src="${img}" alt="${it.name}" onerror="this.style.display='none'">`:`<div class="cdi-img" style="display:flex;align-items:center;justify-content:center;"><i class="ti ${it.icon}" style="font-size:22px;color:var(--g3);"></i></div>`}<div style="flex:1;min-width:0;"><div class="cdi-name">${it.name}</div><div class="cdi-price">${fmt(it.price*it.qty)}</div><div class="cdi-qty"><button class="qty-btn" onclick="changeQty(${it.id},-1)">-</button><span class="qty-val">${it.qty}</span><button class="qty-btn" onclick="changeQty(${it.id},1)">+</button></div></div><button class="cdi-rm" onclick="removeItem(${it.id})"><i class="ti ti-trash"></i></button></div>`;}).join('');
   document.getElementById('cdTotal').textContent=fmt(total);
-}
+} 
 function openCart(){document.getElementById('cartDrawer').classList.add('open');document.getElementById('overlay').classList.add('open');renderCdrawer();}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
 function waCheckout(){if(!cart.length)return;const items=cart.map(p=>`* ${p.name} x${p.qty} = ${fmt(p.price*p.qty)}`).join('\n');const total=cart.reduce((a,b)=>a+b.price*b.qty,0);const msg=encodeURIComponent(`Bonjour Crystal Company Limited !\n\nJe souhaite commander :\n\n${items}\n\nTotal : ${fmt(total)}\n\nMerci !`);window.open('https://wa.me/221774976364?text='+msg,'_blank');}
