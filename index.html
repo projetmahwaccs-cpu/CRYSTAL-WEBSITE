@@ -264,43 +264,6 @@ button{cursor:pointer;font-family:var(--font);}
 .call-bar span{font-size:12px;font-weight:600;color:var(--ice1);}
 .call-bar .num{color:var(--gold3);font-weight:800;}
 
-/* ═══ HERO SLIDER ═══ */
-.hero-slider{position:relative;overflow:hidden;background:var(--c1);}
-.hs-track{display:flex;transition:transform .5s cubic-bezier(.25,.46,.45,.94);}
-.hs-slide{
-  min-width:100%;position:relative;overflow:hidden;flex-shrink:0;
-  display:flex;align-items:center;
-  height:clamp(220px,45vw,520px);
-}
-.hs-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
-.hs-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.hs-fade{position:absolute;inset:0;}
-.hs-content{position:relative;z-index:2;padding:24px var(--pad-x);max-width:560px;}
-.hs-tag{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(240,192,64,0.15);border:1px solid rgba(240,192,64,0.4);
-  color:var(--gold3);font-size:9px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-bottom:8px;
-}
-.hs-h1{font-family:"Anton",sans-serif;font-size:clamp(32px,8vw,68px);color:white;line-height:.9;margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;}
-.hs-h1 em{
-  background:linear-gradient(90deg,var(--gold3),var(--gold4),var(--ice2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  font-style:normal;
-}
-.hs-sub{font-size:clamp(11px,1.4vw,14px);color:rgba(200,232,255,0.65);margin-bottom:12px;line-height:1.5;font-family:var(--font-body);}
-.hs-price{font-family:var(--font-disp);font-size:clamp(18px,3vw,28px);color:var(--gold3);}
-.hs-btn{
-  display:inline-flex;align-items:center;gap:6px;margin-top:10px;
-  background:linear-gradient(135deg,var(--gold1),var(--gold2));
-  color:#0a0a0a;border:none;padding:10px 20px;
-  font-size:11px;font-weight:800;border-radius:5px;letter-spacing:.5px;
-  transition:transform .15s,box-shadow .15s;font-family:var(--font);
-}
-.hs-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(212,160,23,0.4);}
-.hs-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3;}
-.hsd{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);border:none;padding:0;cursor:pointer;transition:all .25s;}
-.hsd.active{background:var(--gold3);width:20px;border-radius:3px;}
 
 /* ═══ FLASH SALE ═══ */
 .flash-wrap{
@@ -1293,57 +1256,6 @@ button{cursor:pointer;font-family:var(--font);}
 <!-- CALL BAR -->
 <div class="call-bar"><i class="ti ti-phone-call"></i><span>Commandez par téléphone <span class="num">+221 77 699 00 00 / +221 77 622 00 00</span></span></div>
 
-<!-- HERO SLIDER -->
-<div class="hero-slider">
-  <div class="hs-track" id="hsTrack">
-    <!-- Slide 1: Woman with CCL -->
-    <div class="hs-slide">
-      <video class="hs-video" autoplay muted loop playsinline onerror="this.style.display='none'">
-        <source src="Woman_holding_phone_CCL_logo_202606021321.mp4" type="video/mp4">
-      </video>
-      <div class="hs-fade" style="background:linear-gradient(90deg,rgba(4,10,7,.92) 40%,rgba(4,10,7,.3));"></div>
-      <div class="hs-content">
-        <div class="hs-tag"><i class="ti ti-diamond" style="font-size:10px;"></i> Importateur Officiel</div>
-        <div class="hs-h1">Crystal<br><em>Company</em><br>Limited</div>
-        <div class="hs-sub">Des produits de qualité internationale livrés partout au Sénégal. Paiement Orange Money & Wave.</div>
-        <button class="hs-btn" onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})"><i class="ti ti-arrow-right" style="font-size:12px;"></i>Découvrir</button>
-      </div>
-    </div>
-    <!-- Slide 2: Man with smartwatch -->
-    <div class="hs-slide">
-      <video class="hs-video" autoplay muted loop playsinline onerror="this.style.display='none'">
-        <source src="Man_holding_smartwatch_box_202606021316__2_.mp4" type="video/mp4">
-      </video>
-      <div class="hs-fade" style="background:linear-gradient(90deg,rgba(4,10,7,.9) 40%,rgba(4,10,7,.2));"></div>
-      <div class="hs-content">
-        <div class="hs-tag">⚡ Flash Sale</div>
-        <div class="hs-h1">Mode &<br><em>Électronique</em></div>
-        <div class="hs-sub">Montres Connectées, Gadgets Tech, Écouteurs — Jusqu'à -30%</div>
-        <div class="hs-price">Dès 6 200 FCFA</div>
-        <button class="hs-btn" onclick="filterCat('electronique',null);"><i class="ti ti-shopping-bag" style="font-size:12px;"></i>J'achète</button>
-      </div>
-    </div>
-    <!-- Slide 3: Maman cuisine -->
-    <div class="hs-slide">
-      <video class="hs-video" autoplay muted loop playsinline onerror="this.style.display='none'">
-        <source src="Maman_sénégalaise_cuisine_avec_m__202606021303__1_.mp4" type="video/mp4">
-      </video>
-      <div class="hs-fade" style="background:linear-gradient(90deg,rgba(4,10,7,.9) 45%,rgba(4,10,7,.15));"></div>
-      <div class="hs-content">
-        <div class="hs-tag">🍳 Cuisine & Maison</div>
-        <div class="hs-h1">Equipez<br><em>Votre</em><br>Cuisine</div>
-        <div class="hs-sub">Éplucheuse, Mixeur, Moustiquaire, Ferme-Sachet — Livraison 48h</div>
-        <div class="hs-price" style="font-size:14px;color:var(--gold3);">48h Dakar · 72h régions</div>
-        <button class="hs-btn" onclick="filterCat('cuisine',null);"><i class="ti ti-tools-kitchen-2" style="font-size:12px;"></i>Voir la sélection</button>
-      </div>
-    </div>
-  </div>
-  <div class="hs-dots">
-    <button class="hsd active" onclick="goSlide(0)"></button>
-    <button class="hsd" onclick="goSlide(1)"></button>
-    <button class="hsd" onclick="goSlide(2)"></button>
-  </div>
-</div>
 
 <!-- FLASH SALE -->
 <div class="flash-wrap">
