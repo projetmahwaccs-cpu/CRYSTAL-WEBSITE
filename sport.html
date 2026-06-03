@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Sport & Fitness — CCL Crystal Company Limited</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --c1:#0d3318;--c2:#1a6b2a;--c3:#2a8c40;--c4:#3dba5a;--c5:#6dde88;
+  --gold1:#8c6800;--gold2:#c8960a;--gold3:#e8c04a;--gold4:#faeab0;
+  --red:#e02020;
+  --txt:#0d2e15;--txt3:#2a8c40;--txt4:#6ab87a;
+  --bg:#f0fdf4;--white:#fff;
+  --font:'Nunito',sans-serif;--font-disp:'Anton',sans-serif;
+  --safe:env(safe-area-inset-bottom,0px);
+  --pad-x:16px;--side-w:230px;
+}
+@media(min-width:640px){:root{--pad-x:24px;}}
+@media(min-width:1024px){:root{--pad-x:36px;}}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+body{background:linear-gradient(160deg,#fff 0%,#f0fdf4 35%,#e8f8ed 65%,#f5fdf7 100%);background-attachment:fixed;min-height:100vh;color:var(--txt);font-family:var(--font);overflow-x:hidden;font-size:14px;position:relative;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 15% 15%,rgba(26,107,42,0.08) 0%,transparent 45%),radial-gradient(ellipse at 85% 80%,rgba(200,150,10,0.05) 0%,transparent 45%);animation:cShift 14s ease-in-out infinite alternate;pointer-events:none;}
+@keyframes cShift{0%{background:radial-gradient(ellipse at 15% 15%,rgba(26,107,42,0.08) 0%,transparent 45%),radial-gradient(ellipse at 85% 80%,rgba(200,150,10,0.05) 0%,transparent 45%);}100%{background:radial-gradient(ellipse at 75% 25%,rgba(26,107,42,0.10) 0%,transparent 45%),radial-gradient(ellipse at 25% 75%,rgba(200,150,10,0.07) 0%,transparent 45%);}}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(26,107,42,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(26,107,42,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;}
+img{display:block;max-width:100%;}
+button{cursor:pointer;font-family:var(--font);}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:#2a8c40;border-radius:2px;}
+
+/* ═══ PUB BANNER ═══ */
+.pub-banner-wrap{width:100%;position:relative;z-index:101;background:#000;overflow:hidden;cursor:pointer;display:block;text-decoration:none;}
+.pub-banner-inner{position:relative;width:100%;height:90px;background:#0d2e15;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+@media(min-width:768px){.pub-banner-inner{height:110px;}}
+@media(min-width:1200px){.pub-banner-inner{height:130px;}}
+.pub-banner-inner video,.pub-banner-inner img.pub-gif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.pub-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(90deg,#071a0c,#0d2e15,#1a6b2a,#0d2e15,#071a0c);background-size:300% 100%;animation:pubShimmer 4s ease infinite;}
+@keyframes pubShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.pub-placeholder-icon{font-size:28px;opacity:.4;}
+.pub-placeholder-text{font-family:'Anton',sans-serif;font-size:clamp(10px,2vw,14px);letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.pub-placeholder-sub{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;}
+.pub-banner-wrap::before,.pub-banner-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:3;pointer-events:none;}
+.pub-banner-wrap::before{left:0;background:linear-gradient(90deg,rgba(0,0,0,.3),transparent);}
+.pub-banner-wrap::after{right:0;background:linear-gradient(-90deg,rgba(0,0,0,.3),transparent);}
+.pub-badge{position:absolute;bottom:6px;right:10px;z-index:4;background:rgba(0,0,0,.5);color:rgba(255,255,255,.4);font-size:8px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px;}
+
+/* ═══ LAYOUT ═══ */
+.page-layout{display:flex;min-height:100vh;position:relative;z-index:1;}
+.ad-panel{display:none;width:var(--side-w);flex-shrink:0;position:fixed;top:0;bottom:0;z-index:50;overflow:hidden;}
+.ad-panel.left{left:0;}.ad-panel.right{right:0;}
+@media(min-width:1700px){.ad-panel{display:block;}}
+.ad-strip{display:flex;flex-direction:column;width:100%;background:linear-gradient(180deg,#040e07 0%,#071a0c 40%,#0d2e15 100%);}
+.ad-vcard{width:100%;height:230px;flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;display:block;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.06);}
+.ad-vcard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,26,12,.05) 0%,rgba(7,26,12,.78) 100%);}
+.ad-vcard .av-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:10px 12px;background:linear-gradient(0deg,rgba(7,26,12,.9),transparent);}
+.av-badge{display:inline-block;background:var(--gold2);color:#0a0a0a;font-family:'Anton',sans-serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:4px;}
+.av-badge.green{background:#1a6b2a;color:white;}
+.av-badge.red{background:var(--red);color:white;}
+.av-name{font-size:11px;font-weight:700;color:white;line-height:1.3;margin-bottom:2px;}
+.av-price{font-family:'Anton',sans-serif;font-size:14px;color:var(--gold3);}
+.main-wrap{flex:1;min-width:0;position:relative;z-index:1;}
+@media(min-width:1700px){.main-wrap{margin-left:var(--side-w);margin-right:var(--side-w);}}
+
+/* ═══ HEADER ═══ */
+.header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:2px solid rgba(26,107,42,.15);box-shadow:0 2px 20px rgba(26,107,42,.10);}
+.header-main{display:flex;align-items:center;gap:10px;padding:10px var(--pad-x);flex-wrap:wrap;}
+@media(min-width:768px){.header-main{flex-wrap:nowrap;}}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-crystal{width:42px;height:42px;background:linear-gradient(135deg,#1a6b2a,#2a8c40,#4ade6a);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:16px;color:white;box-shadow:0 0 20px rgba(74,222,106,.45);border:1px solid rgba(255,255,255,.25);position:relative;overflow:hidden;}
+.logo-crystal::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);animation:lShine 4s ease-in-out infinite;}
+@keyframes lShine{0%,100%{transform:rotate(0deg);}50%{transform:rotate(360deg);}}
+.logo-text .n1{font-size:14px;font-weight:800;color:#0d3318;letter-spacing:1px;}
+.logo-text .n2{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#2a8c40;}
+.header-search{flex:1;min-width:0;display:flex;align-items:center;background:#f0fdf4;border:1.5px solid rgba(26,107,42,.20);border-radius:24px;padding:8px 16px;gap:8px;order:3;width:100%;position:relative;transition:border-color .2s;}
+.header-search:focus-within{border-color:rgba(26,107,42,.6);box-shadow:0 0 0 3px rgba(26,107,42,.08);}
+@media(min-width:768px){.header-search{order:0;width:auto;max-width:400px;}}
+.header-search i{font-size:17px;color:#2a8c40;}
+.header-search input{flex:1;border:none;background:transparent;font-size:13px;color:#0d2e15;outline:none;font-family:var(--font);min-width:0;}
+.header-search input::placeholder{color:#6ab87a;}
+.header-icons{display:flex;align-items:center;gap:4px;margin-left:auto;}
+@media(min-width:768px){.header-icons{margin-left:0;}}
+.hico{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#f0fdf4;border:1.5px solid rgba(26,107,42,.18);border-radius:10px;cursor:pointer;color:#1a6b2a;position:relative;transition:all .2s;}
+.hico:hover{background:#1a6b2a;color:white;}
+.hico i{font-size:20px;}
+.hico .badge{position:absolute;top:3px;right:3px;background:var(--gold2);color:#0a0a0a;font-size:8px;font-weight:800;min-width:15px;height:15px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+.breadcrumb{background:rgba(255,255,255,.98);border-top:1px solid rgba(26,107,42,.10);padding:8px var(--pad-x);display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.breadcrumb::-webkit-scrollbar{display:none;}
+.bc-item{font-size:11px;font-weight:600;color:#6ab87a;white-space:nowrap;text-decoration:none;cursor:pointer;}
+.bc-item:hover{color:#1a6b2a;}
+.bc-item.active{color:#0d2e15;font-weight:800;}
+.bc-sep{color:#6ab87a;font-size:11px;}
+.desktop-actions{display:none;}
+@media(min-width:1024px){.desktop-actions{display:flex;align-items:center;gap:10px;margin-left:auto;}.da-btn{background:linear-gradient(135deg,#8c6800,#c8960a);color:#fff;border:none;padding:9px 16px;font-size:11px;font-weight:800;border-radius:5px;display:flex;align-items:center;gap:6px;cursor:pointer;font-family:var(--font);}.da-btn.outline{background:#f0fdf4;color:#1a6b2a;border:1.5px solid rgba(26,107,42,.3);}}
+
+/* ═══ HERO ═══ */
+.sport-hero{position:relative;overflow:hidden;background:#071a0c;height:clamp(260px,48vw,540px);display:flex;align-items:center;}
+.sh-bg{position:absolute;inset:0;}
+.sh-bg img{width:100%;height:100%;object-fit:cover;opacity:.4;}
+.sh-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(7,26,12,.95) 0%,rgba(7,26,12,.6) 55%,rgba(7,26,12,.15) 100%);}
+/* Animated energy lines */
+.sh-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.energy-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(74,222,106,.5),transparent);animation:energyRun 3s ease-in-out infinite;}
+.energy-line:nth-child(1){top:25%;width:60%;left:-60%;animation-delay:0s;}
+.energy-line:nth-child(2){top:50%;width:40%;left:-40%;animation-delay:.8s;}
+.energy-line:nth-child(3){top:72%;width:80%;left:-80%;animation-delay:1.6s;}
+.energy-line:nth-child(4){top:38%;width:50%;left:-50%;animation-delay:2.4s;}
+@keyframes energyRun{0%{left:-80%;}100%{left:110%;}}
+/* Hexagon pattern */
+.sh-hex{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:300px;height:300px;opacity:.06;background-image:repeating-linear-gradient(60deg,rgba(74,222,106,1) 0,rgba(74,222,106,1) 1px,transparent 0,transparent 50%),repeating-linear-gradient(-60deg,rgba(74,222,106,1) 0,rgba(74,222,106,1) 1px,transparent 0,transparent 50%),repeating-linear-gradient(0deg,rgba(74,222,106,1) 0,rgba(74,222,106,1) 1px,transparent 0,transparent 50%);background-size:30px 52px;}
+.sh-content{position:relative;z-index:2;padding:28px var(--pad-x);max-width:620px;}
+.sh-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(232,192,74,.15);border:1px solid rgba(232,192,74,.4);color:var(--gold3);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:3px;margin-bottom:14px;}
+.sh-title{font-family:'Anton',sans-serif;font-size:clamp(38px,9vw,76px);color:white;line-height:.88;margin-bottom:12px;letter-spacing:2px;text-transform:uppercase;}
+.sh-title span{background:linear-gradient(90deg,#4ade6a,var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sh-sub{font-size:clamp(12px,1.5vw,15px);color:rgba(255,255,255,.65);margin-bottom:18px;line-height:1.5;max-width:460px;}
+/* Stats row */
+.sh-stats{display:flex;gap:0;margin-bottom:20px;background:rgba(255,255,255,.05);border:1px solid rgba(74,222,106,.15);border-radius:10px;overflow:hidden;width:fit-content;}
+.sh-stat{padding:12px 20px;text-align:center;border-right:1px solid rgba(74,222,106,.12);}
+.sh-stat:last-child{border-right:none;}
+.sh-stat-num{font-family:'Anton',sans-serif;font-size:20px;color:var(--gold3);letter-spacing:1px;display:block;}
+.sh-stat-lbl{font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1px;}
+.sh-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.sh-btn{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:1px;border-radius:6px;border:none;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.sh-btn.primary{background:linear-gradient(135deg,#8c6800,#c8960a);color:#fff;}
+.sh-btn.primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,150,10,.4);}
+.sh-btn.outline{background:rgba(74,222,106,.08);border:1.5px solid rgba(74,222,106,.4);color:#4ade6a;}
+.sh-btn.outline:hover{background:rgba(74,222,106,.15);}
+
+/* ═══ FILTER BAR ═══ */
+.filter-bar{background:#fff;border-bottom:1px solid rgba(26,107,42,.10);padding:12px var(--pad-x);position:sticky;top:65px;z-index:100;box-shadow:0 2px 8px rgba(26,107,42,.06);}
+.filter-inner{display:flex;align-items:center;gap:10px;overflow-x:auto;scrollbar-width:none;}
+.filter-inner::-webkit-scrollbar{display:none;}
+.filter-count{font-size:11px;font-weight:700;color:#6ab87a;white-space:nowrap;flex-shrink:0;}
+.filter-count b{color:#0d2e15;}
+.filter-chips{display:flex;gap:7px;flex:1;overflow-x:auto;scrollbar-width:none;}
+.filter-chips::-webkit-scrollbar{display:none;}
+.fchip{display:flex;align-items:center;gap:4px;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid rgba(26,107,42,.20);background:#fff;color:#2a8c40;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .18s;}
+.fchip.active{background:#1a6b2a;border-color:#1a6b2a;color:white;}
+.fchip:hover:not(.active){background:#f0fdf4;border-color:#2a8c40;}
+
+/* ═══ SECTION TITLES ═══ */
+.sec-title-bar{display:flex;align-items:center;justify-content:space-between;padding:20px var(--pad-x) 12px;}
+.stb-left{display:flex;align-items:center;gap:10px;}
+.stb-bar{width:4px;height:24px;border-radius:2px;background:linear-gradient(180deg,#4ade6a,var(--gold3));flex-shrink:0;}
+.stb-title{font-family:'Anton',sans-serif;font-size:clamp(16px,2.5vw,22px);color:#0d2e15;letter-spacing:2px;text-transform:uppercase;}
+.stb-title span{color:#1a6b2a;}
+.stb-sub{font-size:10px;color:#6ab87a;margin-top:2px;}
+.stb-more{color:var(--gold2);font-size:11px;font-weight:700;display:flex;align-items:center;gap:3px;border:1.5px solid rgba(200,150,10,.35);padding:6px 12px;border-radius:20px;text-decoration:none;white-space:nowrap;cursor:pointer;}
+.stb-more:hover{background:var(--gold4);}
+
+/* ═══ SPORT CATEGORIES GRID ═══ */
+.sport-cats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:0 var(--pad-x) 16px;}
+@media(min-width:640px){.sport-cats{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:1024px){.sport-cats{grid-template-columns:repeat(6,1fr);}}
+.sport-cat-card{border-radius:14px;overflow:hidden;position:relative;cursor:pointer;aspect-ratio:1;display:flex;align-items:flex-end;padding:12px;transition:transform .25s;}
+.sport-cat-card:hover{transform:scale(.96);}
+.sport-cat-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.sport-cat-card:hover img{transform:scale(1.08);}
+.sport-cat-card::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,26,12,.85) 0%,transparent 55%);}
+.scc-content{position:relative;z-index:1;}
+.scc-icon{font-size:20px;margin-bottom:4px;display:block;}
+.scc-name{font-family:'Anton',sans-serif;font-size:clamp(11px,1.8vw,14px);color:white;letter-spacing:1px;text-transform:uppercase;line-height:1.1;}
+.scc-count{font-size:9px;color:rgba(255,255,255,.5);margin-top:3px;}
+.scc-badge{position:absolute;top:10px;right:10px;z-index:2;background:var(--gold2);color:#0a0a0a;font-family:'Anton',sans-serif;font-size:9px;padding:3px 8px;border-radius:3px;}
+
+/* ═══ PROMO STRIP ═══ */
+.promo-strip{background:linear-gradient(90deg,#071a0c,#1a6b2a,#071a0c);margin:8px 0;padding:16px var(--pad-x);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative;overflow:hidden;}
+.promo-strip::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(74,222,106,.04) 1px,transparent 1px);background-size:18px 18px;}
+.ps-left{position:relative;z-index:1;}
+.ps-title{font-family:'Anton',sans-serif;font-size:clamp(18px,3vw,28px);color:white;letter-spacing:2px;text-transform:uppercase;}
+.ps-title span{color:var(--gold3);}
+.ps-desc{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;}
+.ps-cta{background:var(--gold2);color:#0a0a0a;border:none;padding:11px 22px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:1px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;position:relative;z-index:1;flex-shrink:0;}
+
+/* ═══ FEATURED HORIZONTAL SCROLL ═══ */
+.feat-scroll{padding:0 0 16px var(--pad-x);display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.feat-scroll::-webkit-scrollbar{display:none;}
+.feat-card{flex-shrink:0;width:190px;background:#fff;border:1px solid rgba(26,107,42,.10);border-radius:12px;overflow:hidden;cursor:pointer;box-shadow:0 2px 8px rgba(26,107,42,.06);transition:all .25s;}
+.feat-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,107,42,.14);}
+.feat-card .fc-img{width:100%;height:200px;background:#f0fdf4;position:relative;overflow:hidden;}
+.feat-card .fc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.feat-card:hover .fc-img img{transform:scale(1.06);}
+.feat-card .fc-body{padding:10px 12px 12px;}
+.fc-cat{font-size:9px;font-weight:800;letter-spacing:2px;color:#6ab87a;margin-bottom:2px;text-transform:uppercase;}
+.fc-name{font-size:12px;font-weight:700;color:#0d2e15;margin-bottom:5px;line-height:1.3;}
+.fc-price{font-family:'Anton',sans-serif;font-size:16px;color:#1a6b2a;letter-spacing:.5px;}
+.fc-old{font-size:10px;color:#6ab87a;text-decoration:line-through;margin-left:4px;}
+
+/* ═══ PERFORMANCE BANNER ═══ */
+.perf-banner{margin:0 var(--pad-x) 8px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#071a0c,#0d2e15,#1a6b2a);padding:24px;position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.perf-banner::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(74,222,106,.05) 1px,transparent 1px);background-size:16px 16px;}
+.pb-left{position:relative;z-index:1;}
+.pb-tag{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold3);margin-bottom:6px;}
+.pb-title{font-family:'Anton',sans-serif;font-size:clamp(20px,3.5vw,32px);color:white;letter-spacing:2px;text-transform:uppercase;line-height:1;margin-bottom:6px;}
+.pb-title span{color:#4ade6a;}
+.pb-sub{font-size:11px;color:rgba(255,255,255,.5);max-width:360px;line-height:1.5;}
+.pb-stats{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap;}
+.pb-stat{text-align:center;}
+.pb-stat-num{font-family:'Anton',sans-serif;font-size:22px;color:var(--gold3);}
+.pb-stat-lbl{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
+.pb-right{position:relative;z-index:1;display:flex;flex-direction:column;gap:8px;}
+.pb-btn{background:var(--gold2);color:#0a0a0a;border:none;padding:11px 22px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:1px;border-radius:7px;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.pb-btn.outline{background:rgba(74,222,106,.1);color:#4ade6a;border:1.5px solid rgba(74,222,106,.35);}
+
+/* ═══ SHOP LAYOUT ═══ */
+.shop-layout{display:flex;position:relative;}
+.sidebar{display:none;width:250px;flex-shrink:0;background:#fff;border-right:1px solid rgba(26,107,42,.10);padding:20px;position:sticky;top:120px;height:calc(100vh - 120px);overflow-y:auto;}
+@media(min-width:1024px){.sidebar{display:block;}}
+.sb-section{margin-bottom:22px;border-bottom:1px solid rgba(26,107,42,.08);padding-bottom:18px;}
+.sb-section:last-child{border-bottom:none;}
+.sb-title{font-family:'Anton',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#0d2e15;margin-bottom:10px;}
+.sb-cats{display:flex;flex-direction:column;gap:3px;}
+.sb-cat{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:#2a8c40;transition:all .15s;}
+.sb-cat:hover,.sb-cat.active{background:#f0fdf4;color:#0d2e15;}
+.sb-cat.active{font-weight:800;border-left:3px solid #1a6b2a;padding-left:7px;}
+.sb-cat-count{font-size:10px;background:#f0fdf4;color:#6ab87a;padding:1px 7px;border-radius:10px;font-weight:700;}
+.price-inputs{display:flex;gap:8px;margin-bottom:10px;}
+.price-input{flex:1;border:1.5px solid rgba(26,107,42,.20);border-radius:8px;padding:8px 10px;font-size:12px;font-family:var(--font);color:#0d2e15;background:#f0fdf4;outline:none;}
+.price-input:focus{border-color:#2a8c40;}
+.range-slider{width:100%;accent-color:#1a6b2a;}
+.size-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
+.size-btn{border:1.5px solid rgba(26,107,42,.20);background:#fff;color:#2a8c40;border-radius:6px;padding:7px 4px;font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s;}
+.size-btn.active,.size-btn:hover{background:#1a6b2a;border-color:#1a6b2a;color:white;}
+.brand-list{display:flex;flex-direction:column;gap:4px;}
+.brand-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:12px;color:#2a8c40;transition:background .15s;}
+.brand-item:hover{background:#f0fdf4;}
+.brand-item input{accent-color:#1a6b2a;}
+.filter-apply{width:100%;background:linear-gradient(135deg,#1a6b2a,#2a8c40);color:white;border:none;padding:11px;border-radius:8px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:10px;}
+
+/* ═══ PRODUCTS AREA ═══ */
+.products-area{flex:1;min-width:0;padding:16px var(--pad-x);}
+.sort-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.sort-info{font-size:12px;color:#6ab87a;font-weight:600;}
+.sort-info b{color:#0d2e15;}
+.sort-opts{display:flex;gap:6px;flex-wrap:wrap;}
+.sort-opt{padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid rgba(26,107,42,.18);background:#fff;color:#2a8c40;cursor:pointer;transition:all .15s;}
+.sort-opt.active{background:#1a6b2a;border-color:#1a6b2a;color:white;}
+.view-toggle{display:flex;gap:4px;}
+.view-btn{width:32px;height:32px;border:1.5px solid rgba(26,107,42,.18);border-radius:6px;background:#fff;color:#6ab87a;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;}
+.view-btn.active{background:#1a6b2a;border-color:#1a6b2a;color:white;}
+
+/* ═══ PRODUCT CARD ═══ */
+.prods-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+@media(min-width:480px){.prods-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:768px){.prods-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:1280px){.prods-grid{grid-template-columns:repeat(3,1fr);gap:14px;}}
+@media(min-width:1440px){.prods-grid{grid-template-columns:repeat(4,1fr);}}
+.pcard{background:#fff;border:1px solid rgba(26,107,42,.10);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .25s;position:relative;box-shadow:0 2px 8px rgba(26,107,42,.06);}
+.pcard:hover{transform:translateY(-4px);border-color:rgba(26,107,42,.3);box-shadow:0 10px 28px rgba(26,107,42,.14);}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4ade6a,var(--gold3));opacity:0;transition:opacity .2s;z-index:3;}
+.pcard:hover::before{opacity:1;}
+.pc-img{width:100%;aspect-ratio:1/1;background:#f0fdf4;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pc-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.pcard:hover .pc-img img{transform:scale(1.06);}
+.pc-img .pi-ico{font-size:52px;color:rgba(26,107,42,.2);}
+.pc-disc{position:absolute;top:10px;left:10px;background:var(--red);color:white;font-family:'Anton',sans-serif;font-size:11px;letter-spacing:.5px;padding:3px 8px;border-radius:4px;z-index:2;}
+.pc-bdg{position:absolute;top:10px;left:10px;font-size:9px;font-weight:800;padding:3px 8px;border-radius:3px;z-index:2;letter-spacing:.5px;text-transform:uppercase;}
+.bdg-new{background:#1a6b2a;color:white;}
+.bdg-promo{background:var(--gold2);color:#0a0a0a;}
+.bdg-hot{background:var(--red);color:white;}
+.pc-fav{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);border:none;display:flex;align-items:center;justify-content:center;font-size:15px;color:#6ab87a;z-index:3;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:all .18s;}
+.pc-fav.active,.pc-fav:hover{color:var(--red);background:white;}
+.pc-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(13,46,21,.9);color:white;border:none;padding:9px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;transform:translateY(100%);transition:transform .25s;font-family:var(--font);}
+.pcard:hover .pc-quick{transform:translateY(0);}
+/* Stock indicator */
+.pc-stock{position:absolute;bottom:46px;left:10px;right:10px;z-index:2;opacity:0;transition:opacity .2s;}
+.pcard:hover .pc-stock{opacity:1;}
+.pc-stock-bar{height:3px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden;}
+.pc-stock-fill{height:100%;background:var(--gold3);border-radius:2px;}
+.pc-stock-lbl{font-size:8px;color:rgba(255,255,255,.7);margin-top:3px;font-weight:700;}
+.pc-body{padding:10px 12px 12px;}
+.pc-cat{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#6ab87a;margin-bottom:2px;}
+.pc-name{font-size:13px;font-weight:700;color:#0d2e15;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:5px;min-height:34px;}
+.pc-stars{display:flex;align-items:center;gap:4px;margin-bottom:5px;}
+.pc-stars-ico{font-size:11px;color:var(--gold3);}
+.pc-reviews{font-size:10px;color:#6ab87a;}
+.pc-prices{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-bottom:9px;}
+.pc-price{font-family:'Anton',sans-serif;font-size:18px;color:#1a6b2a;letter-spacing:.5px;}
+.pc-old{font-size:11px;color:#6ab87a;text-decoration:line-through;}
+.pc-disc-pct{font-size:10px;font-weight:800;color:var(--red);background:rgba(224,32,32,.08);padding:1px 5px;border-radius:3px;}
+.pc-add{width:100%;background:#1a6b2a;border:none;color:white;padding:9px 0;font-size:10px;font-weight:800;border-radius:7px;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .18s;font-family:var(--font);letter-spacing:.5px;text-transform:uppercase;}
+.pc-add:hover{background:#0d3318;}
+.pc-add i{font-size:14px;}
+
+/* ═══ WORKOUT TIPS SECTION ═══ */
+.tips-section{background:#fff;border:1px solid rgba(26,107,42,.08);margin:8px 0;padding:28px var(--pad-x);}
+.tips-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px;}
+@media(min-width:640px){.tips-grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1024px){.tips-grid{grid-template-columns:repeat(4,1fr);}}
+.tip-card{background:#f0fdf4;border:1px solid rgba(26,107,42,.12);border-radius:12px;padding:18px 16px;text-align:center;transition:transform .2s;}
+.tip-card:hover{transform:translateY(-3px);}
+.tip-icon{font-size:32px;margin-bottom:10px;display:block;}
+.tip-title{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:1px;color:#0d2e15;text-transform:uppercase;margin-bottom:6px;}
+.tip-desc{font-size:11px;color:#6ab87a;line-height:1.6;}
+
+/* ═══ GUARANTEE ═══ */
+.guarantee{background:linear-gradient(135deg,#f0fdf4,#e8f8ed);border:1px solid rgba(26,107,42,.12);padding:16px var(--pad-x);display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0;}
+@media(min-width:768px){.guarantee{grid-template-columns:repeat(4,1fr);gap:16px;padding:20px var(--pad-x);}}
+.gi{display:flex;align-items:center;gap:10px;}
+.gi-ico{width:38px;height:38px;background:#fff;border:1.5px solid rgba(26,107,42,.20);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gi-ico i{font-size:18px;color:#1a6b2a;}
+.gi-t{font-size:12px;font-weight:800;color:#0d2e15;line-height:1.2;}
+.gi-s{font-size:10px;color:#6ab87a;margin-top:1px;}
+
+/* ═══ BOTTOM NAV ═══ */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);border-top:2px solid rgba(26,107,42,.12);display:flex;z-index:300;padding-bottom:var(--safe);box-shadow:0 -4px 20px rgba(26,107,42,.08);}
+@media(min-width:1024px){.bottom-nav{display:none;}}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;background:none;border:none;cursor:pointer;position:relative;}
+.bn i{font-size:22px;color:#6ab87a;transition:color .2s;}
+.bn span{font-size:9px;font-weight:700;color:#6ab87a;letter-spacing:.3px;text-transform:uppercase;}
+.bn.active i,.bn.active span{color:#1a6b2a;}
+.bn .bn-badge{position:absolute;top:5px;right:calc(50% - 18px);background:var(--red);color:white;font-size:9px;font-weight:800;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+
+/* ═══ CART ═══ */
+.cart-drawer{position:fixed;bottom:-100%;left:0;right:0;background:#fff;border:1px solid rgba(26,107,42,.15);border-radius:16px 16px 0 0;z-index:400;transition:bottom .35s cubic-bezier(.22,1,.36,1);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 -8px 40px rgba(26,107,42,.12);}
+@media(min-width:1024px){.cart-drawer{bottom:auto;top:0;right:0;left:auto;width:420px;height:100vh;max-height:100vh;border-radius:0;border-left:1px solid rgba(26,107,42,.15);transform:translateX(100%);transition:transform .35s cubic-bezier(.22,1,.36,1);}.cart-drawer.open{transform:translateX(0);}}
+.cart-drawer.open{bottom:0;}
+@media(min-width:1024px){.cart-drawer.open{bottom:auto;}}
+.cd-handle{width:40px;height:4px;background:rgba(26,107,42,.15);border-radius:2px;margin:10px auto 0;}
+.cd-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(26,107,42,.10);}
+.cd-head h3{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:1px;color:#0d2e15;}
+.cd-close{background:none;border:none;font-size:22px;color:#6ab87a;display:flex;align-items:center;cursor:pointer;}
+.cd-body{flex:1;overflow-y:auto;padding:10px 14px;}
+.cd-empty{text-align:center;padding:40px 20px;}
+.cd-empty i{font-size:52px;color:rgba(26,107,42,.15);display:block;margin-bottom:12px;}
+.cd-empty p{color:#6ab87a;font-size:13px;}
+.cd-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(26,107,42,.08);align-items:center;}
+.cdi-img{width:54px;height:54px;border:1px solid rgba(26,107,42,.12);border-radius:8px;object-fit:cover;flex-shrink:0;}
+.cdi-name{font-size:12px;font-weight:700;color:#0d2e15;margin-bottom:2px;}
+.cdi-price{font-family:'Anton',sans-serif;font-size:15px;color:#1a6b2a;letter-spacing:.5px;}
+.cdi-qty{display:flex;align-items:center;gap:7px;margin-top:5px;}
+.qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(26,107,42,.25);background:#f0fdf4;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#0d2e15;cursor:pointer;}
+.qty-val{font-size:13px;font-weight:700;min-width:18px;text-align:center;color:#0d2e15;}
+.cdi-rm{background:none;border:none;color:#6ab87a;font-size:17px;margin-left:auto;display:flex;align-items:center;cursor:pointer;}
+.cd-foot{padding:12px 14px;border-top:1px solid rgba(26,107,42,.10);background:#f0fdf4;}
+.cd-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.cd-total-lbl{font-size:12px;font-weight:700;color:#2a8c40;}
+.cd-total-amt{font-family:'Anton',sans-serif;font-size:24px;color:#1a6b2a;letter-spacing:1px;}
+.cd-wa{width:100%;background:linear-gradient(135deg,#128c3e,#25d366);color:white;border:none;padding:13px;font-family:'Anton',sans-serif;font-size:14px;letter-spacing:1px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;}
+
+/* ═══ MODAL ═══ */
+.overlay{position:fixed;inset:0;background:rgba(13,46,21,.55);z-index:350;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px);}
+.overlay.open{opacity:1;pointer-events:all;}
+.modal-bg{position:fixed;inset:0;background:rgba(13,46,21,.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:flex-end;justify-content:center;padding:0;opacity:0;pointer-events:none;transition:opacity .25s;}
+@media(min-width:768px){.modal-bg{align-items:center;padding:20px;}}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal{background:#fff;border:1px solid rgba(26,107,42,.15);width:100%;max-height:92vh;overflow-y:auto;transform:translateY(16px);transition:transform .25s;border-radius:16px 16px 0 0;box-shadow:0 -8px 40px rgba(26,107,42,.15);}
+@media(min-width:768px){.modal{max-width:600px;border-radius:14px;transform:scale(.96);}}
+.modal-bg.open .modal{transform:translateY(0);}
+@media(min-width:768px){.modal-bg.open .modal{transform:scale(1);}}
+.mod-gallery{position:relative;}
+.mod-main-img{width:100%;aspect-ratio:4/3;background:#f0fdf4;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.mod-main-img img{width:100%;height:100%;object-fit:cover;}
+.mod-thumbs{display:flex;gap:6px;padding:8px 12px;overflow-x:auto;scrollbar-width:none;background:#f0fdf4;}
+.mod-thumbs::-webkit-scrollbar{display:none;}
+.mod-thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;flex-shrink:0;border:2px solid transparent;cursor:pointer;}
+.mod-thumb.active{border-color:#1a6b2a;}
+.mod-thumb img{width:100%;height:100%;object-fit:cover;}
+.mod-body{padding:16px 18px 20px;}
+.mod-cat-lbl{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#6ab87a;margin-bottom:4px;}
+.mod-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.mod-name{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;color:#0d2e15;text-transform:uppercase;line-height:1.1;}
+.mod-x{background:#f0fdf4;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#2a8c40;border-radius:8px;flex-shrink:0;cursor:pointer;border:1px solid rgba(26,107,42,.15);}
+.mod-stars{display:flex;align-items:center;gap:5px;margin-bottom:8px;}
+.mod-stars-ico{font-size:13px;color:var(--gold3);}
+.mod-reviews{font-size:11px;color:#6ab87a;}
+.mod-pricing{display:flex;align-items:baseline;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.mod-price{font-family:'Anton',sans-serif;font-size:26px;color:#1a6b2a;letter-spacing:1px;}
+.mod-old{font-size:13px;text-decoration:line-through;color:#6ab87a;}
+.mod-disc{font-size:11px;font-weight:800;color:var(--red);background:rgba(224,32,32,.08);padding:2px 7px;border-radius:3px;}
+.mod-label{font-size:11px;font-weight:800;color:#0d2e15;letter-spacing:.5px;margin-bottom:7px;}
+.mod-sizes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.mod-size{border:1.5px solid rgba(26,107,42,.22);background:#fff;color:#2a8c40;border-radius:6px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.mod-size.active,.mod-size:hover{background:#1a6b2a;border-color:#1a6b2a;color:white;}
+.mod-colors{display:flex;gap:8px;margin-bottom:16px;}
+.mod-color{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s;}
+.mod-color.active{border-color:#0d2e15;transform:scale(1.15);}
+.mod-actions{display:flex;gap:8px;}
+.btn-green{flex:1;background:linear-gradient(135deg,#1a6b2a,#2a8c40);color:white;border:none;padding:13px;font-family:'Anton',sans-serif;font-size:14px;letter-spacing:1px;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
+.btn-wa{background:linear-gradient(135deg,#128c3e,#25d366);color:white;border:none;padding:13px 18px;font-size:20px;border-radius:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mod-desc{font-size:12px;color:#6ab87a;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(26,107,42,.08);}
+
+/* ═══ TOAST ═══ */
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(16px);background:#fff;border:1px solid rgba(26,107,42,.3);color:#0d2e15;padding:10px 18px;font-size:12px;font-weight:700;z-index:600;opacity:0;transition:all .25s;display:flex;align-items:center;gap:7px;border-radius:10px;white-space:nowrap;max-width:88vw;box-shadow:0 8px 28px rgba(26,107,42,.15);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast i{color:#1a6b2a;font-size:18px;flex-shrink:0;}
+@media(min-width:1024px){.toast{bottom:30px;}}
+
+/* ═══ FOOTER ═══ */
+.footer{background:#071a0c;padding:24px var(--pad-x) calc(80px + var(--safe));border-top:3px solid #1a6b2a;}
+@media(min-width:768px){.footer{padding-bottom:32px;}.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;}}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.footer-logo .n1{font-size:14px;font-weight:800;color:#d4f5dc;}
+.footer-logo .n2{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;}
+.footer p{font-size:11px;color:rgba(255,255,255,.35);line-height:1.7;margin-bottom:14px;}
+.footer-socials{display:flex;gap:8px;margin-bottom:16px;}
+.soc-btn{width:34px;height:34px;border:1px solid rgba(74,222,106,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(74,222,106,.5);font-size:16px;cursor:pointer;transition:all .2s;}
+.soc-btn:hover{border-color:#4ade6a;color:#4ade6a;}
+.footer-links{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:14px;}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;padding:3px 0;display:block;cursor:pointer;}
+.footer-links a:hover{color:var(--gold3);}
+.footer-contacts .fc{display:flex;align-items:flex-start;gap:7px;margin-bottom:8px;}
+.fc i{font-size:13px;color:var(--gold3);flex-shrink:0;margin-top:1px;}
+.fc span{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5;}
+.footer-bottom{margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);}
+.footer-bottom p{font-size:10px;color:rgba(74,222,106,.25);margin-bottom:8px;}
+.pay-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.pay-tag{background:rgba(74,222,106,.07);border:1px solid rgba(74,222,106,.15);padding:3px 10px;font-size:9px;font-weight:600;color:rgba(255,255,255,.35);border-radius:10px;}
+.page-pad{height:80px;}
+@media(min-width:1024px){.page-pad{height:0;}}
+</style>
+</head>
+<body>
+
+<!-- BANNIÈRE PUB -->
+<a class="pub-banner-wrap" href="https://wa.me/221774976364" target="_blank">
+  <div class="pub-banner-inner">
+    <!-- OPTION GIF : <img class="pub-gif" src="pub-banner.gif" alt="Pub CCL"> -->
+    <!-- OPTION VIDÉO : <video autoplay muted loop playsinline><source src="pub-banner.mp4" type="video/mp4"></video> -->
+    <div class="pub-placeholder">
+      <div class="pub-placeholder-icon">💎</div>
+      <div class="pub-placeholder-text">Votre Publicité Ici</div>
+      <div class="pub-placeholder-sub">Insère ton GIF ou vidéo MP4 loop · 1280 × 120 px recommandé</div>
+    </div>
+  </div>
+  <span class="pub-badge">PUB</span>
+</a>
+
+<!-- PAGE LAYOUT -->
+<div class="page-layout">
+
+<!-- LEFT AD PANEL -->
+<div class="ad-panel left" id="adLeft">
+  <div class="ad-strip" id="stripLeft">
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#071a0c;">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge red">-31%</div><div class="av-name">Bandes Résistance</div><div class="av-price">5 500 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#0d2e15;">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge green">NOUVEAU</div><div class="av-name">Tapis Yoga 6mm</div><div class="av-price">9 800 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#1a3310;">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge">SPORT</div><div class="av-name">Gourde Isotherme</div><div class="av-price">11 000 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#071a0c;">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge green">CCL</div><div class="av-name">Équipement Fitness</div><div class="av-price">Dès 3 500 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#0d2e15;">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge red">FLASH</div><div class="av-name">Corde à Sauter Pro</div><div class="av-price">4 500 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#1a3310;">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge green">LIVRAISON</div><div class="av-name">Gratuite dès 25k</div><div class="av-price">48h Dakar</div></div>
+    </a>
+  </div>
+</div>
+
+<!-- RIGHT AD PANEL -->
+<div class="ad-panel right" id="adRight">
+  <div class="ad-strip" id="stripRight" style="background:linear-gradient(180deg,#071a0c,#0d2e15,#1a6b2a);">
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#0d2e15;">
+      <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge">YOGA</div><div class="av-name">Tapis Premium</div><div class="av-price">9 800 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#071a0c;">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge green">FITNESS</div><div class="av-name">Kit Complet Fitness</div><div class="av-price">18 000 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#1a3310;">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge red">-31%</div><div class="av-name">Bandes Élastiques</div><div class="av-price">5 500 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#0d2e15;">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge green">CCL</div><div class="av-name">+221 77 497 63 64</div><div class="av-price">Commander →</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#071a0c;">
+      <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge">PROMO</div><div class="av-name">Gourde Sport</div><div class="av-price">11 000 FCFA</div></div>
+    </a>
+    <a class="ad-vcard" href="https://wa.me/221774976364" target="_blank" style="background:#1a3310;">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;">
+      <div class="av-content"><div class="av-badge green">200+</div><div class="av-name">Produits Sport</div><div class="av-price">Voir le catalogue</div></div>
+    </a>
+  </div>
+</div>
+
+<!-- MAIN WRAP -->
+<div class="main-wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-main">
+    <a class="logo-wrap" href="ccl_crystal_store.html">
+      <div class="logo-crystal">CCL</div>
+      <div class="logo-text"><div class="n1">Crystal Company</div><div class="n2">Sport & Fitness — Dakar</div></div>
+    </a>
+    <div class="header-search">
+      <i class="ti ti-search"></i>
+      <input placeholder="Rechercher équipement, bandes, tapis..." autocomplete="off">
+    </div>
+    <div class="header-icons">
+      <button class="hico"><i class="ti ti-heart"></i></button>
+      <button class="hico" onclick="openCart()"><i class="ti ti-shopping-bag"></i><span class="badge" id="cartBadge">0</span></button>
+    </div>
+    <div class="desktop-actions">
+      <button class="da-btn outline" onclick="window.open('https://wa.me/221774976364','_blank')"><i class="ti ti-brand-whatsapp"></i> WhatsApp</button>
+      <button class="da-btn" onclick="openCart()"><i class="ti ti-shopping-bag"></i> Panier (<span id="cartBadgeD">0</span>)</button>
+    </div>
+  </div>
+  <div class="breadcrumb">
+    <a class="bc-item" href="ccl_crystal_store.html">🏠 Accueil</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-item active">⚡ Sport & Fitness</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="sport-hero">
+  <div class="sh-bg"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1400&q=80" alt="Sport CCL" onerror="this.style.display='none'"></div>
+  <div class="sh-overlay"></div>
+  <div class="sh-lines"><div class="energy-line"></div><div class="energy-line"></div><div class="energy-line"></div><div class="energy-line"></div></div>
+  <div class="sh-hex"></div>
+  <div class="sh-content">
+    <div class="sh-tag">⚡ PERFORMANCE & FITNESS 2026</div>
+    <div class="sh-title">SPORT<br><span>& FITNESS</span></div>
+    <div class="sh-sub">Équipements de fitness, accessoires sport, nutrition & vêtements sportifs — Import direct, qualité internationale à Dakar</div>
+    <div class="sh-stats">
+      <div class="sh-stat"><span class="sh-stat-num">80+</span><span class="sh-stat-lbl">Articles</span></div>
+      <div class="sh-stat"><span class="sh-stat-num">-31%</span><span class="sh-stat-lbl">Ce mois</span></div>
+      <div class="sh-stat"><span class="sh-stat-num">48h</span><span class="sh-stat-lbl">Livraison</span></div>
+      <div class="sh-stat"><span class="sh-stat-num">98%</span><span class="sh-stat-lbl">Satisfaction</span></div>
+    </div>
+    <div class="sh-btns">
+      <button class="sh-btn primary" onclick="document.getElementById('prodSection').scrollIntoView({behavior:'smooth'})"><i class="ti ti-bolt"></i> ÉQUIPER MAINTENANT</button>
+      <button class="sh-btn outline" onclick="window.open('https://wa.me/221774976364','_blank')"><i class="ti ti-brand-whatsapp"></i> CONSEIL EXPERT</button>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <div class="filter-count"><b id="prodCount">20</b> articles</div>
+    <div class="filter-chips">
+      <div class="fchip active" onclick="filterSport('all',this)"><i class="ti ti-layout-grid"></i> Tout</div>
+      <div class="fchip" onclick="filterSport('fitness',this)">💪 Fitness</div>
+      <div class="fchip" onclick="filterSport('yoga',this)">🧘 Yoga</div>
+      <div class="fchip" onclick="filterSport('cardio',this)">🏃 Cardio</div>
+      <div class="fchip" onclick="filterSport('nutrition',this)">🥤 Nutrition</div>
+      <div class="fchip" onclick="filterSport('outdoor',this)">🏕️ Outdoor</div>
+      <div class="fchip" onclick="filterSport('promo',this)">🔥 Promos</div>
+    </div>
+  </div>
+</div>
+
+<!-- SPORT CATEGORIES -->
+<div class="sec-title-bar">
+  <div class="stb-left"><div class="stb-bar"></div><div><div class="stb-title">Nos <span>Catégories</span></div><div class="stb-sub">Tout pour votre performance</div></div></div>
+</div>
+<div class="sport-cats">
+  <div class="sport-cat-card" onclick="filterSport('fitness',null)" style="background:linear-gradient(135deg,#071a0c,#1a6b2a);">
+    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=70" onerror="this.style.display='none'">
+    <span class="scc-badge">-31%</span>
+    <div class="scc-content"><span class="scc-icon">💪</span><div class="scc-name">Fitness</div><div class="scc-count">12 articles</div></div>
+  </div>
+  <div class="sport-cat-card" onclick="filterSport('yoga',null)" style="background:linear-gradient(135deg,#0d2e15,#2a8c40);">
+    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&q=70" onerror="this.style.display='none'">
+    <div class="scc-content"><span class="scc-icon">🧘</span><div class="scc-name">Yoga</div><div class="scc-count">6 articles</div></div>
+  </div>
+  <div class="sport-cat-card" onclick="filterSport('cardio',null)" style="background:linear-gradient(135deg,#1a0000,#8c1a00);">
+    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&q=70" onerror="this.style.display='none'">
+    <div class="scc-content"><span class="scc-icon">🏃</span><div class="scc-name">Cardio</div><div class="scc-count">5 articles</div></div>
+  </div>
+  <div class="sport-cat-card" onclick="filterSport('nutrition',null)" style="background:linear-gradient(135deg,#1a1a00,#6b5500);">
+    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300&q=70" onerror="this.style.display='none'">
+    <div class="scc-content"><span class="scc-icon">🥤</span><div class="scc-name">Nutrition</div><div class="scc-count">4 articles</div></div>
+  </div>
+  <div class="sport-cat-card" onclick="filterSport('outdoor',null)" style="background:linear-gradient(135deg,#001a0d,#0d4a2e);">
+    <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&q=70" onerror="this.style.display='none'">
+    <div class="scc-content"><span class="scc-icon">🏕️</span><div class="scc-name">Outdoor</div><div class="scc-count">5 articles</div></div>
+  </div>
+  <div class="sport-cat-card" onclick="filterSport('promo',null)" style="background:linear-gradient(135deg,#1a0a00,#7a3500);">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=300&q=70" onerror="this.style.display='none'">
+    <span class="scc-badge" style="background:var(--red);">HOT</span>
+    <div class="scc-content"><span class="scc-icon">🔥</span><div class="scc-name">Promos</div><div class="scc-count">Jusqu'à -31%</div></div>
+  </div>
+</div>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  <div class="ps-left">
+    <div class="ps-title">VENTE FLASH <span>FITNESS</span></div>
+    <div class="ps-desc">Bandes élastiques, tapis yoga & gourdes — Offres valables stock limité</div>
+  </div>
+  <button class="ps-cta" onclick="filterSport('promo',null)"><i class="ti ti-bolt"></i> J'EN PROFITE</button>
+</div>
+
+<!-- FEATURED SCROLL -->
+<div class="sec-title-bar">
+  <div class="stb-left"><div class="stb-bar"></div><div><div class="stb-title">Top <span>Ventes</span></div><div class="stb-sub">Les équipements les plus commandés</div></div></div>
+  <a class="stb-more" href="#">Voir tout <i class="ti ti-arrow-right"></i></a>
+</div>
+<div class="feat-scroll">
+  <div class="feat-card" onclick="openModal(14)">
+    <div class="fc-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=80" onerror="this.style.display='none'"><span class="pc-disc" style="position:absolute;top:8px;left:8px;z-index:2;">-31%</span></div>
+    <div class="fc-body"><div class="fc-cat">Fitness</div><div class="fc-name">Bandes Résistance x5</div><span class="fc-price">5 500</span><span style="font-size:10px;color:#1a6b2a;"> FCFA</span><span class="fc-old"> 8 000</span></div>
+  </div>
+  <div class="feat-card" onclick="openModal(15)">
+    <div class="fc-img"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=300&q=80" onerror="this.style.display='none'"></div>
+    <div class="fc-body"><div class="fc-cat">Nutrition</div><div class="fc-name">Gourde Isotherme 1L</div><span class="fc-price">11 000</span><span style="font-size:10px;color:#1a6b2a;"> FCFA</span></div>
+  </div>
+  <div class="feat-card" onclick="openModal(16)">
+    <div class="fc-img"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&q=80" onerror="this.style.display='none'"><span class="pc-bdg bdg-new" style="position:absolute;top:8px;left:8px;z-index:2;">Nouveau</span></div>
+    <div class="fc-body"><div class="fc-cat">Yoga</div><div class="fc-name">Tapis de Yoga 6mm</div><span class="fc-price">9 800</span><span style="font-size:10px;color:#1a6b2a;"> FCFA</span></div>
+  </div>
+  <div class="feat-card" onclick="openModal(301)">
+    <div class="fc-img"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300&q=80" onerror="this.style.display='none'"><span class="pc-bdg bdg-hot" style="position:absolute;top:8px;left:8px;z-index:2;">HOT</span></div>
+    <div class="fc-body"><div class="fc-cat">Cardio</div><div class="fc-name">Corde à Sauter Pro</div><span class="fc-price">4 500</span><span style="font-size:10px;color:#1a6b2a;"> FCFA</span></div>
+  </div>
+  <div class="feat-card" onclick="openModal(305)">
+    <div class="fc-img"><img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&q=80" onerror="this.style.display='none'"></div>
+    <div class="fc-body"><div class="fc-cat">Fitness</div><div class="fc-name">Haltères Ajustables 5kg</div><span class="fc-price">22 000</span><span style="font-size:10px;color:#1a6b2a;"> FCFA</span></div>
+  </div>
+</div>
+
+<!-- PERFORMANCE BANNER -->
+<div class="perf-banner">
+  <div class="pb-left">
+    <div class="pb-tag">⚡ PACK PERFORMANCE</div>
+    <div class="pb-title">ÉQUIPE TON HOME <span>GYM</span></div>
+    <div class="pb-sub">Bandes résistance + Tapis yoga + Gourde + Corde à sauter — Le pack complet pour t'entraîner chez toi à Dakar</div>
+    <div class="pb-stats">
+      <div class="pb-stat"><div class="pb-stat-num">4</div><div class="pb-stat-lbl">Articles</div></div>
+      <div class="pb-stat"><div class="pb-stat-num">-20%</div><div class="pb-stat-lbl">En pack</div></div>
+      <div class="pb-stat"><div class="pb-stat-num">26 800</div><div class="pb-stat-lbl">FCFA pack</div></div>
+    </div>
+  </div>
+  <div class="pb-right">
+    <button class="pb-btn" onclick="window.open('https://wa.me/221774976364?text=Bonjour CCL, je veux le Pack Home Gym complet !','_blank')"><i class="ti ti-brand-whatsapp"></i> COMMANDER LE PACK</button>
+    <button class="pb-btn outline" onclick="document.getElementById('prodSection').scrollIntoView({behavior:'smooth'})"><i class="ti ti-eye"></i> VOIR TOUS LES ARTICLES</button>
+  </div>
+</div>
+
+<!-- SHOP LAYOUT -->
+<div class="shop-layout" id="prodSection">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-section">
+      <div class="sb-title">Catégories</div>
+      <div class="sb-cats">
+        <div class="sb-cat active" onclick="filterSport('all',null)">Tout voir <span class="sb-cat-count">20</span></div>
+        <div class="sb-cat" onclick="filterSport('fitness',null)">💪 Fitness & Musculation <span class="sb-cat-count">7</span></div>
+        <div class="sb-cat" onclick="filterSport('yoga',null)">🧘 Yoga & Pilates <span class="sb-cat-count">4</span></div>
+        <div class="sb-cat" onclick="filterSport('cardio',null)">🏃 Cardio & Endurance <span class="sb-cat-count">4</span></div>
+        <div class="sb-cat" onclick="filterSport('nutrition',null)">🥤 Nutrition & Récup <span class="sb-cat-count">3</span></div>
+        <div class="sb-cat" onclick="filterSport('outdoor',null)">🏕️ Outdoor & Aventure <span class="sb-cat-count">4</span></div>
+      </div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Prix (FCFA)</div>
+      <div class="price-inputs">
+        <input class="price-input" type="number" placeholder="Min" value="0">
+        <input class="price-input" type="number" placeholder="Max" value="50000">
+      </div>
+      <input type="range" class="range-slider" min="0" max="50000" value="50000" step="1000">
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Niveau</div>
+      <div class="size-grid">
+        <div class="size-btn active" onclick="this.classList.toggle('active')">Débutant</div>
+        <div class="size-btn active" onclick="this.classList.toggle('active')">Interméd.</div>
+        <div class="size-btn" onclick="this.classList.toggle('active')">Avancé</div>
+        <div class="size-btn active" onclick="this.classList.toggle('active')">Pro</div>
+      </div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Marques</div>
+      <div class="brand-list">
+        <label class="brand-item"><input type="checkbox" checked> CCL Sport</label>
+        <label class="brand-item"><input type="checkbox"> FitPro</label>
+        <label class="brand-item"><input type="checkbox"> AthletiX</label>
+        <label class="brand-item"><input type="checkbox"> PowerZone</label>
+        <label class="brand-item"><input type="checkbox"> NutriSport</label>
+      </div>
+    </div>
+    <button class="filter-apply">Appliquer</button>
+  </div>
+
+  <!-- PRODUCTS AREA -->
+  <div class="products-area">
+    <div class="sort-bar">
+      <div class="sort-info"><b id="prodCount2">20</b> articles trouvés</div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="sort-opts">
+          <div class="sort-opt active" onclick="sortProds('default',this)">Populaire</div>
+          <div class="sort-opt" onclick="sortProds('price-asc',this)">Prix ↑</div>
+          <div class="sort-opt" onclick="sortProds('price-desc',this)">Prix ↓</div>
+          <div class="sort-opt" onclick="sortProds('new',this)">Nouveautés</div>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" onclick="setView('grid',this)"><i class="ti ti-layout-grid"></i></button>
+          <button class="view-btn" onclick="setView('list',this)"><i class="ti ti-layout-list"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="prods-grid" id="prodGrid"></div>
+    <div style="text-align:center;padding:24px 0;">
+      <button style="background:#f0fdf4;border:1.5px solid rgba(26,107,42,.25);color:#1a6b2a;padding:12px 32px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:2px;border-radius:30px;cursor:pointer;" onclick="showToast('📦 Chargement en cours...')">VOIR PLUS D'ARTICLES</button>
+    </div>
+  </div>
+</div>
+
+<!-- WORKOUT TIPS -->
+<div class="tips-section">
+  <div class="sec-title-bar" style="padding:0 0 0 0;">
+    <div class="stb-left"><div class="stb-bar"></div><div><div class="stb-title">Conseils <span>Performance</span></div><div class="stb-sub">Optimise tes entraînements à Dakar</div></div></div>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-icon">🏋️</span>
+      <div class="tip-title">Musculation Home</div>
+      <div class="tip-desc">Avec les bandes élastiques CCL, fais jusqu'à 30 exercices différents chez toi. Résistance progressive S → XXL.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">💧</span>
+      <div class="tip-title">Hydratation</div>
+      <div class="tip-desc">Bois au moins 2L d'eau par jour d'entraînement. Notre gourde isotherme garde l'eau fraîche 24h par forte chaleur.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🧘</span>
+      <div class="tip-title">Récupération Yoga</div>
+      <div class="tip-desc">10 minutes de yoga après chaque séance réduit les courbatures de 40%. Le tapis 6mm protège tes articulations.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">⚡</span>
+      <div class="tip-title">Cardio Efficace</div>
+      <div class="tip-desc">20 minutes de corde à sauter brûlent autant de calories que 45 minutes de course. Idéal pour Dakar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GUARANTEE -->
+<div class="guarantee">
+  <div class="gi"><div class="gi-ico"><i class="ti ti-truck"></i></div><div><div class="gi-t">Livraison Rapide</div><div class="gi-s">48h Dakar · 72h régions</div></div></div>
+  <div class="gi"><div class="gi-ico"><i class="ti ti-shield-check"></i></div><div><div class="gi-t">Qualité Garantie</div><div class="gi-s">Équipements 100% testés</div></div></div>
+  <div class="gi"><div class="gi-ico"><i class="ti ti-refresh"></i></div><div><div class="gi-t">Retour Facile</div><div class="gi-s">7 jours satisfait ou échangé</div></div></div>
+  <div class="gi"><div class="gi-ico"><i class="ti ti-brand-whatsapp" style="color:#25d366;"></i></div><div><div class="gi-t">Conseil Expert</div><div class="gi-s">WhatsApp 8h–20h</div></div></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">
+        <div class="logo-crystal" style="width:34px;height:34px;font-size:13px;">CCL</div>
+        <div class="logo-text"><div class="n1">Crystal Company Limited</div><div class="n2">Sport & Fitness — Dakar</div></div>
+      </div>
+      <p>Votre partenaire sport à Dakar. Équipements fitness, accessoires yoga, nutrition et outdoor — Import direct, qualité internationale.</p>
+      <div class="footer-socials">
+        <div class="soc-btn" onclick="window.open('https://facebook.com','_blank')"><i class="ti ti-brand-facebook"></i></div>
+        <div class="soc-btn" onclick="window.open('https://instagram.com','_blank')"><i class="ti ti-brand-instagram"></i></div>
+        <div class="soc-btn" onclick="window.open('https://wa.me/221774976364','_blank')"><i class="ti ti-brand-whatsapp"></i></div>
+        <div class="soc-btn" onclick="window.open('https://tiktok.com','_blank')"><i class="ti ti-brand-tiktok"></i></div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-links">
+        <a href="ccl_crystal_store.html">← Accueil CCL</a>
+        <a onclick="filterSport('fitness',null)">💪 Fitness</a>
+        <a onclick="filterSport('yoga',null)">🧘 Yoga</a>
+        <a onclick="filterSport('cardio',null)">🏃 Cardio</a>
+        <a onclick="filterSport('nutrition',null)">🥤 Nutrition</a>
+        <a onclick="filterSport('outdoor',null)">🏕️ Outdoor</a>
+        <a href="mode.html">Mode & Style</a>
+        <a href="cuisinestore.html">Cuisine</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-contacts">
+        <div class="fc"><i class="ti ti-map-pin"></i><span>Dakar, Sénégal</span></div>
+        <div class="fc"><i class="ti ti-phone"></i><span>+221 77 699 00 00 / +221 77 622 00 00</span></div>
+        <div class="fc"><i class="ti ti-phone"></i><span>+221 77 497 63 64</span></div>
+        <div class="fc"><i class="ti ti-mail"></i><span>crystalecom2026@gmail.com</span></div>
+        <div class="fc"><i class="ti ti-brand-whatsapp"></i><span>WhatsApp 8h–20h</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Crystal Company Limited — Sport & Fitness — Tous droits réservés</p>
+    <div class="pay-tags"><div class="pay-tag">Orange Money</div><div class="pay-tag">Wave</div><div class="pay-tag">Cash</div><div class="pay-tag">WhatsApp</div></div>
+  </div>
+</div>
+<div class="page-pad"></div>
+
+</div><!-- main-wrap -->
+</div><!-- page-layout -->
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bn" onclick="window.location.href='ccl_crystal_store.html'"><i class="ti ti-home"></i><span>Accueil</span></button>
+  <button class="bn" onclick="document.querySelector('.header-search input').focus()"><i class="ti ti-search"></i><span>Chercher</span></button>
+  <button class="bn active"><i class="ti ti-run"></i><span>Sport</span></button>
+  <button class="bn" onclick="openCart()"><i class="ti ti-shopping-bag"></i><span>Panier</span><span class="bn-badge" id="bnBadge" style="display:none">0</span></button>
+  <button class="bn" onclick="window.open('https://wa.me/221774976364','_blank')"><i class="ti ti-brand-whatsapp" style="color:#25d366;"></i><span>WhatsApp</span></button>
+</nav>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cd-handle"></div>
+  <div class="cd-head"><h3>MON PANIER ⚡</h3><button class="cd-close" onclick="closeCart()"><i class="ti ti-x"></i></button></div>
+  <div class="cd-body" id="cdBody"></div>
+  <div id="cdFoot" style="display:none"><div class="cd-foot"><div class="cd-total"><span class="cd-total-lbl">TOTAL</span><span class="cd-total-amt" id="cdTotal">0 FCFA</span></div><button class="cd-wa" onclick="waCheckout()"><i class="ti ti-brand-whatsapp"></i> Commander via WhatsApp</button></div></div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModalBg(event)">
+  <div class="modal">
+    <div class="mod-gallery">
+      <div class="mod-main-img" id="modMainImg"><i class="ti ti-run" style="font-size:80px;color:rgba(26,107,42,.2);"></i></div>
+      <div class="mod-thumbs" id="modThumbs"></div>
+    </div>
+    <div class="mod-body">
+      <div class="mod-cat-lbl" id="modCatLbl"></div>
+      <div class="mod-top">
+        <div class="mod-name" id="modName"></div>
+        <button class="mod-x" onclick="closeModal()"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="mod-stars"><span class="mod-stars-ico">★★★★★</span><span class="mod-reviews" id="modReviews"></span></div>
+      <div class="mod-pricing">
+        <span class="mod-price" id="modPrice"></span>
+        <span class="mod-old" id="modOld"></span>
+        <span class="mod-disc" id="modDisc"></span>
+      </div>
+      <div id="modSizesWrap">
+        <div class="mod-label">TAILLE / VARIANTE</div>
+        <div class="mod-sizes" id="modSizes"></div>
+      </div>
+      <div class="mod-label">COULEUR</div>
+      <div class="mod-colors" id="modColors"></div>
+      <div class="mod-actions">
+        <button class="btn-green" onclick="addFromModal()"><i class="ti ti-shopping-cart"></i> AJOUTER AU PANIER</button>
+        <button class="btn-wa" onclick="waProduct()"><i class="ti ti-brand-whatsapp"></i></button>
+      </div>
+      <div class="mod-desc" id="modDesc"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="ti ti-circle-check"></i><span id="toastMsg"></span></div>
+
+<script>
+// ── PRODUITS SPORT ──
+const products = [
+  // FITNESS & MUSCULATION
+  {id:14,name:"Bandes Résistance Fitness",cat:"fitness",price:5500,oldPrice:8000,badge:"promo",stars:4,reviews:38,
+   imgs:["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80","https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&q=80"],
+   sizes:["S (light)","M (medium)","L (heavy)","Set x5"],colors:["#e8c04a","#1a6b2a","#8b1a1a","#1a4a8a"],
+   desc:"Set 5 bandes élastiques résistance progressive. Latex naturel, sac de transport inclus. Idéal pour 30+ exercices à la maison."},
+  {id:301,name:"Corde à Sauter Pro",cat:"cardio",price:4500,oldPrice:6500,badge:"new",stars:5,reviews:29,
+   imgs:["https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&q=80"],
+   sizes:["2.8m","3m"],colors:["#1a1a1a","#1a6b2a","#8b1a1a"],
+   desc:"Corde à sauter professionnelle avec roulements à billes. Câble acier gainé, poignées ergonomiques antidérapantes. Réglable."},
+  {id:302,name:"Paire de Gants Fitness",cat:"fitness",price:6500,oldPrice:null,badge:"new",stars:4,reviews:21,
+   imgs:["https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&q=80"],
+   sizes:["S","M","L","XL"],colors:["#1a1a1a","#e8c04a","#1a6b2a"],
+   desc:"Gants de musculation demi-doigts, paume renforcée. Velcro réglable, absorption de choc. Adapté à la chaleur sénégalaise."},
+  {id:303,name:"Sac de Sport Sportif",cat:"fitness",price:14500,oldPrice:18000,badge:"promo",stars:5,reviews:16,
+   imgs:["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80"],
+   sizes:["30L","45L"],colors:["#1a1a1a","#1a4a8a","#1a6b2a"],
+   desc:"Sac de sport multi-compartiments, poche chaussures isolée, bandoulière réglable. Matière résistante à l'eau."},
+  {id:304,name:"Rouleau Massage Myofascial",cat:"fitness",price:8500,oldPrice:null,badge:"new",stars:4,reviews:12,
+   imgs:["https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&q=80"],
+   sizes:["33cm","45cm"],colors:["#1a1a1a","#e8c04a"],
+   desc:"Foam roller haute densité pour massage musculaire. Soulage les contractures, améliore la récupération post-effort."},
+  {id:305,name:"Haltères Ajustables 5kg x2",cat:"fitness",price:22000,oldPrice:28000,badge:"promo",stars:5,reviews:24,
+   imgs:["https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&q=80"],
+   sizes:["2kg","5kg","8kg"],colors:["#1a1a1a","#c0c0c0"],
+   desc:"Paire d'haltères chromés ajustables. Revêtement caoutchouc antidérapant. Idéal home gym, ne raye pas le sol."},
+  {id:306,name:"Abdos Roue de Musculation",cat:"fitness",price:7500,oldPrice:10000,badge:"promo",stars:4,reviews:31,
+   imgs:["https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&q=80"],
+   sizes:["Unique"],colors:["#1a1a1a","#1a6b2a"],
+   desc:"Roue abdominale double avec genouillère incluse. Roulement silencieux, poignées ergonomiques. Travail gainage total."},
+  // YOGA & PILATES
+  {id:16,name:"Tapis de Yoga 6mm",cat:"yoga",price:9800,oldPrice:null,badge:"new",stars:4,reviews:27,
+   imgs:["https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&q=80","https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80"],
+   sizes:["183×61cm","183×68cm"],colors:["#1a6b2a","#c87878","#1a4a8a","#1a1a1a"],
+   desc:"Tapis de yoga TPE écologique, surface antidérapante biface, 6mm d'épaisseur. Sangle de transport incluse. Idéal sol dur dakarois."},
+  {id:307,name:"Bloc Yoga x2",cat:"yoga",price:5500,oldPrice:null,badge:"new",stars:5,reviews:14,
+   imgs:["https://images.unsplash.com/photo-1545389336-cf090694435e?w=500&q=80"],
+   sizes:["Standard"],colors:["#1a6b2a","#e8c4a0","#1a1a1a"],
+   desc:"Paire de blocs yoga en mousse EVA haute densité. Soutien pour alignement postural. 3 hauteurs d'utilisation possibles."},
+  {id:308,name:"Sangle Yoga & Pilates",cat:"yoga",price:3500,oldPrice:5000,badge:"promo",stars:4,reviews:18,
+   imgs:["https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500&q=80"],
+   sizes:["1.8m","2.4m","3m"],colors:["#1a6b2a","#c87878","#1a4a8a","#e8c4a0"],
+   desc:"Sangle de yoga coton bio avec boucle métal. Aide à atteindre les postures difficiles. Compatible pilates."},
+  {id:309,name:"Ballon de Gym 65cm",cat:"yoga",price:7000,oldPrice:9000,badge:"promo",stars:4,reviews:22,
+   imgs:["https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80"],
+   sizes:["55cm","65cm","75cm"],colors:["#c87878","#1a4a8a","#1a6b2a"],
+   desc:"Ballon de gym anti-éclatement, 300kg charge max. Pompe incluse. Idéal pilates, gym douce, bureau ergonomique."},
+  // CARDIO & ENDURANCE
+  {id:310,name:"Podomètre Bracelet Sport",cat:"cardio",price:12500,oldPrice:18000,badge:"promo",stars:4,reviews:19,
+   imgs:["https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500&q=80"],
+   sizes:["Unique"],colors:["#1a1a1a","#1a6b2a","#8b1a1a"],
+   desc:"Bracelet fitness étanche IP67, podomètre, calories, fréquence cardiaque, sommeil. Compatible Android & iOS."},
+  {id:311,name:"Brassard Téléphone Running",cat:"cardio",price:3500,oldPrice:null,badge:"new",stars:5,reviews:33,
+   imgs:["https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?w=500&q=80"],
+   sizes:["5-6 pouces","6-7 pouces"],colors:["#1a1a1a","#8b1a1a","#1a6b2a"],
+   desc:"Brassard sport pour smartphone, tissu néoprène respirant. Fenêtre tactile transparente. Poche clé cachée."},
+  {id:312,name:"Semelles Sport Amortissantes",cat:"cardio",price:4500,oldPrice:6000,badge:"promo",stars:4,reviews:15,
+   imgs:["https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&q=80"],
+   sizes:["38-39","40-41","42-43","44-45"],colors:["#ffffff"],
+   desc:"Semelles gel amortissantes pour running et sport. Réduisent l'impact articulaire de 40%. Adaptées au sol dur."},
+  {id:313,name:"Carnet Suivi Entraînement",cat:"cardio",price:2500,oldPrice:null,badge:"new",stars:5,reviews:8,
+   imgs:["https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&q=80"],
+   sizes:["Unique"],colors:["#1a6b2a","#1a1a1a","#e8c4a0"],
+   desc:"Carnet d'entraînement structuré, 52 semaines. Suivi séances, nutrition, photos progrès. Couverture rigide."},
+  // NUTRITION
+  {id:15,name:"Gourde Isotherme 1 Litre",cat:"nutrition",price:11000,oldPrice:null,badge:null,stars:4,reviews:41,
+   imgs:["https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80","https://images.unsplash.com/photo-1610824352934-c10d87b700cc?w=500&q=80"],
+   sizes:["750ml","1L","1.5L"],colors:["#1a6b2a","#1a1a1a","#8b1a1a","#c0c0c0"],
+   desc:"Gourde inox double paroi. Froid 24h, chaud 12h par forte chaleur sénégalaise. Sans BPA, bouchon anti-fuite total."},
+  {id:314,name:"Shaker Nutrition Pro",cat:"nutrition",price:4500,oldPrice:6000,badge:"promo",stars:4,reviews:17,
+   imgs:["https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&q=80"],
+   sizes:["500ml","700ml"],colors:["#1a6b2a","#1a1a1a","#8b1a1a"],
+   desc:"Shaker sans fuite avec grille anti-grumeaux. Graduation précise. BPA free. Idéal protéines et récupération."},
+  {id:315,name:"Tablette Vitamine C Sport",cat:"nutrition",price:6500,oldPrice:null,badge:"new",stars:5,reviews:12,
+   imgs:["https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80"],
+   sizes:["30 tablettes","60 tablettes"],colors:["#e8c04a"],
+   desc:"Vitamine C effervescente 1000mg, goût orange. Soutien immunitaire et récupération sportive. Fabriqué en Europe."},
+  // OUTDOOR
+  {id:316,name:"Sac à Dos Randonnée 30L",cat:"outdoor",price:28000,oldPrice:35000,badge:"promo",stars:5,reviews:14,
+   imgs:["https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500&q=80"],
+   sizes:["30L","45L"],colors:["#1a1a1a","#1a6b2a","#8b1a1a"],
+   desc:"Sac randonnée 30L imperméable, dos ventilé, bretelles ergonomiques. Poche hydratation compatible. Sifflé de sécurité."},
+  {id:317,name:"Lampe Frontale LED 300lm",cat:"outdoor",price:8500,oldPrice:12000,badge:"promo",stars:4,reviews:22,
+   imgs:["https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80"],
+   sizes:["Unique"],colors:["#1a1a1a"],
+   desc:"Lampe frontale 300 lumens, 3 modes. Étanche IPX4, légère 75g. Autonomie 6h, recharge USB-C. Idéal outdoor Dakar."},
+  {id:318,name:"Gourde Filtrante Outdoor",cat:"outdoor",price:15000,oldPrice:null,badge:"new",stars:5,reviews:9,
+   imgs:["https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&q=80"],
+   sizes:["650ml","1L"],colors:["#1a6b2a","#1a1a1a"],
+   desc:"Gourde avec filtre intégré, élimine 99.9% des bactéries. Idéal aventure, randonnée, voyages au Sénégal."},
+  {id:319,name:"Couverture Survie Thermique",cat:"outdoor",price:3500,oldPrice:null,badge:"new",stars:4,reviews:7,
+   imgs:["https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&q=80"],
+   sizes:["160×210cm"],colors:["#c0c0c0"],
+   desc:"Couverture de survie mylar, réfléchit 90% chaleur corporelle. Poids 55g, taille poche. Essentiel kit survie."},
+];
+
+const fmt = n => n.toLocaleString('fr-FR') + ' FCFA';
+const stars = n => '★'.repeat(n)+'☆'.repeat(5-n);
+const disc = (p,o) => o ? '-'+Math.round((o-p)/o*100)+'%' : null;
+
+let cart=[], modalId=null, currentFilter='all', currentSort='default', wishlist=new Set();
+
+// STOCK simulation
+const stockPct = {14:35,15:80,16:60,301:20,302:75,303:50,304:90,305:40,306:25,307:85,308:65,309:45,310:30,311:95,312:55,313:70,314:60,315:80,316:35,317:50,318:90,319:75};
+
+function getStockLabel(pct){
+  if(pct<=30) return {lbl:`🔴 Plus que quelques unités !`,color:'#e02020'};
+  if(pct<=60) return {lbl:`🟡 Stock limité`,color:'#c8960a'};
+  return {lbl:`🟢 En stock`,color:'#1a6b2a'};
+}
+
+function renderProducts(){
+  let list=[...products];
+  if(currentFilter!=='all'){
+    if(currentFilter==='promo') list=list.filter(p=>p.badge==='promo'||p.oldPrice);
+    else list=list.filter(p=>p.cat===currentFilter);
+  }
+  if(currentSort==='price-asc') list.sort((a,b)=>a.price-b.price);
+  if(currentSort==='price-desc') list.sort((a,b)=>b.price-a.price);
+  if(currentSort==='new') list=list.filter(p=>p.badge==='new').concat(list.filter(p=>p.badge!=='new'));
+
+  const n=list.length;
+  document.getElementById('prodCount').textContent=n;
+  document.getElementById('prodCount2').textContent=n;
+  const grid=document.getElementById('prodGrid');
+  if(!list.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#6ab87a;font-family:\'Anton\',sans-serif;letter-spacing:2px;">AUCUN ARTICLE TROUVÉ</div>';return;}
+  grid.innerHTML=list.map(p=>{
+    const d=disc(p.price,p.oldPrice);
+    const isFav=wishlist.has(p.id);
+    const img=p.imgs[0];
+    const pct=stockPct[p.id]||70;
+    const st=getStockLabel(pct);
+    let badge='';
+    if(p.badge==='new') badge='<span class="pc-bdg bdg-new">Nouveau</span>';
+    else if(p.badge==='promo') badge=`<span class="pc-disc">${d}</span>`;
+    const catLabels={fitness:'💪 Fitness',yoga:'🧘 Yoga',cardio:'🏃 Cardio',nutrition:'🥤 Nutrition',outdoor:'🏕️ Outdoor'};
+    return `<div class="pcard" onclick="openModal(${p.id})">
+      <div class="pc-img">
+        <img src="${img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'">
+        ${badge}
+        <button class="pc-fav ${isFav?'active':''}" id="fav${p.id}" onclick="event.stopPropagation();toggleWish(${p.id})"><i class="ti ti-heart${isFav?'-filled':''}"></i></button>
+        <div class="pc-stock">
+          <div class="pc-stock-bar"><div class="pc-stock-fill" style="width:${pct}%;background:${st.color};"></div></div>
+          <div class="pc-stock-lbl" style="color:rgba(255,255,255,.8);">${st.lbl}</div>
+        </div>
+        <button class="pc-quick" onclick="event.stopPropagation();openModal(${p.id})"><i class="ti ti-eye"></i> Aperçu rapide</button>
+      </div>
+      <div class="pc-body">
+        <div class="pc-cat">${catLabels[p.cat]||p.cat}</div>
+        <div class="pc-name">${p.name}</div>
+        <div class="pc-stars"><span class="pc-stars-ico">${stars(p.stars)}</span><span class="pc-reviews">(${p.reviews} avis)</span></div>
+        <div class="pc-prices">
+          <span class="pc-price">${fmt(p.price)}</span>
+          ${p.oldPrice?`<span class="pc-old">${fmt(p.oldPrice)}</span><span class="pc-disc-pct">${d}</span>`:''}
+        </div>
+        <button class="pc-add" onclick="event.stopPropagation();addToCart(${p.id})"><i class="ti ti-shopping-cart"></i> AJOUTER AU PANIER</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleWish(id){
+  if(wishlist.has(id)) wishlist.delete(id); else wishlist.add(id);
+  const btn=document.getElementById('fav'+id);
+  if(btn){btn.classList.toggle('active');btn.innerHTML=wishlist.has(id)?'<i class="ti ti-heart-filled"></i>':'<i class="ti ti-heart"></i>';}
+  showToast(wishlist.has(id)?'❤️ Ajouté aux favoris':'Retiré des favoris');
+}
+
+function filterSport(cat,el){
+  currentFilter=cat;
+  if(el){document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+  document.querySelectorAll('.sb-cat').forEach(c=>{c.classList.remove('active');});
+  renderProducts();
+  document.getElementById('prodSection').scrollIntoView({behavior:'smooth'});
+}
+
+function sortProds(s,el){
+  currentSort=s;
+  document.querySelectorAll('.sort-opt').forEach(c=>c.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderProducts();
+}
+
+function setView(v,el){
+  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const grid=document.getElementById('prodGrid');
+  grid.style.gridTemplateColumns=v==='list'?'1fr':'';
+}
+
+// CART
+function addToCart(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1,selSize:p.sizes[0],selColor:p.colors[0]});
+  updateBadge();renderCart();showToast('✅ '+p.name.slice(0,28)+'... ajouté !');
+}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);updateBadge();renderCart();}
+function changeQty(id,d){const it=cart.find(x=>x.id===id);if(!it)return;it.qty+=d;if(it.qty<=0)removeItem(id);else{updateBadge();renderCart();}}
+function updateBadge(){
+  const n=cart.reduce((a,b)=>a+b.qty,0);
+  document.getElementById('cartBadge').textContent=n;
+  const d=document.getElementById('cartBadgeD');if(d)d.textContent=n;
+  const bb=document.getElementById('bnBadge');bb.textContent=n;bb.style.display=n?'flex':'none';
+}
+function renderCart(){
+  const body=document.getElementById('cdBody'),foot=document.getElementById('cdFoot');
+  if(!cart.length){body.innerHTML='<div class="cd-empty"><i class="ti ti-run"></i><p>Votre panier sport est vide</p></div>';foot.style.display='none';return;}
+  foot.style.display='block';
+  const total=cart.reduce((a,c)=>a+c.price*c.qty,0);
+  body.innerHTML=cart.map(it=>`<div class="cd-item">
+    <img class="cdi-img" src="${it.imgs[0]}" onerror="this.style.background='#f0fdf4'">
+    <div style="flex:1;min-width:0;">
+      <div class="cdi-name">${it.name}</div>
+      <div style="font-size:10px;color:#6ab87a;margin-bottom:3px;">${it.selSize}</div>
+      <div class="cdi-price">${fmt(it.price*it.qty)}</div>
+      <div class="cdi-qty"><button class="qty-btn" onclick="changeQty(${it.id},-1)">-</button><span class="qty-val">${it.qty}</span><button class="qty-btn" onclick="changeQty(${it.id},1)">+</button></div>
+    </div>
+    <button class="cdi-rm" onclick="removeItem(${it.id})"><i class="ti ti-trash"></i></button>
+  </div>`).join('');
+  document.getElementById('cdTotal').textContent=fmt(total);
+}
+function openCart(){document.getElementById('cartDrawer').classList.add('open');document.getElementById('overlay').classList.add('open');renderCart();}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
+function waCheckout(){
+  if(!cart.length)return;
+  const items=cart.map(p=>`* ${p.name} (${p.selSize}) x${p.qty} = ${fmt(p.price*p.qty)}`).join('\n');
+  const total=cart.reduce((a,b)=>a+b.price*b.qty,0);
+  const msg=encodeURIComponent(`Bonjour CCL ⚡\n\nJe veux commander (Sport) :\n\n${items}\n\nTotal : ${fmt(total)}\n\nMerci !`);
+  window.open('https://wa.me/221774976364?text='+msg,'_blank');
+}
+
+// MODAL
+function openModal(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  modalId=id;
+  const mi=document.getElementById('modMainImg');
+  mi.innerHTML=`<img src="${p.imgs[0]}" style="width:100%;height:100%;object-fit:cover;">`;
+  const th=document.getElementById('modThumbs');
+  th.innerHTML=p.imgs.map((src,i)=>`<div class="mod-thumb ${i===0?'active':''}" onclick="switchThumb(this,'${src}')"><img src="${src}" loading="lazy"></div>`).join('');
+  th.style.display=p.imgs.length>1?'flex':'none';
+  const catLabels={fitness:'💪 Fitness & Musculation',yoga:'🧘 Yoga & Pilates',cardio:'🏃 Cardio & Endurance',nutrition:'🥤 Nutrition & Récup',outdoor:'🏕️ Outdoor & Aventure'};
+  document.getElementById('modCatLbl').textContent=catLabels[p.cat]||p.cat;
+  document.getElementById('modName').textContent=p.name;
+  document.getElementById('modReviews').textContent=`(${p.reviews} avis · ${stars(p.stars)})`;
+  document.getElementById('modPrice').textContent=fmt(p.price);
+  document.getElementById('modOld').textContent=p.oldPrice?fmt(p.oldPrice):'';
+  const d=disc(p.price,p.oldPrice);document.getElementById('modDisc').textContent=d||'';
+  document.getElementById('modDesc').textContent=p.desc;
+  document.getElementById('modSizes').innerHTML=(p.sizes||[]).map((s,i)=>`<div class="mod-size ${i===0?'active':''}" onclick="selSize(this)">${s}</div>`).join('');
+  document.getElementById('modColors').innerHTML=(p.colors||[]).map((c,i)=>`<div class="mod-color ${i===0?'active':''}" style="background:${c};" onclick="selColor(this)"></div>`).join('');
+  document.getElementById('modalBg').classList.add('open');
+}
+function switchThumb(el,src){document.querySelectorAll('.mod-thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById('modMainImg').innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;">`;}
+function selSize(el){document.querySelectorAll('.mod-size').forEach(s=>s.classList.remove('active'));el.classList.add('active');}
+function selColor(el){document.querySelectorAll('.mod-color').forEach(s=>s.classList.remove('active'));el.classList.add('active');}
+function closeModal(){document.getElementById('modalBg').classList.remove('open');}
+function closeModalBg(e){if(e.target===document.getElementById('modalBg'))closeModal();}
+function addFromModal(){
+  if(!modalId)return;
+  const selSize=document.querySelector('.mod-size.active')?.textContent||'';
+  const selColor=document.querySelector('.mod-color.active')?.style.background||'#1a1a1a';
+  const p=products.find(x=>x.id===modalId);if(!p)return;
+  const ex=cart.find(x=>x.id===modalId);
+  if(ex)ex.qty++;else cart.push({...p,qty:1,selSize,selColor});
+  updateBadge();renderCart();showToast('✅ '+p.name.slice(0,28)+'... ajouté !');closeModal();
+}
+function waProduct(){
+  const p=products.find(x=>x.id===modalId);if(!p)return;
+  const size=document.querySelector('.mod-size.active')?.textContent||'';
+  const msg=encodeURIComponent(`Bonjour CCL ⚡\n\nJe suis intéressé par :\n\n*${p.name}*\nVariante : ${size}\nPrix : ${fmt(p.price)}\n\nMerci de confirmer la disponibilité !`);
+  window.open('https://wa.me/221774976364?text='+msg,'_blank');
+}
+function closeAll(){closeCart();}
+
+// TOAST
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// AD STRIPS
+(function(){
+  function scroll(id,speed){
+    const el=document.getElementById(id);if(!el)return;
+    const kids=Array.from(el.children);
+    kids.forEach(c=>el.appendChild(c.cloneNode(true)));
+    let pos=0;const h=kids.reduce((s,c)=>s+(c.offsetHeight||230),0);
+    function tick(){pos+=speed;if(pos>=h)pos=0;el.style.transform=`translateY(-${pos}px)`;requestAnimationFrame(tick);}
+    requestAnimationFrame(tick);
+  }
+  function toggle(){const show=window.innerWidth>=1700;['adLeft','adRight'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display=show?'block':'none';});}
+  toggle();window.addEventListener('resize',toggle);
+  setTimeout(()=>{scroll('stripLeft',.5);scroll('stripRight',.4);},600);
+})();
+
+// INIT
+renderProducts();
+</script>
+</body>
+</html>
